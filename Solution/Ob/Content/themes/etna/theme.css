@@ -1,0 +1,14 @@
+.tabstrip .top a:link {color:#9F7777;}
+.tabstrip .top a:visited {color:#9F77775;}
+.tabstrip a:link {color:#232323;}
+.tabstrip a:visited {color:#232323;}
+.profile h3{color:#9F7777;border-color:#DFD1D1; }
+h3{color:#9F7777;border-color:#DFD1D1; }
+.profile_section_header {color:#9F7777;border-color:#DFD1D1; }
+.accent {color:#9F7777;}
+
+#mh_left{width:100%; background-image: url(disgea-left-piece.png);}
+#mh_outer{width:100%; background-image: url(disgea-middle-piece.png);}
+#mh_right{width:100%; background-image: url(disgea-right-piece.png);}
+.shadetabs li a{color: #9F7777;}
+.shadetabs li a:visited{color: #9F7777;}

@@ -1,0 +1,13 @@
+.tabstrip .top a:link {color:#CE302F;}
+.tabstrip .top a:visited {color:#CE302F;}
+.tabstrip a:link {color:#7F1313;}
+.tabstrip a:visited {color:#7F1313;}
+.profile h3{color:#7F1313;border-color:#7F1313; }
+h3{color:#7F1313;border-color:#7F1313; }
+.profile_section_header {color:#7F1313;border-color:#7F1313; }
+.accent {color:#CE302F;}
+#mh_outer{width:100%; background-image: url(stillfightin_bg.jpg);}
+#mh_left{width:100%; background-image: url(stillfightin_left.jpg);}
+#mh_right{width:100%; background-image: url(stillfightin_right.png);}
+.shadetabs li a{color: #7F1313;}
+.shadetabs li a:visited{color: #7F1313;}

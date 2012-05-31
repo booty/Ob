@@ -1,0 +1,14 @@
+
+.tabstrip .top a:link {color:#88902E;}
+.tabstrip .top a:visited {color:#88902E;}
+.tabstrip a:link {color:#615D82;}
+.tabstrip a:visited {color:#615D82;}
+.profile h3{color:#615D82;border-color:#9c98b8; }
+h3{color:#615D82;border-color:#9c98b8; }
+.profile_section_header {color:#615D82;border-color:#9c98b8; }
+.accent {color:#88902E;}
+#mh_outer{width:100%; background-image: url(cadillac_ranch_center.png);}
+#mh_left{width:100%; background-image: url(cadillac_ranch_left.png);}
+#mh_right{width:100%; background-image: url(cadillac_ranch_right.png);}
+.shadetabs li a{color: #615D82;}
+.shadetabs li a:visited{color: #615D82;}

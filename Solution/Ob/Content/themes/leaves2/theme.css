@@ -1,0 +1,13 @@
+.tabstrip .top a:link {color:#AF6D00;}
+.tabstrip .top a:visited {color:#AF6D00;}
+.tabstrip a:link {color:#984100;}
+.tabstrip a:visited {color:#984100;}
+.profile h3{color:#984100;border-color:#DFBFA7; }
+h3{color:#984100;border-color:#DFBFA7; }
+.profile_section_header {color:#984100;border-color:#DFBFA7; }
+.accent {color:#AF6D00;}
+#mh_outer{width:100%; background-image: url(leaves2_middle.jpg);}
+#mh_left{width:100%; background-image: url(leaves2_left.jpg);}
+#mh_right{width:100%; background-image: url(leaves2_right.jpg);}
+.shadetabs li a{color: #984100;}
+.shadetabs li a:visited{color: #984100;}

@@ -1,0 +1,15 @@
+.tabstrip .top a:link {color:#ba29a6;}
+.tabstrip .top a:visited {color:#ba29a6;}
+.tabstrip a:link {color:#8020bc;}
+.tabstrip a:visited {color:#8020bc;}
+.profile h3{color:#D55410;border-color:#e7ae90; }
+h3{color:#D55410;border-color:#e7ae90; }
+.profile_section_header {color:#8020bc;border-color:#e7ae90; }
+#mh_outer{width:100%; background-image: url(theme_02.jpg);}
+#mh_left{width:100%; background-image: url(theme_01.jpg);}
+#mh_right{width:100%; background-image: url(theme_03.jpg);}
+.shadetabs li a{color: #8020bc;}
+.shadetabs li a:visited{color: #8020bc;} 
+.adbar {background-color:#C2E7EF; border-color:#4C85AF;}
+.listmessages {background-color:#C2E7EF; border-color:#4C85AF;}
+.accent {color:#4C85AF;} 

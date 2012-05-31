@@ -1,0 +1,13 @@
+.tabstrip .top a:link {color:#1b273f;}
+.tabstrip .top a:visited {color:#1b273f;}
+.tabstrip a:link {color:#1b273f;}
+.tabstrip a:visited {color:#1b273f;}
+.profile h3{color:#7F1313;border-color:#1b273f; }
+h3{color:#1b273f;border-color:#1b273f; }
+.profile_section_header {color:#1b273f;border-color:#1b273f; }
+.accent {color:#1b273f;}
+#mh_outer{width:100%; background-image: url(yankeestheme_02.png);}
+#mh_left{width:100%; background-image: url(yankeestheme_01.jpg);}
+#mh_right{width:100%; background-image: url(yankeestheme_03.jpg);}
+.shadetabs li a{color: #1b273f;}
+.shadetabs li a:visited{color: #1b273f;}

@@ -1,0 +1,13 @@
+.tabstrip .top a:link {color:#6e9c69;}
+.tabstrip .top a:visited {color:#6e9c69;}
+.tabstrip a:link {color:#567DB7;}
+.tabstrip a:visited {color:#567DB7;}
+.profile h3{color:#567DB7;border-color:#b7c7df; }
+h3{color:#567DB7;border-color:#b7c7df; }
+.profile_section_header {color:#567DB7;border-color:#b7c7df; }
+.accent {color:#6e9c69;}
+#mh_outer{width:100%; background-image: url(theme_02.jpg);}
+#mh_left{width:100%; background-image: url(theme_01.jpg);}
+#mh_right{width:100%; background-image: url(theme_03.jpg);}
+.shadetabs li a{color: #567DB7;}
+.shadetabs li a:visited{color: #567DB7;}
