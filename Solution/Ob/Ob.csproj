@@ -76,6 +76,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Database.tt</DependentUpon>
     </None>
+    <Compile Include="Models\Member.cs" />
+    <Compile Include="Models\ObDb.cs" />
     <Compile Include="Models\PetaPoco.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\Right.cs" />

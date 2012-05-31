@@ -108,9 +108,11 @@ namespace Ob.Providers {
 
 		public override void UpdateUser(MembershipUser user) { throw new NotImplementedException(); }
 
-		// 
-		public override bool ValidateUser(string username, string password) { throw new NotImplementedException(); 
-		
+		// TODO: Thurs
+		public override bool ValidateUser(string login, string password) { 
+			// throw new NotImplementedException(); 
+			var db = new ObDb();
+			return Member.Validate(login, password);
 		}
 	}
 }

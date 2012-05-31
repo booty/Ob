@@ -24,6 +24,8 @@ namespace Ob.Controllers {
 		public ActionResult LogOn(LogOnModel model, string returnUrl) {
 			if (ModelState.IsValid) {
 				if (Membership.ValidateUser(model.UserName, model.Password)) {
+					// TODO: Proper loading of member info
+					// TODO: Call process login so we can record the time, etc.
 					FormsAuthentication.SetAuthCookie(model.UserName, model.RememberMe);
 					if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/")
 						 && !returnUrl.StartsWith("//") && !returnUrl.StartsWith("/\\")) {
