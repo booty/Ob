@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Web;
 using System.Web.Security;
-using Ob.Models;
+using ObCore.Models;
 
 namespace Ob.Providers {
 	public class ObMemberProvider : MembershipProvider {

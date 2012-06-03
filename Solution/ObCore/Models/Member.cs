@@ -6,7 +6,7 @@ using System.Security.Principal;
 using System.Web;
 using PetaPoco;
 
-namespace Ob.Models {
+namespace ObCore.Models {
 	
 	[TableName("MemberBasic")]
 	[ExplicitColumns]

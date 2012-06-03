@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Security;
-using Ob.Models;
+using ObCore.Models;
 
 namespace Ob.Controllers {
 	public class AccountController : Controller {

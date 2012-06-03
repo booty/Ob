@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using PetaPoco;
 
-namespace Ob.Models {
+namespace ObCore.Models {
 		public partial class ObDb : Database {
 		public ObDb()
 			: base("ob") {

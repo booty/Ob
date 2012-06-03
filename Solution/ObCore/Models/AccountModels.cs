@@ -5,7 +5,7 @@ using System.Globalization;
 using System.Web.Mvc;
 using System.Web.Security;
 
-namespace Ob.Models {
+namespace ObCore.Models {
 
 	public class ChangePasswordModel {
 		[Required]
