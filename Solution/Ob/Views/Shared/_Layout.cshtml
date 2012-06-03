@@ -1,4 +1,5 @@
-﻿<!doctype html>
+﻿@using Ob.Helpers
+<!doctype html>
 <!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
 <!--[if lt IE 7 ]> <html class="no-js ie6" lang="en"> <![endif]-->
 <!--[if IE 7 ]>    <html class="no-js ie7" lang="en"> <![endif]-->
@@ -21,16 +22,16 @@
 		<div id="obToolbar" class="member">
 			<ul id="toolbarNav">
 				<li id="themeLi" data-windowshade="#themeWindowShade" style="width: 60px">
-					<a id="tbThemes" href="">Themes</a>
+					<a id="tbThemes" href="/Themes">Themes</a>
 				</li>
 				<li id="accountLi" data-windowshade="#accountWindowShade">
-					<a id="tbAccount" href="/account">Account</a>
+					<a id="tbAccount" href="/Member/Account">Account</a>
 				</li>
 				<li id="messageLi" data-windowshade="#messageWindowShade">
-					<a id="tbMessages" href="/messages">Messages <span style="display: none" id="unseenMessagesBadge" class="badge badge-important"></span></a>
+					<a id="tbMessages" href="/Messages">Messages <span style="display: none" id="unseenMessagesBadge" class="badge badge-important"></span></a>
 				</li>
 				<li id="notificationLi" data-windowshade="#notificationWindowShade">
-					<a id="tbNotifications" href="/notifications">Notifications <span style="display: none" id="unseenNotificationsBadge" class="badge badge-important"></span></a>
+					<a id="tbNotifications" href="/Notifications">Notifications <span style="display: none" id="unseenNotificationsBadge" class="badge badge-important"></span></a>
 				</li>
 			</ul>
 			<div class="toolbarInputContainer">			
@@ -161,23 +162,23 @@
 				@ViewBag.Flash
 				@if (Request.IsAuthenticated) {
 					<ul class="tabs clearfix">
-						<li ##ifequal(tab,'home')##class="current"##endifequal(tab,'home')##><a href="/">Home</a></li>
-						<li ##ifequal(tab,'forums')##class="current"##endifequal(tab,'forums')##><a href="forum.asp">Forums</a></li>
-						<li ##ifequal(tab,'findmembers')##class="current"##endifequal(tab,'findmembers')##><a href="">Find Members</a></li>
-						<li ##ifequal(tab,'chat')##class="current"##endifequal(tab,'chat')##><a href="">Chat</a></li>
-						<li ##ifequal(tab,'help')##class="current"##endifequal(tab,'help')##><a href="">Help &amp;Info</a></li>
-						##if(ismod)##
-						<li ##ifequal(tab,'mods')##class="current"##endifequal(tab,'mods')##><a href="">Mods</a></li>
-						##endif(ismod)##
+						<li @Html.Raw(Html.IfCurrentController("Home", "class='current'"))><a href="/">Home</a></li>
+						<li @Html.IfCurrentController("Forum", "class='current'")><a href="/Forum">Forum</a></li>
+						<li @Html.IfCurrentController("Find", "class='current'")><a href="/Find">Find Member</a></li>
+						<li @Html.IfCurrentController("Chat", "class='current'")><a href="/Chat">Chat</a></li>
+						<li @Html.IfCurrentController("Help", "class='current'")><a href="/Help">Help &amp; Info</a></li>
+						<li @Html.IfCurrentController("Mods", "class='current'")><a href="/Mods">Mods</a></li>
+
 					</ul>
 					}
 				else {
 					<ul class="tabs clearfix">
-						<li ##ifequal(tab,'home')##class="current"##endifequal(tab,'home')##><a href="/">Home</a></li>
-						<li ##ifequal(tab,'forums')##class="current"##endifequal(tab,'forums')##><a href="forum.asp">Forums</a></li>
-						<li ##ifequal(tab,'findmembers')##class="current"##endifequal(tab,'findmembers')##><a href="">Find Members</a></li>
-						<li ##ifequal(tab,'join')##class="current"##endifequal(tab,'join')##><a href="">Join!</a></li>
-						<li ##ifequal(tab,'help')##class="current"##endifequal(tab,'help')##><a href="">Help &amp; Info</a></li>
+					<li @Html.Raw(Html.IfCurrentController("Home", "class='current'"))><a href="/">Home</a></li>
+					<li @Html.Raw(Html.IfCurrentController("Forum", "class='current'"))><a href="/Forum">Forum</a></li>
+					<li @Html.Raw(Html.IfCurrentController("Find", "class='current'"))><a href="/Find">Find Member</a></li>
+					<li @Html.Raw(Html.IfCurrentController("Join", "class='current'"))><a href="/Join">Join</a></li>
+					<li @Html.Raw(Html.IfCurrentController("Help", "class='current'"))><a href="/Help">Help &amp; Info</a></li>
+					
 					</ul>
 				}
 			
