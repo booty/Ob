@@ -3,8 +3,9 @@ using System.Text;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
 
-namespace Ob.Helpers {
+namespace ObCore.Helpers {
 	public static class Helpers {
+		/*
 		public static bool IsCurrentViewAndController(ViewContext vc, string actionName, string controllerName) {
 			if (!actionName.Equals(vc.RouteData.GetRequiredString("action"))) return false;
 			if (!controllerName.Equals(vc.RouteData.GetRequiredString("controller"))) return false;
@@ -52,6 +53,15 @@ namespace Ob.Helpers {
 			if (IsCurrentController(htmlHelper.ViewContext, controllerName))
 				return textIfCurrent;
 			return String.Empty;
+		}
+		*/
+
+		public static string CurrentController(this HtmlHelper htmlHelper) {
+			return htmlHelper.ViewContext.RouteData.GetRequiredString("controller");
+		}
+
+		public static bool CurrentControllerIs(this HtmlHelper hh, string controllerName) {
+			return hh.ViewContext.RouteData.GetRequiredString("controller").Equals(controllerName);
 		}
 
 		public static string UnderscoreToCamelCase(string s) {

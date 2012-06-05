@@ -70,7 +70,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Helpers\Helpers.cs" />
     <None Include="Content\i\icons\Thumbs.db" />
     <None Include="Content\themes\dinos\Thumbs.db" />
     <None Include="Content\themes\euclid\Thumbs.db" />
@@ -357,6 +356,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Content\css\bootstrap\" />
     <Folder Include="Content\themes\images\" />
+    <Folder Include="Helpers\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

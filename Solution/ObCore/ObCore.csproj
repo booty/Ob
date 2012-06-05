@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
+    <Compile Include="Helpers\Helpers.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\Generated\Database.cs">
       <AutoGen>True</AutoGen>
@@ -53,6 +54,7 @@
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Member.cs" />
+    <Compile Include="Models\MessageNotification.cs" />
     <Compile Include="Models\ObDb.cs" />
     <Compile Include="Models\PetaPoco.cs" />
     <Compile Include="Models\Right.cs" />

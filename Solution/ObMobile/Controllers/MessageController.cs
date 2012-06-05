@@ -3,39 +3,33 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using ObCore.Helpers;
+using ObCore.Models;
 
-namespace Ob.Controllers {
-	public class TestController : Controller {
+namespace ObMobile.Controllers {
+	public class MessageController : Controller {
 		//
-		// GET: /Test/
-
-		public string Camel() {
-			string q = Request["q"];
-			q = String.IsNullOrWhiteSpace(Request["q"]) ? "" : Request["q"] ;
-			return Helpers.UnderscoreToCamelCase(q);
-		}
-
+		// GET: /Message/
 		public ActionResult Index() {
-			return View();
+			List<MessageNotification> mn = MessageNotification.Fetch(1238);
+			return View(mn);
 		}
 
 		//
-		// GET: /Test/Details/5
+		// GET: /Message/Details/5
 
 		public ActionResult Details(int id) {
 			return View();
 		}
 
 		//
-		// GET: /Test/Create
+		// GET: /Message/Create
 
 		public ActionResult Create() {
 			return View();
 		}
 
 		//
-		// POST: /Test/Create
+		// POST: /Message/Create
 
 		[HttpPost]
 		public ActionResult Create(FormCollection collection) {
@@ -50,14 +44,14 @@ namespace Ob.Controllers {
 		}
 
 		//
-		// GET: /Test/Edit/5
+		// GET: /Message/Edit/5
 
 		public ActionResult Edit(int id) {
 			return View();
 		}
 
 		//
-		// POST: /Test/Edit/5
+		// POST: /Message/Edit/5
 
 		[HttpPost]
 		public ActionResult Edit(int id, FormCollection collection) {
@@ -72,14 +66,14 @@ namespace Ob.Controllers {
 		}
 
 		//
-		// GET: /Test/Delete/5
+		// GET: /Message/Delete/5
 
 		public ActionResult Delete(int id) {
 			return View();
 		}
 
 		//
-		// POST: /Test/Delete/5
+		// POST: /Message/Delete/5
 
 		[HttpPost]
 		public ActionResult Delete(int id, FormCollection collection) {
