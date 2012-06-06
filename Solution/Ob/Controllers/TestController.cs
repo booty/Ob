@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using ObCore.Helpers;
+using String = System.String;
 
 namespace Ob.Controllers {
 	public class TestController : Controller {
@@ -13,7 +14,7 @@ namespace Ob.Controllers {
 		public string Camel() {
 			string q = Request["q"];
 			q = String.IsNullOrWhiteSpace(Request["q"]) ? "" : Request["q"] ;
-			return Helpers.UnderscoreToCamelCase(q);
+			return q.ToCamelCase();
 		}
 
 		public ActionResult Index() {

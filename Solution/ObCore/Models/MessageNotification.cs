@@ -10,7 +10,6 @@ Messages and comments
 */
 
 namespace ObCore.Models {
-	[TableName("Message")]
 	//[PrimaryKey("ID_Member_To", autoIncrement = false)]
 	[ExplicitColumns]
 	public partial class MessageNotification : ObDb.Record<MessageNotification> {

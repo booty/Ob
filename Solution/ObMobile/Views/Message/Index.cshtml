@@ -1,87 +1,43 @@
 ﻿@model IEnumerable<ObCore.Models.MessageNotification>
-
+@using ObCore.Helpers
 @{
-    ViewBag.Title = "Index";
+	ViewBag.Title = "Index";
 }
-
 <h2>Index</h2>
-
 <p>
-    @Html.ActionLink("Create New", "Create")
+	@Html.ActionLink("Create New", "Create")
 </p>
-<table>
-    <tr>
-        <th>
-            Login
-        </th>
-        <th>
-            IdPictureMember
-        </th>
-        <th>
-            EventTimeRelative
-        </th>
-        <th>
-            Body
-        </th>
-        <th>
-            Subject
-        </th>
-        <th>
-            EventTime
-        </th>
-        <th>
-            TimestampRead
-        </th>
-        <th>
-            IdMemberFrom
-        </th>
-        <th>
-            IdMessage
-        </th>
-        <th>
-            IdComment
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Login)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IdPictureMember)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EventTimeRelative)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Body)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Subject)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EventTime)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TimestampRead)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IdMemberFrom)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IdMessage)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IdComment)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-        </td>
-    </tr>
-}
-
+<table class=" table table-striped table-condensed">
+	@foreach (var item in Model) {
+		<tr>
+			<td>
+				@item.IdPictureMember.
+				@Html.DisplayFor(modelItem => item.IdPictureMember)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.Login)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.EventTimeRelative)
+			</td>
+			<td>
+				<strong>@Html.DisplayFor(modelItem => item.Subject)</strong>
+				<p>
+					@Html.DisplayFor(modelItem => item.Body)
+				</p>
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.EventTime)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.TimestampRead)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.IdMemberFrom)
+			</td>
+			<td>
+				@Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ })
+			</td>
+		</tr>
+ }
 </table>

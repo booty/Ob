@@ -4,7 +4,7 @@ using System.Web.Mvc;
 using System.Web.Mvc.Html;
 
 namespace ObCore.Helpers {
-	public static class Helpers {
+	public static class StringHelpers {
 		/*
 		public static bool IsCurrentViewAndController(ViewContext vc, string actionName, string controllerName) {
 			if (!actionName.Equals(vc.RouteData.GetRequiredString("action"))) return false;
@@ -56,19 +56,67 @@ namespace ObCore.Helpers {
 		}
 		*/
 
-		public static string CurrentController(this HtmlHelper htmlHelper) {
-			return htmlHelper.ViewContext.RouteData.GetRequiredString("controller");
+		public static string Left(this string str, int length) {
+			return str.Substring(0, Math.Min(length, str.Length));
 		}
 
-		public static bool CurrentControllerIs(this HtmlHelper hh, string controllerName) {
-			return hh.ViewContext.RouteData.GetRequiredString("controller").Equals(controllerName);
+		public static string Right(this string str, int length) {
+			return str.Substring(str.Length - length, length);
 		}
 
-		public static string UnderscoreToCamelCase(string s) {
-			if (String.IsNullOrEmpty(s)) return String.Empty;
+		public static string TruncateFriendly(this string s, int maxLength) {
+			if (s.Length <= maxLength) return s;
+			s = s.Substring(0, maxLength);
+			if (s.LastIndexOf(' ') == -1)
+				return s + "&#8230;";
+			else {
+				return s.Substring(0, s.LastIndexOf(' ')) + "&#8230;";
+			}
+		}
+
+		public static string ToOrdinal(this int i) {
+			if ((i >= 4) && (i <= 20)) return i.ToString() + "th";
+
+			string s = i.ToString();
+			switch (s[s.Length - 1]) {
+				case '1':
+					return s + "st";
+				case '2':
+					return s + "nd";
+				case '3':
+					return s + "rd";
+				default:
+					return s + "th";
+
+			}
+		}
+
+		public static string ToPossessive(this string s) {
+			if (s.EndsWith("s", StringComparison.CurrentCultureIgnoreCase)) return s + "'";
+			return s + "'s";
+		}
+
+		public static string ToPlural(this int i, string singularForm, string pluralForm, string zero) {
+			if (i == 0) return zero + " " + pluralForm;
+			return i.ToPlural(singularForm, pluralForm);
+		}
+
+		public static string ToPlural(this int i, string singularForm, string pluralForm) {
+			if (i == 1) return "1 " + singularForm;
+			return i + " " + pluralForm;
+		}
+
+		public static string ParenthesizeIfNotZero(this int i, bool leadingSpace = true) {
+			if (i != 0) return System.String.Format("{0}({1})", leadingSpace ? " " : System.String.Empty, i);
+			return System.String.Empty;
+		}
+
+
+		public static string ToCamelCase(this string s) {
+			if (System.String.IsNullOrEmpty(s)) return System.String.Empty;
 
 			s = s.Replace('_', ' ');
-			if (string.IsNullOrWhiteSpace(s)) return String.Empty;
+			if (string.IsNullOrWhiteSpace(s)) return System.String.Empty;
 			s = s.Trim();
 
 			var sb=new StringBuilder(s.Length);
