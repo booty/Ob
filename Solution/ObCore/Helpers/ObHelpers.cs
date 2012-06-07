@@ -5,8 +5,9 @@ using System.Text;
 using System.Configuration;
 using System.Web;
 
+
 namespace ObCore.Helpers {
-	static class Ob {
+	public static class ObHelpers {
 		public static string MemberProfilePath(this int idMember) {
 			return string.Format("/Member/{0}", idMember);
 		}
@@ -20,7 +21,7 @@ namespace ObCore.Helpers {
 				ConfigurationManager.AppSettings["StaticAssetRootUrl"],
 				idPictureMember.ToString().Left(2),
 				idPictureMember,
-				(System.String.IsNullOrWhiteSpace(size) ? "" : ("_" + size))
+				size
 			);
 		}
 
@@ -29,9 +30,8 @@ namespace ObCore.Helpers {
 			return idPictureMember.Value.MemberProfilePictureUrl(size);
 		}
 
-
-
 		public static HtmlString MemberProfilePictureImg(this int idPictureMember, string login, string size) {
+
 			return new HtmlString(System.String.Format("<img alt=\"{0}\" src=\"{1}\">", HttpUtility.HtmlEncode(login), idPictureMember.MemberProfilePictureUrl(size)));
 		}
 
@@ -40,17 +40,34 @@ namespace ObCore.Helpers {
 		}
 
 		public static HtmlString MemberProfilePictureImg(this int idPictureMember, string size = "") {
-			return new HtmlString(System.String.Format("<img src=\"{0}\">", idPictureMember.MemberProfilePictureUrl()));
+			return new HtmlString(System.String.Format("<img src=\"{0}\">", idPictureMember.MemberProfilePictureUrl(size)));
 		}
 
 		public static HtmlString MemberProfilePictureImg(this int? idPictureMember, string size = "") {
 			return idPictureMember.HasValue ? idPictureMember.Value.MemberProfilePictureImg(size) : new HtmlString(System.String.Empty);
 		}
 
-		public static HtmlString MemberProfilePictureAImg(this int? idPictureMember, string size, int idMember, string login) {
-			return new HtmlString(System.String.Format("<a href=\"{0}\">{1}</a>", idMember.MemberProfilePath(), idPictureMember.MemberProfilePictureImg(login,size)));
+		public static HtmlString MemberProfilePicture(this int? idPictureMember, string size, int idMember, string login) {
+			if (idPictureMember.HasValue)
+				return new HtmlString(System.String.Format(
+					"<div class=\"memberPicture{2}\"><a href=\"{0}\">{1}</a></div>", 
+					idMember.MemberProfilePath(), 
+					idPictureMember.Value.MemberProfilePictureImg(login,size),
+					size
+				)
+			);
+			return new HtmlString(String.Empty);
 		}
 
+		public static HtmlString MemberProfilePicture(this int idPictureMember, string size, int idMember, string login) {
+			return new HtmlString(System.String.Format(
+				"<div class=\"memberPicture{2}\"><a href=\"{0}\">{1}</a></div>", 
+				idMember.MemberProfilePath(), 
+				idPictureMember.MemberProfilePictureImg(login,size),
+				size
+				)
+			);
+		}
 	}
 
 }

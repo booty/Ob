@@ -1,0 +1,17 @@
+﻿.memberPicture_50 {
+	height: 50px;
+	overflow: hidden;
+	width: 50px;	
+}
+
+.memberPicture_thumb {
+	height: 75px;
+	overflow: hidden;
+	width: 75px;	
+}
+
+.memberPicture_150 {
+	height: 150px;
+	overflow: hidden;
+	width: 150px;	
+}

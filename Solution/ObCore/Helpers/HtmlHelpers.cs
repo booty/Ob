@@ -5,7 +5,7 @@ using System.Text;
 using System.Web.Mvc;
 
 namespace ObCore.Helpers {
-	public static class Html {
+	public static class HtmlHelpers {
 		public static string CurrentController(this HtmlHelper htmlHelper) {
 			return htmlHelper.ViewContext.RouteData.GetRequiredString("controller");
 		}

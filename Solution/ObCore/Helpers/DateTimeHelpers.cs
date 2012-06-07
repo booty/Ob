@@ -4,14 +4,21 @@ using System.Linq;
 using System.Text;
 
 namespace ObCore.Helpers {
-	static class DateTime {
+	public static class DateTimeHelpers {
 		
 		public static string ToShortFriendlyDate(this System.DateTime? dt) {
 			if (dt.HasValue) return ToShortFriendlyDate(dt.Value);
 			return System.String.Empty;
 		}
-
+		 
 		public static string ToShortFriendlyDate(this System.DateTime dt) {
+			DateTime now = DateTime.Now;
+			TimeSpan ts = now.Subtract(dt);
+
+			if (ts.Days == 0) return "Today";
+			if (ts.Days == 1) return "Yesterday";
+			if (ts.Days == -1) return "Tomorrow";
+
 			if (dt.Year == System.DateTime.Now.Year) return System.String.Format("{0:ddd} {0:MMM} {1}", dt, dt.Day.ToOrdinal());   // dt.ToString("ddd MMM d");
 			return dt.ToString("ddd MMM d yyyy");
 

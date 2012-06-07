@@ -2074,7 +2074,7 @@ namespace PetaPoco
 					}
 				}
 
-				// Standard DateTime->Utc mapper
+				// Standard DateTimeHelpers->Utc mapper
 				if (forceDateTimesToUtc && converter == null && srcType == typeof(DateTime) && (dstType == typeof(DateTime) || dstType == typeof(DateTime?)))
 				{
 					converter = delegate(object src) { return new DateTime(((DateTime)src).Ticks, DateTimeKind.Utc); };

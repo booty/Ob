@@ -46,10 +46,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
-    <Compile Include="Helpers\DateTime.cs" />
-    <Compile Include="Helpers\Html.cs" />
-    <Compile Include="Helpers\String.cs" />
-    <Compile Include="Helpers\Ob.cs" />
+    <Compile Include="Constants.cs" />
+    <Compile Include="Helpers\DateTimeHelpers.cs" />
+    <Compile Include="Helpers\HtmlHelpers.cs" />
+    <Compile Include="Helpers\StringHelpers.cs" />
+    <Compile Include="Helpers\ObHelpers.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <None Include="Models\Generated\Database.cs">
       <AutoGen>True</AutoGen>

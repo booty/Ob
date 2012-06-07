@@ -1,78 +1,22 @@
 ﻿@using ObCore.Models
 @{
-    ViewBag.Title = "Home Page";
-	 //List<Notification> notifications = ViewBag.Notifications;
-	 //List<Notification> messages = ViewBag.Messages;
+	ViewBag.Title = "Home Page";
+	//List<Notification> notifications = ViewBag.Notifications;
+	//List<Notification> messages = ViewBag.Messages;
 	IEnumerable<Notification> notifications = ViewBag.Notifications;
 	IEnumerable<Notification> messages = ViewBag.Messages;
 }
-
 <h2>@ViewBag.Message</h2>
 <h2>Notifications</h2>
-
-<h2>Home</h2>
-
+<h2>Homie</h2>
 <table class=" table table-striped table-condensed">
-	@foreach (var item in messages) {
-		<tr>
-			<td>
-				@Html.DisplayFor(modelItem => item.IdPictureMember)
-			</td>
-			<td>
-				@Html.DisplayFor(modelItem => item.Login)
-			</td>
-			<td>
-				@Html.DisplayFor(modelItem => item.EventTime)
-			</td>
-			<td>
-				<strong>@Html.DisplayFor(modelItem => item.Subject)</strong>
-				<p>
-					@Html.DisplayFor(modelItem => item.Body)
-				</p>
-			</td>
-			<td>
-				@Html.DisplayFor(modelItem => item.TimestampRead)
-			</td>
-			<td>
-				@Html.DisplayFor(modelItem => item.IdMemberFrom)
-			</td>
-			<td>
-				@Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ })
-			</td>
-		</tr>
- }
+	@foreach (var item in notifications) {
+		@Html.Partial("_Notification", item);
+	}
 </table>
-
 <h2>Messages and Comments</h2>
-
 <table class=" table table-striped table-condensed">
 	@foreach (var item in messages) {
-		<tr>
-			<td>
-				
-				@Html.DisplayFor(modelItem => item.IdPictureMember)
-			</td>
-			<td>
-				@Html.DisplayFor(modelItem => item.Login)
-			</td>
-			<td>
-				@Html.DisplayFor(modelItem => item.EventTime)
-			</td>
-			<td>
-				<strong>@Html.DisplayFor(modelItem => item.Subject)</strong>
-				<p>
-					@Html.DisplayFor(modelItem => item.Body)
-				</p>
-			</td>
-			<td>
-				@Html.DisplayFor(modelItem => item.TimestampRead)
-			</td>
-			<td>
-				@Html.DisplayFor(modelItem => item.IdMemberFrom)
-			</td>
-			<td>
-				@Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ })
-			</td>
-		</tr>
- }
+		@Html.Partial("_Notification", item);
+	}
 </table>

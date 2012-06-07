@@ -1,0 +1,79 @@
+﻿@using ObCore.Helpers
+@using ObCore
+@model ObCore.Models.Notification
+@*
+Comment
+FOP Shared
+FOPs Shared
+Friended
+Private Message
+Profile View
+*@
+<tr>
+	<td>
+		@if (!Model.EventType.Equals("Profile View")) {
+			@Model.IdPictureMember.MemberProfilePicture(ObCore.Constants.PictureSize50, Model.IdMemberFrom, Model.Login)
+		}
+	</td>
+	
+@{
+	switch (@Model.EventType) {
+		case "Comment":
+			<td>
+				@Html.DisplayFor(modelItem => @Model.Login)
+			</td>
+			<td>
+				<strong>@Html.DisplayFor(modelItem => @Model.Subject)</strong>
+				<p>
+					@Html.DisplayFor(modelItem => @Model.Body)
+				</p>
+			</td>
+			break;
+		case "FOP Shared":
+			<td>
+				@Html.DisplayFor(m=>@Model.Login)
+			</td>
+			<td></td>
+			break;
+		case "FOPs Shared":
+			<td>
+				@Html.DisplayFor(m=>@Model.Login)
+			</td>
+			<td></td>		
+			break;
+		case "Friended":
+			<td colspan="2">
+				
+				@Html.DisplayFor(m=>@Model.Login)
+			
+			</td>
+			break;
+		case "Private Message":
+			<td>
+				@Html.DisplayFor(m=>@Model.Login)
+			</td>
+			<td>
+				
+			</td>
+			break;
+		case "Profile View":
+			<td colspan="2">
+				@Html.DisplayFor(modelItem => @Model.Login) viewed your profile
+			</td>
+			break;
+		default:
+			<td>
+				@Html.DisplayFor(m=>@Model.Login)
+			</td>
+			<td>
+				<strong>@Html.DisplayFor(m=>@Model.Subject)</strong><br>
+				@Html.DisplayFor(m=>@Model.Body)
+			</td>
+			break;
+	}
+}
+	<td>
+		@Model.EventTime.ToRelativeDate()<br>
+		@Model.EventTime.ToShortFriendlyDate()
+	</td>
+</tr>
