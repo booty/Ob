@@ -15,3 +15,16 @@
 	overflow: hidden;
 	width: 150px;	
 }
+
+a.memberProfile {
+	font-weight:bold;	
+}
+
+small {
+	color: #777;
+	
+}
+
+small blockquote {
+font-style:italic;		
+}

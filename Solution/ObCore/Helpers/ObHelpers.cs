@@ -12,12 +12,12 @@ namespace ObCore.Helpers {
 			return string.Format("/Member/{0}", idMember);
 		}
 
-		public static string MemberProfileA(this int idMember, string login) {
-			return System.String.Format("<a href=\"{0}\">{1}</a>", idMember.MemberProfilePath(), login);
+		public static HtmlString MemberProfileA(this int idMember, string login) {
+			return new HtmlString(String.Format("<a class=\"memberProfile\" href=\"{0}\">{1}</a>", idMember.MemberProfilePath(), login));
 		}
 
 		public static string MemberProfilePictureUrl(this int idPictureMember, string size = "") {
-			return System.String.Format("{0}/user/pic/{1}/{2}{3}.jpg",
+			return String.Format("{0}/user/pic/{1}/{2}{3}.jpg",
 				ConfigurationManager.AppSettings["StaticAssetRootUrl"],
 				idPictureMember.ToString().Left(2),
 				idPictureMember,

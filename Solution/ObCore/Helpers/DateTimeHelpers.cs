@@ -19,13 +19,29 @@ namespace ObCore.Helpers {
 			if (ts.Days == 1) return "Yesterday";
 			if (ts.Days == -1) return "Tomorrow";
 
-			if (dt.Year == System.DateTime.Now.Year) return System.String.Format("{0:ddd} {0:MMM} {1}", dt, dt.Day.ToOrdinal());   // dt.ToString("ddd MMM d");
-			return dt.ToString("ddd MMM d yyyy");
+			if (dt.Year == System.DateTime.Now.Year) return System.String.Format("{0:ddd}. {0:MMM} {1}", dt, dt.Day.ToOrdinal());   // dt.ToString("ddd MMM d");
+			return dt.ToString("ddd. MMM d yyyy");
 
 		}
 
-		public static string ToShortFriendlyAndRelativeDate(this System.DateTime dt) {
-			return string.Format("{0} ({1})", dt.ToShortFriendlyDate(), dt.ToRelativeDate());
+		public static string ToRelativeDateDetailed(this System.DateTime dt) {
+			DateTime now = DateTime.Now;
+			TimeSpan ts = now.Subtract(dt);
+			
+
+			// less than 24 hours ago, just show relative date
+			if (ts.TotalHours <= 48) {
+				// Special cases for yesterday/tomorrow
+				if ((ts.TotalHours > 24) && (ts.TotalDays <= 2)) return "Yesterday, " + dt.ToRelativeDate(48);
+				return dt.ToRelativeDate();
+			}
+
+			// 1 day, and less than 24 hours, show "Yesterday"
+			if (DateTime.Now.Year==dt.Year) 
+				return string.Format("{0} on {1:MMM}. {2}", dt.ToRelativeDate(), dt, dt.Day.ToOrdinal());
+			else 
+				return string.Format("{0} on {1:MMM} {1:d} '{1:yy}", dt.ToRelativeDate(), dt);	
+			
 		}
 
 		public static string ToRelativeDate(this System.DateTime? dateTime) {
@@ -33,7 +49,7 @@ namespace ObCore.Helpers {
 			return string.Empty;
 		}
 
-		public static string ToRelativeDate(this System.DateTime dateTime) {
+		public static string ToRelativeDate(this System.DateTime dateTime, int maxHours=24) {
 			System.DateTime min, max;
 			string description;
 
@@ -53,29 +69,29 @@ namespace ObCore.Helpers {
 			var timeSpan = max - min;
 
 			// span is less than or equal to 60 seconds, measure in seconds.
-			if (timeSpan <= TimeSpan.FromSeconds(10))
+			if (timeSpan.TotalSeconds <= 10)
 				return "Just now";
 
 			// span is less than or equal to 60 seconds, measure in seconds.
-			if (timeSpan <= TimeSpan.FromSeconds(60))
+			if (timeSpan.TotalSeconds <= 60)
 				return timeSpan.Seconds + " seconds" + description;
 
 			// span is less than or equal to 60 minutes, measure in minutes.
-			if (timeSpan <= TimeSpan.FromMinutes(60)) {
+			if (timeSpan.TotalMinutes <= 60) {
 				return timeSpan.Minutes > 1
 							? timeSpan.Minutes + " minutes" + description
 							: "a minute" + description;
 			}
 
 			// span is less than or equal to 24 hours, measure in hours.
-			if (timeSpan <= TimeSpan.FromHours(24)) {
-				return timeSpan.Hours > 1
-							? timeSpan.Hours + " hrs." + description
+			if (timeSpan.TotalHours < maxHours) {
+				return timeSpan.TotalHours > 1
+							? Math.Round(timeSpan.TotalHours) + " hours" + description
 							: "an hour" + description;
 			}
 
 			// span is less than or equal to 30 days (1 month), measure in days.
-			if (timeSpan <= TimeSpan.FromDays(30)) {
+			if (timeSpan.TotalDays <= 30) {
 				return timeSpan.Days > 1
 							? timeSpan.Days + " days" + description
 							: "a day" + description;
