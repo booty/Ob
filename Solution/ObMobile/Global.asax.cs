@@ -17,6 +17,19 @@ namespace ObMobile {
 		public static void RegisterRoutes(RouteCollection routes) {
 			routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+			
+			routes.MapRoute(
+				"MyRoute", "{controller}/{id}",
+				new { controller = "Member", action = "Details" }, new {id=@"\d+"}
+			);
+
+			/*
+			routes.MapRoute(
+				"MyRoute", "Member/{id}",
+				new { controller = "Member", action = "Details" }, new {id=@"\d+"}
+			);
+			*/
+
 			routes.MapRoute(
 				 "Default", // Route name
 				 "{controller}/{action}/{id}", // URL with parameters

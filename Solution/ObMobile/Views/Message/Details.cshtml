@@ -1,0 +1,65 @@
+﻿@model ObCore.Models.MessageNotification
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>MessageNotification</legend>
+
+    <div class="display-label">Login</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Login)
+    </div>
+
+    <div class="display-label">IdPictureMember</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.IdPictureMember)
+    </div>
+
+    <div class="display-label">EventTimeRelative</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.EventTimeRelative)
+    </div>
+
+    <div class="display-label">Body</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Body)
+    </div>
+
+    <div class="display-label">Subject</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Subject)
+    </div>
+
+    <div class="display-label">EventTime</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.EventTime)
+    </div>
+
+    <div class="display-label">TimestampRead</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.TimestampRead)
+    </div>
+
+    <div class="display-label">IdMemberFrom</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.IdMemberFrom)
+    </div>
+
+    <div class="display-label">IdMessage</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.IdMessage)
+    </div>
+
+    <div class="display-label">IdComment</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.IdComment)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id=Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

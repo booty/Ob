@@ -1,0 +1,33 @@
+﻿@model ObCore.Models.Member
+@using ObCore.Helpers
+@using ObMobile.Helpers
+@{
+	ViewBag.Title = "Details";
+}
+<div class="row">
+	<div class="span12">
+		<p style="float:right; margin: 0px 0px 15px 15px"><a href="@Model.IdPictureMember.MemberProfilePictureUrl(ObCore.Constants.PictureSizeNormal)">
+																		  @Model.IdPictureMember.MemberProfilePictureImg(ObCore.Constants.PictureSize150)</a>
+		</p>
+		
+		<h2>@Model.Login</h2>
+		
+		
+		<p>
+			@Model.Age/@Model.Gender @Model.FriendlyLocation
+		</p>
+		
+		<dl>
+			@Model.LoginsPrevious.ToHtmlDefinition("Also Known As")
+			@Model.LastLogin.ToShortFriendlyDate().ToHtmlDefinition("Last Visit")
+			@Model.CurrentRelationshipDescriptionOthers.ToHtmlDefinition("Current Relationship")
+			@if (!String.IsNullOrWhiteSpace(@Model.RelationshipDesiredDescriptionOthers)) {
+			<dt>Looking For</dt>
+			<dd>@Model.GenderPreference - @Model.RelationshipDesiredDescriptionOthers</dd>
+			}
+				
+		</dl>
+		
+		<p>
+	</div>
+</div>

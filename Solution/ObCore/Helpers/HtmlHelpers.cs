@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
+using System.Web;
 using System.Web.Mvc;
 
 namespace ObCore.Helpers {
@@ -13,5 +15,13 @@ namespace ObCore.Helpers {
 		public static bool CurrentControllerIs(this HtmlHelper hh, string controllerName) {
 			return hh.ViewContext.RouteData.GetRequiredString("controller").Equals(controllerName);
 		}
+
+		public static IHtmlString DisplayName<TModel, TValue>(
+									  this HtmlHelper<TModel> html,
+									  Expression<Func<TModel, TValue>> expression) {
+			var metadata = ModelMetadata.FromLambdaExpression<TModel, TValue>(expression, html.ViewData);
+			return new HtmlString(metadata.DisplayName);
+		}
+
 	}
 }

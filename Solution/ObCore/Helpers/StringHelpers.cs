@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text;
+using System.Web;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
 
@@ -56,6 +57,12 @@ namespace ObCore.Helpers {
 		}
 		*/
 
+		public static string Until(this string s, string targetText) {
+			int i = s.IndexOf(targetText);
+			if (i == -1) return s;
+			return s.Left(i - 1);
+		}
+
 		public static string Left(this string str, int length) {
 			return str.Substring(0, Math.Min(length, str.Length));
 		}
@@ -67,11 +74,9 @@ namespace ObCore.Helpers {
 		public static string TruncateFriendly(this string s, int maxLength) {
 			if (s.Length <= maxLength) return s;
 			s = s.Substring(0, maxLength);
-			if (s.LastIndexOf(' ') == -1)
-				return s + "&#8230;";
-			else {
-				return s.Substring(0, s.LastIndexOf(' ')) + "&#8230;";
-			}
+			if (s.LastIndexOf(' ') == -1) return s + "&#8230;";
+			return s.Substring(0, s.LastIndexOf(' ')) + "&#8230;";
+			
 		}
 
 		public static string ToOrdinal(this int i) {
@@ -107,16 +112,19 @@ namespace ObCore.Helpers {
 		}
 
 		public static string ParenthesizeIfNotZero(this int i, bool leadingSpace = true) {
-			if (i != 0) return System.String.Format("{0}({1})", leadingSpace ? " " : System.String.Empty, i);
-			return System.String.Empty;
+			if (i != 0) return String.Format("{0}({1})", leadingSpace ? " " : String.Empty, i);
+			return String.Empty;
 		}
 
+		public static HtmlString ToHtmlString(this string s) {
+			return new HtmlString(s);
+		}
 
 		public static string ToCamelCase(this string s) {
-			if (System.String.IsNullOrEmpty(s)) return System.String.Empty;
+			if (String.IsNullOrEmpty(s)) return String.Empty;
 
 			s = s.Replace('_', ' ');
-			if (string.IsNullOrWhiteSpace(s)) return System.String.Empty;
+			if (String.IsNullOrWhiteSpace(s)) return String.Empty;
 			s = s.Trim();
 
 			var sb=new StringBuilder(s.Length);

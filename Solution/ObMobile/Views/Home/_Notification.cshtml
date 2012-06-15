@@ -8,103 +8,50 @@ FOPs Shared
 Friended
 Private Message
 Profile View
+
+
 *@
-<tr>
+<tr @Html.Raw(Model.HtmlDataAttribute)>
 	<td>
 		@if (!Model.EventType.Equals("Profile View")) {
 			@Model.IdPictureMember.MemberProfilePicture(ObCore.Constants.PictureSize50, Model.IdMemberFrom, Model.Login)
-		}
+  }
 	</td>
 	<td>
-		@Model.IdMemberFrom.MemberProfileA(Model.Login) @  
+		<h3>@Model.IdMemberFrom.MemberProfileA(Model.Login) @Model.EventType.EventTypeToPastTenseSecondPerson() <small>@Model.EventTime.ToRelativeDateDetailed()</small></h3>
 		@{
 			switch (@Model.EventType) {
 				case "Comment":
-					
-					 sent you a comment <small>@Model.EventTime.ToRelativeDateDetailed()</small><br>
-					<p><strong>"@Html.DisplayFor(modelItem => @Model.Body)"</strong></p>
-					
+			<p>
+				<strong>"@Html.DisplayFor(modelItem => @Model.Body)"</strong>
+			</p>
 					break;
 				case "FOP Shared":
-					@Model.IdMemberFrom.MemberProfileA(Model.Login) shared @Model.Quantity Friends-Only Pictures with you <small>@Model.EventTime.ToRelativeDateDetailed()</small>
-						
-					
-					break;
 				case "FOPs Shared":
-					<td>
-						@Model.IdMemberFrom.MemberProfileA(Model.Login) shared a Friends-Only Picture with you <small>@Model.EventTime.ToRelativeDateDetailed()</small><br>
-					</td>
+			<p>
+				@Model.FopGuid1.FopThumbImgA(ObCore.Constants.PictureSizeThumb)
+				@Model.FopGuid2.FopThumbImgA(ObCore.Constants.PictureSizeThumb)
+				@Model.FopGuid3.FopThumbImgA(ObCore.Constants.PictureSizeThumb)
+				@if (@Model.Quantity > 3) {
+		<strong>+ @(@Model.Quantity-3) more...</strong>
+				}
+			</p>
+					break;
+				
+				case "Private Message":
+			
+			<h4>@Html.DisplayFor(m => @Model.Subject)</h4>
+			<blockquote>@Model.Body.Until("-------[").TruncateFriendly(225)</blockquote>			
 					break;
 				case "Friended":
-					<td colspan="2">
-						@Model.IdMemberFrom.MemberProfileA(Model.Login) added you to their Friend List <small>@Model.EventTime.ToRelativeDateDetailed()</small><br>
-					</td>
-					break;
-				case "Private Message":
-					<td>
-						@Model.IdMemberFrom.MemberProfileA(Model.Login) sent you a Private Message <small>@Model.EventTime.ToRelativeDateDetailed()</small><br>
-																																																	  <strong>@Html.DisplayFor(m=>@Model.Subject)</strong><br>
-																																																																			<small><blockquote>@Model.Body.TruncateFriendly(150)</blockquote></small>
-					</td>
-					break;
 				case "Profile View":
-					<td>
-						@Model.IdMemberFrom.MemberProfileA(Model.Login) viewed your profile <small>@Model.EventTime.ToRelativeDateDetailed()</small>
-					</td>
-					break;
-				default:
-					<td>
-						@Model.IdMemberFrom.MemberProfileA(Model.Login) <small>@Model.EventTime.ToRelativeDateDetailed()</small>
-						<strong>@Html.DisplayFor(m=>@Model.Subject)</strong><br>
-																							 @Html.DisplayFor(m=>@Model.Body)
-					</td>
-					break;
-			}
-		}
-		
-
-		@{
-			switch (@Model.EventType) {
-				case "Comment":
-					
-					@Model.IdMemberFrom.MemberProfileA(Model.Login) sent you a comment <small>@Model.EventTime.ToRelativeDateDetailed()</small><br>
-					<p><strong>"@Html.DisplayFor(modelItem => @Model.Body)"</strong></p>
-					
-					break;
-				case "FOP Shared":
-					@Model.IdMemberFrom.MemberProfileA(Model.Login) shared @Model.Quantity Friends-Only Pictures with you <small>@Model.EventTime.ToRelativeDateDetailed()</small>
-						
-					
-					break;
-				case "FOPs Shared":
-					<td>
-						@Model.IdMemberFrom.MemberProfileA(Model.Login) shared a Friends-Only Picture with you <small>@Model.EventTime.ToRelativeDateDetailed()</small><br>
-					</td>
-					break;
-				case "Friended":
-					<td colspan="2">
-						@Model.IdMemberFrom.MemberProfileA(Model.Login) added you to their Friend List <small>@Model.EventTime.ToRelativeDateDetailed()</small><br>
-					</td>
-					break;
-				case "Private Message":
-					<td>
-						@Model.IdMemberFrom.MemberProfileA(Model.Login) sent you a Private Message <small>@Model.EventTime.ToRelativeDateDetailed()</small><br>
-																																																	  <strong>@Html.DisplayFor(m=>@Model.Subject)</strong><br>
-																																																																			<small><blockquote>@Model.Body.TruncateFriendly(150)</blockquote></small>
-					</td>
-					break;
-				case "Profile View":
-					<td>
-						@Model.IdMemberFrom.MemberProfileA(Model.Login) viewed your profile <small>@Model.EventTime.ToRelativeDateDetailed()</small>
-					</td>
-					break;
-				default:
-					<td>
-						@Model.IdMemberFrom.MemberProfileA(Model.Login) <small>@Model.EventTime.ToRelativeDateDetailed()</small>
-						<strong>@Html.DisplayFor(m=>@Model.Subject)</strong><br>
-																							 @Html.DisplayFor(m=>@Model.Body)
-					</td>
-					break;
+				break;
+			default:
+			<p>
+				@Html.DisplayFor(m => @Model.Body.TruncateFriendly(225))
+			</p>
+			
+break;
 			}
 		}
 	</td>

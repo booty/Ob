@@ -36,15 +36,16 @@
 	<div class="navbar navbar-fixed-top">
 		<div class="navbar-inner">
 			<div class="container">
-				<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></a>
-				<a class="brand" href="#">Clitter</a>
+				<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></a><a class="brand" href="#">Clitter</a>
 				<div class="nav-collapse">
-					<ul class="nav">
-						<li @Html.Raw(Html.CurrentControllerIs("Home") ? "class=\"active\"" : String.Empty)><a href="#">Home</a></li>
-						<li @Html.Raw(Html.CurrentControllerIs("Message") ? "class=\"active\"" : String.Empty)><a href="/Message">Messages</a></li>
-						<li @Html.Raw(Html.CurrentControllerIs("Fop") ? "class=\"active\"" : String.Empty)><a href="/Fop">FOPs</a></li>
-						<li @Html.Raw(Html.CurrentControllerIs("Phone") ? "class=\"active\"" : String.Empty)><a href="/Phone">Phone List</a></li>
-					</ul>
+					<!--
+						<ul class="nav">
+							<li @Html.Raw(Html.CurrentControllerIs("Home") ? "class=\"active\"" : String.Empty)><a href="#">Home</a></li>
+							<li @Html.Raw(Html.CurrentControllerIs("Message") ? "class=\"active\"" : String.Empty)><a href="/Message">Messages</a></li>
+							<li @Html.Raw(Html.CurrentControllerIs("Fop") ? "class=\"active\"" : String.Empty)><a href="/Fop">FOPs</a></li>
+							<li @Html.Raw(Html.CurrentControllerIs("Phone") ? "class=\"active\"" : String.Empty)><a href="/Phone">Phone List</a></li>
+						</ul>
+						-->
 				</div>
 				<!--/.nav-collapse -->
 			</div>
@@ -59,5 +60,22 @@
 	<!-- Placed at the end of the document so the pages load faster -->
 	<script src="/Content/js/jquery-1.7.2.min.js"></script>
 	<script src="/Content/js/bootstrap.js"></script>
+	<script type="text/javascript">
+		$().ready(function () {
+			$('*[data-id-member]').click(function (e) {
+				window.location.href = '/Member/' + $(e.currentTarget).data('id-member');
+			});
+			$('*[data-id-comment]').click(function (e) {
+				window.location.href = '/Comment/' + $(e.currentTarget).data('id-comment');
+			});
+			$('*[data-id-message]').click(function (e) {
+				window.location.href = '/Message/' + $(e.currentTarget).data('id-message');
+			});
+			$('*[data-id-post]').click(function (e) {
+				window.location.href = '/Post/' + $(e.currentTarget).data('id-post');
+			});
+		}
+		)
+	</script>
 </body>
 </html>

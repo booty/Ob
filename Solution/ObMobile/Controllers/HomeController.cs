@@ -13,10 +13,8 @@ namespace ObMobile.Controllers {
 			var messages = from n in notifications
 									 where n.EventType == "Comment" || n.EventType == "Private Message"
 									 select n;
-
 			ViewBag.Notifications = notifications.Take(25);
 			ViewBag.Messages = messages.Take(20);
-
 			return View();
 		}
 
