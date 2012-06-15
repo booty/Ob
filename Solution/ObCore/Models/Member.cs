@@ -115,13 +115,49 @@ namespace ObCore.Models {
 		[PetaPoco.Column("Gender_Preference")]
 		[DisplayName("Gender Preference")]
 		public string GenderPreference { get; set; }
+
+		[PetaPoco.Column("Your_Dream_Job")]
+		[DisplayName("Your Dream Job")]
+		public string YourDreamJob { get; set; }
+
+		[PetaPoco.Column("Anime_Hobbies")]
+		[DisplayName("Anime_Hobbies")]
+		public string AnimeHobbies { get; set; }
+
+		[PetaPoco.Column("Conventions")]
+		[DisplayName("Conventions")]
+		public string Conventions { get; set; }
+
+		[PetaPoco.Column("Music")]
+		[DisplayName("Music")]
+		public string Music { get; set; }
+
+		[PetaPoco.Column("Something_Funny_You_Own")]
+		[DisplayName("Something Funny You Own")]
+		public string SomethingFunnyYouOwn { get; set; }
+
+		[PetaPoco.Column("Other_Interests")]
+		[DisplayName("Other Interests")]
+		public string OtherInterests { get; set; }
+
+		[PetaPoco.Column("Favorite_Anime_Manga")]
+		[DisplayName("Favorite Anime or Manga")]
+		public string FavoriteAnimeManga { get; set; }
+
+		[PetaPoco.Column("Favorite_Games")]
+		[DisplayName("Favorite Games")]
+		public string FavoriteGames { get; set; }
+
+		[PetaPoco.Column("Your_Job")]
+		[DisplayName("Your_Job")]
+		public string YourJob { get; set; }
 		#endregion
 
 
 		public string FriendlyLocation {
 			get {
 				if ((Latitude.HasValue) && (Longitude.HasValue) && !String.IsNullOrEmpty(City) && !string.IsNullOrEmpty(State)) {
-					if (Country.Equals("United States")) return string.Format("{0}, {1}", City, State);
+					if (Country.Equals("United States") || Country.Equals("USA")) return string.Format("{0}, {1}", City, State);
 					return string.Format("{0}, {1}, {2}", City, State, Country);
 				}
 

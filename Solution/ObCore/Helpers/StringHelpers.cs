@@ -63,20 +63,16 @@ namespace ObCore.Helpers {
 			return s.Left(i - 1);
 		}
 
-		public static string Left(this string str, int length) {
-			return str.Substring(0, Math.Min(length, str.Length));
-		}
+		public static string Left(this string str, int length) { return str.Substring(0, Math.Min(length, str.Length)); }
 
-		public static string Right(this string str, int length) {
-			return str.Substring(str.Length - length, length);
-		}
+		public static string Right(this string str, int length) { return str.Substring(str.Length - length, length); }
 
 		public static string TruncateFriendly(this string s, int maxLength) {
 			if (s.Length <= maxLength) return s;
 			s = s.Substring(0, maxLength);
 			if (s.LastIndexOf(' ') == -1) return s + "&#8230;";
 			return s.Substring(0, s.LastIndexOf(' ')) + "&#8230;";
-			
+
 		}
 
 		public static string ToOrdinal(this int i) {
@@ -94,6 +90,14 @@ namespace ObCore.Helpers {
 					return s + "th";
 
 			}
+		}
+
+		public static string ToYesNo(this bool b) {
+			return (b ? "Yes" : "No");
+		}
+
+		public static string ToYesNo(this bool b, string yesString, string noString) {
+			return (b ? yesString : noString);
 		}
 
 		public static string ToPossessive(this string s) {
@@ -116,11 +120,20 @@ namespace ObCore.Helpers {
 			return String.Empty;
 		}
 
-		public static HtmlString ToHtmlString(this string s) {
-			return new HtmlString(s);
+		public static string ToHtmlEncodedString(this string s) { return HttpUtility.HtmlEncode(s); }
+
+		public static HtmlString ToHtmlString(this string s, bool htmlEncode) {
+			if (htmlEncode) return new HtmlString(HttpUtility.HtmlEncode(s));
+			return new HtmlString(s); 
 		}
 
-		public static string ToCamelCase(this string s) {
+		
+
+		public static string HtmlEntitiesToQuotes(this string s) {
+			return s.Replace("&quot;", "'").Replace("&amp;", "&");
+		}
+
+	public static string ToCamelCase(this string s) {
 			if (String.IsNullOrEmpty(s)) return String.Empty;
 
 			s = s.Replace('_', ' ');
