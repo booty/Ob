@@ -44,3 +44,10 @@ table.notifications small {
 	color: #999;
 	
 }
+
+.memberPictureThumbnails p {
+	text-align: center;
+	font-size: smaller;
+	float:left;
+	margin: 5px;
+}

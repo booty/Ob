@@ -122,7 +122,7 @@ namespace ObCore.Helpers {
 
 		public static string ToHtmlEncodedString(this string s) { return HttpUtility.HtmlEncode(s); }
 
-		public static HtmlString ToHtmlString(this string s, bool htmlEncode) {
+		public static HtmlString ToHtmlString(this string s, bool htmlEncode=false) {
 			if (htmlEncode) return new HtmlString(HttpUtility.HtmlEncode(s));
 			return new HtmlString(s); 
 		}

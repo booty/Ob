@@ -21,6 +21,10 @@ namespace ObMobile.Controllers {
 		// GET: /Member/Details/5
 
 		public ActionResult Details(int id) {
+			if (Request.IsAuthenticated) {
+				
+			}
+			ViewBag.Pictures = ObCore.Models.Picture.Fetch(id, false, 5);
 			return View(ObCore.Models.Member.Find(id));
 		}
 

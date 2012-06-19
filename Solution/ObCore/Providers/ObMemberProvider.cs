@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Web;
 using System.Web.Security;
 using ObCore.Models;
 
-namespace Ob.Providers {
-	public class ObMemberProvider : MembershipProvider {
+namespace ObCore.Providers {
+	public class ObMembershipProvider : MembershipProvider {
 
 		public override string ApplicationName {
 			get {

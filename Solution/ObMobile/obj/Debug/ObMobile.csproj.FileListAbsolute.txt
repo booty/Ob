@@ -1,0 +1,11 @@
+C:\Projects\Ob\Solution\ObMobile\bin\ObMobile.dll
+C:\Projects\Ob\Solution\ObMobile\bin\ObMobile.pdb
+C:\Projects\Ob\Solution\ObMobile\bin\EntityFramework.dll
+C:\Projects\Ob\Solution\ObMobile\bin\Glimpse.Core.dll
+C:\Projects\Ob\Solution\ObMobile\bin\Glimpse.Mvc3.dll
+C:\Projects\Ob\Solution\ObMobile\bin\ObCore.dll
+C:\Projects\Ob\Solution\ObMobile\bin\ObCore.pdb
+C:\Projects\Ob\Solution\ObMobile\bin\EntityFramework.xml
+C:\Projects\Ob\Solution\ObMobile\obj\Debug\ObMobile.csprojResolveAssemblyReference.cache
+C:\Projects\Ob\Solution\ObMobile\obj\Debug\ObMobile.dll
+C:\Projects\Ob\Solution\ObMobile\obj\Debug\ObMobile.pdb

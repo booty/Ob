@@ -46,6 +46,12 @@
 							<li @Html.Raw(Html.CurrentControllerIs("Phone") ? "class=\"active\"" : String.Empty)><a href="/Phone">Phone List</a></li>
 						</ul>
 						-->
+					@if (Request.IsAuthenticated) {
+						<text>Welcome <strong>@User.Identity.Name</strong>! [ @Html.ActionLink("Log Off", "LogOff", "Account") ]</text>
+	  }
+	  else {
+						@:[ @Html.ActionLink("Log On", "LogOn", "Account") ]
+					}
 				</div>
 				<!--/.nav-collapse -->
 			</div>

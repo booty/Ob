@@ -8,7 +8,7 @@ using System.Web;
 using PetaPoco;
 
 namespace ObCore.Models {
-	
+
 	[TableName("MemberBasic")]
 	[PetaPoco.PrimaryKey("id_member")]
 	[ExplicitColumns]
@@ -25,39 +25,39 @@ namespace ObCore.Models {
 		[PetaPoco.Column("About_Self")]
 		[DisplayName("About")]
 		public string AboutSelf { get; set; }
-		
+
 		[PetaPoco.Column]
 		public int? Age { get; set; }
-		
+
 		[Required]
 		[PetaPoco.Column]
 		public string Gender { get; set; }
-		
+
 		[PetaPoco.Column]
 		public string City { get; set; }
-		
+
 		[PetaPoco.Column]
 		public string State { get; set; }
-		
+
 		[PetaPoco.Column]
 		public string Country { get; set; }
-		
+
 		[PetaPoco.Column("latitude")]
 		public double? Latitude { get; set; }
-		
+
 		[PetaPoco.Column("longitude")]
 		public double? Longitude { get; set; }
-		
+
 		[PetaPoco.Column("id_picture_member")]
 		public int? IdPictureMember { get; set; }
 
 		[PetaPoco.Column("Current_Relationship_Description_Others")]
 		public string CurrentRelationshipDescriptionOthers { get; set; }
-		
+
 		[PetaPoco.Column("Relationship_Desired_Description_Others")]
 		[DisplayName("Relationship Desired")]
 		public string RelationshipDesiredDescriptionOthers { get; set; }
-		
+
 		[PetaPoco.Column("logins_previous")]
 		[DisplayName("Previously Known As")]
 		public string LoginsPrevious { get; set; }
@@ -65,21 +65,22 @@ namespace ObCore.Models {
 		[PetaPoco.Column("lifetime_member")]
 		[DisplayName("Lifetime Member?")]
 		public bool? LifetimeMember { get; set; }
-		
-		[Required]
+
 		[DisplayName("Paid Member?")]
-		[PetaPoco.Column("Paid_Member")]
-		public int PaidMember { get; set; }
+		public int IsPaidMember { get; set; }
 
 		[DisplayName("Paid or Lifetime Member?")]
-		[PetaPoco.Column("Paid_Or_Lifetime_Member")]
-		public int? PaidOrLifetimeMember { get; set; }
+		public bool IsPaidOrLifetimeMember { get; set; }
+		public bool IsMod { get; set; }
+		public bool IsUberMod { get; set; }
+		public bool IsSysAdmin { get; set; }
+		public bool IsCsr { get; set; }
+		public bool IsCsrAdmin { get; set; }
 
 		[Required]
 		[DisplayName("Last Visit")]
 		[PetaPoco.Column("last_login")]
 		public DateTime LastLogin { get; set; }
-
 
 		[PetaPoco.Column("Last_Login_Relative")]
 		[DisplayName("Last Visit")]
@@ -88,7 +89,7 @@ namespace ObCore.Models {
 		[PetaPoco.Column("last_active")]
 		[DisplayName("Last Active")]
 		public DateTime? LastActive { get; set; }
-		
+
 		[PetaPoco.Column("Last_Active_Relative")]
 		[DisplayName("Last Active")]
 		public string LastActiveRelative { get; set; }
@@ -97,7 +98,7 @@ namespace ObCore.Models {
 		[PetaPoco.Column("Joined_Site")]
 		[DisplayName("Joined")]
 		public DateTime JoinedSite { get; set; }
-		
+
 		[PetaPoco.Column("Joined_Site_Relative")]
 		[DisplayName("Joined")]
 		public string JoinedSiteRelative { get; set; }
@@ -166,27 +167,30 @@ namespace ObCore.Models {
 			}
 		}
 
-		public static Member Find(int idMember) { 
+		public static Member Find(int idMember) {
 			using (var db=new ObDb()) {
 				return db.First<Member>("select * from MemberBasic where id_member=@0", idMember);
 			}
 		}
 
+		# region Authorization / authentication
 		public static bool Validate(string login, string password) {
 			var db = new ObDb();
 
 			// Whoops, PetaPoco is weird about nulls
 			var idMember = db.ExecuteScalar<int>("select isnull(dbo.MemberValidate(@0,@1), -1)", login, password);
-			return (idMember>0);
+			return (idMember > 0);
 
 
 			throw new NotImplementedException();
 		}
+		#endregion
 
 		#region IPrincipal Members
 
-		public IIdentity Identity {
-			get { throw new NotImplementedException(); }
+		public virtual IIdentity Identity {
+			get;
+			set;
 		}
 
 		public bool IsInRole(string role) {
