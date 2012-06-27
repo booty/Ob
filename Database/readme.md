@@ -1,3 +1,5 @@
 **OtakuBooty v.Next**
 
-Read THIS, motherfucker.
+/Database
+
+Database-related files go here.  Scripts, dumps, whatever.

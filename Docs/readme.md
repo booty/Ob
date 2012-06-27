@@ -1,3 +1,7 @@
 **OtakuBooty v.Next**
 
-Read THIS, motherfucker.
+/Docs
+
+Miscellaneous documents go here.
+
+Design documents, miscellaneous scripts, etc.
