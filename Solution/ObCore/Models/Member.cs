@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Security.Principal;
 using System.Web;
+using System.Web.Security;
 using PetaPoco;
 
 namespace ObCore.Models {
@@ -12,7 +13,7 @@ namespace ObCore.Models {
 	[TableName("MemberBasic")]
 	[PetaPoco.PrimaryKey("id_member")]
 	[ExplicitColumns]
-	public class Member : ObDb.Record<Member>, IPrincipal {
+	public class Member : ObDb.Record<Member>  {
 
 		#region Stuff PetaPoco added
 		[Required]
@@ -173,6 +174,13 @@ namespace ObCore.Models {
 			}
 		}
 
+		public static Member Find(string login) { 
+			using (var db = new ObDb()) {
+				return db.First<Member>("select * from MemberBasic mb inner join MemberLoginAll mla on mb.id_member=mla.id_member where mla.login=@0", login);
+			}
+		}
+	
+
 		# region Authorization / authentication
 		public static bool Validate(string login, string password) {
 			var db = new ObDb();
@@ -184,19 +192,38 @@ namespace ObCore.Models {
 
 			throw new NotImplementedException();
 		}
-		#endregion
 
-		#region IPrincipal Members
+		public static bool IsAuthorized(Member member, ObCore.AuthorizationRequirement authorizationRequirement) {
+			// Nothing to do!
+			if (authorizationRequirement==AuthorizationRequirement.NoRequirement) return true;
 
-		public virtual IIdentity Identity {
-			get;
-			set;
+			// If we don't actually have a member...
+			if (member == null) {
+				if (authorizationRequirement == AuthorizationRequirement.IsNotLoggedIn) return true;
+				return false;
+			}
+
+			switch (authorizationRequirement) {	
+				case AuthorizationRequirement.IsUberModOrHigher:
+					return member.IsUberMod;
+				case AuthorizationRequirement.HasPaidMemberPriviledges:
+					return member.IsPaidOrLifetimeMember;
+				case AuthorizationRequirement.IsFreeMember:
+					return !member.IsPaidOrLifetimeMember;
+				case AuthorizationRequirement.IsCustomerServiceRepresentative:
+					return member.IsCsr;
+				case AuthorizationRequirement.IsCustomerServiceRepresentativeAdmin:
+					return member.IsCsrAdmin;
+				case AuthorizationRequirement.IsModOrHigher:
+					return member.IsMod;
+				default: 
+					// todo: Implement missing authorization requirements 
+					throw new NotImplementedException();
+			}
+
 		}
 
-		public bool IsInRole(string role) {
-			throw new NotImplementedException();
-		}
-
 		#endregion
+
 	}
 }

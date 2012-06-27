@@ -114,7 +114,7 @@ namespace ObCore.Helpers {
 
 		public static HtmlString FopThumbImgA(this string guid, string size, string login = "") {
 			if (String.IsNullOrEmpty(guid)) return string.Empty.ToHtmlString();
-			return String.Format("<a href=\"{0}\"><img src=\"{1}\" alt=\"{2}\"></a>", guid.FopUrl(ObCore.Constants.PictureSizeNormal), guid.FopUrl(size), login).ToHtmlString();
+			return String.Format("<a href=\"{0}\"><img src=\"{1}\" alt=\"{2}\"></a>", guid.FopUrl(ObCore.PictureSize.Full), guid.FopUrl(size), login).ToHtmlString();
 		}
 
 

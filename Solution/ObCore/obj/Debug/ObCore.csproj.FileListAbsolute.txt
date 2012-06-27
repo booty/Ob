@@ -8,3 +8,4 @@ C:\Projects\Ob\Solution\ObCore\bin\Debug\ObCore.pdb
 C:\Projects\Ob\Solution\ObCore\obj\Debug\ObCore.dll
 C:\Projects\Ob\Solution\ObCore\obj\Debug\ObCore.pdb
 C:\Projects\Ob\Solution\ObCore\obj\Debug\ObCore.csprojResolveAssemblyReference.cache
+C:\Projects\Ob\Solution\ObCore\bin\Debug\ObCore.dll.config

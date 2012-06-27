@@ -44,7 +44,11 @@ namespace ObCore.Providers {
 
 		public override string GetPassword(string username, string answer) { throw new NotImplementedException(); }
 
-		public override MembershipUser GetUser(string username, bool userIsOnline) { throw new NotImplementedException(); }
+		public override MembershipUser GetUser(string username, bool userIsOnline) {
+			//return ObCore.Models.Member.Find(username);
+			throw new NotImplementedException(); 
+		
+		}
 
 		public override MembershipUser GetUser(object providerUserKey, bool userIsOnline) { throw new NotImplementedException(); }
 

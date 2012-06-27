@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using ObCore;
+using ObMobile.Attributes;
 
 namespace ObMobile.Controllers {
 	public class MemberController : Controller {
@@ -19,12 +21,12 @@ namespace ObMobile.Controllers {
 
 		//
 		// GET: /Member/Details/5
-
+		[ObAuthorization(Requirement= AuthorizationRequirement.IsLoggedIn)]
 		public ActionResult Details(int id) {
 			if (Request.IsAuthenticated) {
-				
+				//User.Identity.Name
 			}
-			ViewBag.Pictures = ObCore.Models.Picture.Fetch(id, false, 5);
+			ViewBag.Picstures = ObCore.Models.Picture.Fetch(id, false, 5);
 			return View(ObCore.Models.Member.Find(id));
 		}
 

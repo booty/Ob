@@ -4,10 +4,26 @@ using System.Linq;
 using System.Text;
 
 namespace ObCore {
-	public static class Constants {
-		public const string PictureSizeThumb = "_thumb";
-		public const string PictureSizeNormal = "";
-		public const string PictureSize50 = "_50";
-		public const string PictureSize150 = "_150";
+	public static class PictureSize {
+		public static string Thumb75Px = "_thumb"; // 75px
+		public static string Full = ""; 
+		public static string Small50Px = "_50";
+		public static string Medium150Px = "_150";
 	}
+	
+	public enum AuthorizationRequirement {
+		NoRequirement,
+		IsNotLoggedIn,
+ 		IsLoggedIn,
+		IsFreeMember,
+		HasPaidMemberPriviledges,
+		IsModOrHigher,
+		IsUberModOrHigher,
+		IsCustomerServiceRepresentative,
+		IsCustomerServiceRepresentativeAdmin,
+		CanApprovePictures,
+		CanApproveProfiles,
+		CanApproveAds
+	}
+
 }
