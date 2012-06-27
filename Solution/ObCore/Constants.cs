@@ -13,8 +13,8 @@ namespace ObCore {
 	
 	public enum AuthorizationRequirement {
 		NoRequirement,
-		IsNotLoggedIn,
- 		IsLoggedIn,
+		IsNotAuthenticated,
+ 		IsAuthenticated,
 		IsFreeMember,
 		HasPaidMemberPriviledges,
 		IsModOrHigher,

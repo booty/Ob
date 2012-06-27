@@ -3,11 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using ObCore;
+using ObMobile.Attributes;
 using ObCore.Models;
 using ObCore.Helpers;
 
 namespace ObMobile.Controllers {
 	public class HomeController : Controller {
+		
+		[ObAuthorizationRequired(AuthorizationRequirement.IsAuthenticated)]
 		public ActionResult Index() {
 			var notifications = Notification.Fetch(1238);
 			var messages = from n in notifications

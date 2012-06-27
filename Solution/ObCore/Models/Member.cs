@@ -13,7 +13,7 @@ namespace ObCore.Models {
 	[TableName("MemberBasic")]
 	[PetaPoco.PrimaryKey("id_member")]
 	[ExplicitColumns]
-	public class Member : ObDb.Record<Member>  {
+	public class Member : ObDb.Record<Member> {
 
 		#region Stuff PetaPoco added
 		[Required]
@@ -53,6 +53,7 @@ namespace ObCore.Models {
 		public int? IdPictureMember { get; set; }
 
 		[PetaPoco.Column("Current_Relationship_Description_Others")]
+		[DisplayName("Current Relationship")]
 		public string CurrentRelationshipDescriptionOthers { get; set; }
 
 		[PetaPoco.Column("Relationship_Desired_Description_Others")]
@@ -70,13 +71,37 @@ namespace ObCore.Models {
 		[DisplayName("Paid Member?")]
 		public int IsPaidMember { get; set; }
 
+		[PetaPoco.Column]
 		[DisplayName("Paid or Lifetime Member?")]
 		public bool IsPaidOrLifetimeMember { get; set; }
+		
+		[PetaPoco.Column]
+		[DisplayName("Is Moderator?")]
 		public bool IsMod { get; set; }
+		
+		[PetaPoco.Column]
+		[DisplayName("Is UberModerator?")]
 		public bool IsUberMod { get; set; }
+		
+		[PetaPoco.Column]
+		[DisplayName("Is SysAdmin?")]
 		public bool IsSysAdmin { get; set; }
-		public bool IsCsr { get; set; }
-		public bool IsCsrAdmin { get; set; }
+		
+		[PetaPoco.Column]
+		[DisplayName("Is a Customer Service Rep?")]
+		public bool IsCustomerServiceRepresentative { get; set; }
+
+		[PetaPoco.Column]
+		[DisplayName("Is a Customer Server Rep Admin?")]
+		public bool IsCustomerServiceRepresentativeAdmin { get; set; }
+
+		[PetaPoco.Column]
+		[DisplayName("Can approve member-uploaded pictures?")]
+		public bool IsPicApprover { get; set; }
+
+		[PetaPoco.Column]
+		[DisplayName("Can approve member profiles?")]
+		public bool IsProfileApprover { get; set; }
 
 		[Required]
 		[DisplayName("Last Visit")]
@@ -153,8 +178,13 @@ namespace ObCore.Models {
 		[PetaPoco.Column("Your_Job")]
 		[DisplayName("Your_Job")]
 		public string YourJob { get; set; }
+
+
 		#endregion
 
+		public bool IsAuthorized(ObCore.AuthorizationRequirement authorizationRequirement) {
+			return IsAuthorized(this, authorizationRequirement);
+		}
 
 		public string FriendlyLocation {
 			get {
@@ -174,36 +204,37 @@ namespace ObCore.Models {
 			}
 		}
 
-		public static Member Find(string login) { 
+		public static Member Find(string login) {
 			using (var db = new ObDb()) {
 				return db.First<Member>("select * from MemberBasic mb inner join MemberLoginAll mla on mb.id_member=mla.id_member where mla.login=@0", login);
 			}
 		}
-	
 
-		# region Authorization / authentication
-		public static bool Validate(string login, string password) {
-			var db = new ObDb();
 
+		# region Static Authorization / Authentication
+		public static Member AttemptLogin(string login, string password) {
+ 
 			// Whoops, PetaPoco is weird about nulls
-			var idMember = db.ExecuteScalar<int>("select isnull(dbo.MemberValidate(@0,@1), -1)", login, password);
-			return (idMember > 0);
+			// var idMember = db.ExecuteScalar<int>("select isnull(dbo.MemberValidate(@0,@1), -1)", login, password);
+			using (var db = new ObDb()) {
+				return db.First<Member>("select * from MemberBasic where id_member = (select id_member from dbo.MemberValidate(@0,@1))", login, password);
+			}
 
 
-			throw new NotImplementedException();
+			// todo: call proper login Sproc (to update "lastlogin" and stuff and get a real token)
 		}
 
 		public static bool IsAuthorized(Member member, ObCore.AuthorizationRequirement authorizationRequirement) {
 			// Nothing to do!
-			if (authorizationRequirement==AuthorizationRequirement.NoRequirement) return true;
+			if (authorizationRequirement == AuthorizationRequirement.NoRequirement) return true;
 
 			// If we don't actually have a member...
 			if (member == null) {
-				if (authorizationRequirement == AuthorizationRequirement.IsNotLoggedIn) return true;
+				if (authorizationRequirement == AuthorizationRequirement.IsNotAuthenticated) return true;
 				return false;
 			}
 
-			switch (authorizationRequirement) {	
+			switch (authorizationRequirement) {
 				case AuthorizationRequirement.IsUberModOrHigher:
 					return member.IsUberMod;
 				case AuthorizationRequirement.HasPaidMemberPriviledges:
@@ -211,12 +242,12 @@ namespace ObCore.Models {
 				case AuthorizationRequirement.IsFreeMember:
 					return !member.IsPaidOrLifetimeMember;
 				case AuthorizationRequirement.IsCustomerServiceRepresentative:
-					return member.IsCsr;
+					return member.IsCustomerServiceRepresentative;
 				case AuthorizationRequirement.IsCustomerServiceRepresentativeAdmin:
-					return member.IsCsrAdmin;
+					return member.IsCustomerServiceRepresentativeAdmin;
 				case AuthorizationRequirement.IsModOrHigher:
 					return member.IsMod;
-				default: 
+				default:
 					// todo: Implement missing authorization requirements 
 					throw new NotImplementedException();
 			}

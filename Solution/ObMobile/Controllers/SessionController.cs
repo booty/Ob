@@ -3,64 +3,59 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using ObCore;
-using ObMobile.Attributes;
+using ObCore.Models;
 
 namespace ObMobile.Controllers {
-	public class MemberController : Controller {
+	public class SessionController : Controller {
 		//
-		// GET: /Member/
+		// GET: /Session/
 
 		public ActionResult Index() {
 			return View();
 		}
 
-		public ActionResult Index(int id) {
-			return Details(id);
-		}
-
 		//
-		// GET: /Member/Details/5
-		[ObAuthorizationRequired(AuthorizationRequirement.IsAuthenticated)]
+		// GET: /Session/Details/5
+
 		public ActionResult Details(int id) {
-			if (Request.IsAuthenticated) {
-				//User.Identity.Name
-			}
-			ViewBag.Picstures = ObCore.Models.Picture.Fetch(id, false, 5);
-			return View(ObCore.Models.Member.Find(id));
+			return View();
 		}
 
 		//
-		// GET: /Member/Create
+		// GET: /Session/Create
 
 		public ActionResult Create() {
 			return View();
 		}
 
 		//
-		// POST: /Member/Create
+		// POST: /Session/Create
 
 		[HttpPost]
 		public ActionResult Create(FormCollection collection) {
 			try {
-				// TODO: Add insert logic here
-
+				Member member = Member.AttemptLogin(Request.Form["login"], Request.Form["password"]);
+				if (member == null) {
+					TempData["Error"]="Yeah, you fucked up.";
+					return View();
+				}
 				return RedirectToAction("Index");
 			}
-			catch {
+			catch (Exception e) {
+				TempData["Error"] = e.Message;
 				return View();
 			}
 		}
 
 		//
-		// GET: /Member/Edit/5
+		// GET: /Session/Edit/5
 
 		public ActionResult Edit(int id) {
 			return View();
 		}
 
 		//
-		// POST: /Member/Edit/5
+		// POST: /Session/Edit/5
 
 		[HttpPost]
 		public ActionResult Edit(int id, FormCollection collection) {
@@ -75,14 +70,14 @@ namespace ObMobile.Controllers {
 		}
 
 		//
-		// GET: /Member/Delete/5
+		// GET: /Session/Delete/5
 
 		public ActionResult Delete(int id) {
 			return View();
 		}
 
 		//
-		// POST: /Member/Delete/5
+		// POST: /Session/Delete/5
 
 		[HttpPost]
 		public ActionResult Delete(int id, FormCollection collection) {

@@ -1,0 +1,25 @@
+﻿@using ObMobile.Helpers
+@{
+	ViewBag.Title = "_LogOn";
+}
+@if (Session.IsObLoggedIn()) {
+	<p>
+		@Session.CurrentObMember().Login<br>
+		[ <a href="/Session/End">Log Out</a> ]
+	</p>
+}
+else {
+	<form class="well" method="POST" action="/Session/Create">
+	<p>
+		<label>
+			OtakuBooty Login</label>
+		<input class="input-xlarge" name="login" placeholder="Tip: Use your current login, or a previous one." />
+		<label>
+			Password</label>
+		<input name="password" type="password" />
+	</p>
+	<p>
+		<input type="submit" value="Log In" />
+	</p>
+	</form>
+}

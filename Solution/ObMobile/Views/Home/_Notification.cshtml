@@ -14,7 +14,7 @@ Profile View
 <tr @Html.Raw(Model.HtmlDataAttribute)>
 	<td>
 		@if (!Model.EventType.Equals("Profile View")) {
-			@Model.IdPictureMember.MemberProfilePicture(ObCore.Constants.PictureSize50, Model.IdMemberFrom, Model.Login)
+			@Model.IdPictureMember.MemberProfilePicture(PictureSize.Small50Px, Model.IdMemberFrom, Model.Login)
   }
 	</td>
 	<td>
@@ -29,9 +29,9 @@ Profile View
 				case "FOP Shared":
 				case "FOPs Shared":
 			<p>
-				@Model.FopGuid1.FopThumbImgA(ObCore.Constants.PictureSizeThumb)
-				@Model.FopGuid2.FopThumbImgA(ObCore.Constants.PictureSizeThumb)
-				@Model.FopGuid3.FopThumbImgA(ObCore.Constants.PictureSizeThumb)
+				@Model.FopGuid1.FopThumbImgA(PictureSize.Thumb75Px)
+				@Model.FopGuid2.FopThumbImgA(PictureSize.Thumb75Px)
+				@Model.FopGuid3.FopThumbImgA(PictureSize.Thumb75Px)
 				@if (@Model.Quantity > 3) {
 		<strong>+ @(@Model.Quantity-3) more...</strong>
 				}
