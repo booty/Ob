@@ -217,6 +217,8 @@ namespace ObCore.Models {
 			// Whoops, PetaPoco is weird about nulls
 			// var idMember = db.ExecuteScalar<int>("select isnull(dbo.MemberValidate(@0,@1), -1)", login, password);
 			using (var db = new ObDb()) {
+
+
 				var result = db.Fetch<Member>("select * from MemberBasic where id_member = dbo.MemberValidate(@0,@1)", login, password);
 				if (result.Count == 0) return null;
 				return result[0];
