@@ -217,13 +217,21 @@ namespace ObCore.Models {
 			// Whoops, PetaPoco is weird about nulls
 			// var idMember = db.ExecuteScalar<int>("select isnull(dbo.MemberValidate(@0,@1), -1)", login, password);
 			using (var db = new ObDb()) {
-				return db.First<Member>("select * from MemberBasic where id_member = (select id_member from dbo.MemberValidate(@0,@1))", login, password);
+				var result = db.Fetch<Member>("select * from MemberBasic where id_member = dbo.MemberValidate(@0,@1)", login, password);
+				if (result.Count == 0) return null;
+				return result[0];
 			}
 
 
 			// todo: call proper login Sproc (to update "lastlogin" and stuff and get a real token)
 		}
 
+		/// <summary>
+		/// Checks whether a given member is authorized to perform the specified action.
+		/// </summary>
+		/// <param name="member">A Member. Can be null.</param>
+		/// <param name="authorizationRequirement">Requirement to check.</param>
+		/// <returns></returns>
 		public static bool IsAuthorized(Member member, ObCore.AuthorizationRequirement authorizationRequirement) {
 			// Nothing to do!
 			if (authorizationRequirement == AuthorizationRequirement.NoRequirement) return true;
@@ -234,7 +242,10 @@ namespace ObCore.Models {
 				return false;
 			}
 
+			// If they're authenticated...
 			switch (authorizationRequirement) {
+				case AuthorizationRequirement.IsAuthenticated:
+					return true;
 				case AuthorizationRequirement.IsUberModOrHigher:
 					return member.IsUberMod;
 				case AuthorizationRequirement.HasPaidMemberPriviledges:

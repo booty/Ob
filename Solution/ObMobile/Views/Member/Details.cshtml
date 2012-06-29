@@ -1,4 +1,5 @@
 ﻿@model ObCore.Models.Member
+@using ObCore
 @using ObCore.Helpers
 @using ObCore.Models
 @using ObMobile.Helpers
@@ -46,8 +47,8 @@
 		</dl>
 	</div>
 	<div class="span4">
-		<a href="@Model.IdPictureMember.MemberProfilePictureUrl(ObCore.Constants.PictureSizeNormal)">
-			@Model.IdPictureMember.MemberProfilePictureImg(ObCore.Constants.PictureSize150)</a>
+		<a href="@Model.IdPictureMember.MemberProfilePictureUrl(PictureSize.Full)">
+			@Model.IdPictureMember.MemberProfilePictureImg(PictureSize.Medium150Px)</a>
 	</div>
 </div>
 <div class="row">
@@ -56,8 +57,8 @@
 			<h3>Public Pictures</h3>
 			foreach (Picture p in ViewBag.Pictures) {
 				<p>
-					<a href="@p.IdPictureMember.MemberProfilePictureUrl(ObCore.Constants.PictureSizeNormal)">
-						@p.IdPictureMember.MemberProfilePictureImg(ObCore.Constants.PictureSizeThumb)</a><br>
+					<a href="@p.IdPictureMember.MemberProfilePictureUrl(PictureSize.Full)">
+						@p.IdPictureMember.MemberProfilePictureImg(PictureSize.Thumb75Px)</a><br>
 																																	@if (!String.IsNullOrWhiteSpace(@p.Caption)) {
 																																		<small>&ldquo;@p.Caption&rdquo;</small>
 																																	}

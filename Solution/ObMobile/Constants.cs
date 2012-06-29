@@ -4,6 +4,10 @@ using System.Linq;
 using System.Web;
 
 namespace ObMobile {
+	public static class SessionVars {
+		public const string CurrentObMember="CurrentObMember";
+	}
+
 	public static class Flash {
 		public const string Alert="Alert";
 		public const string Error="Error";

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using ObCore.Models;
+using ObMobile.Helpers;
 
 namespace ObMobile.Controllers {
 	public class SessionController : Controller {
@@ -33,18 +34,25 @@ namespace ObMobile.Controllers {
 
 		[HttpPost]
 		public ActionResult Create(FormCollection collection) {
-			try {
-				Member member = Member.AttemptLogin(Request.Form["login"], Request.Form["password"]);
-				if (member == null) {
-					TempData["Error"]="Yeah, you fucked up.";
+			//try {
+				// Did they forget one or the other?
+				if ((String.IsNullOrWhiteSpace(Request.Form["login"])) || (String.IsNullOrWhiteSpace(Request.Form["password"]))) {
+					TempData.AddInfoMessage("Protip!", "You should probably enter your login and password, and <em>then</em> click the button. Right?");
 					return View();
 				}
-				return RedirectToAction("Index");
-			}
-			catch (Exception e) {
-				TempData["Error"] = e.Message;
-				return View();
-			}
+				// Try the login
+				Member member = Member.AttemptLogin(Request.Form["login"], Request.Form["password"]);
+				if (member == null) {
+					TempData.AddErrorMessage("Sorry!","We couldn't find that login and password. Maybe you mistyped some shit.");
+					return View();
+				}
+				Session[SessionVars.CurrentObMember] = member;
+				return RedirectToAction("Index","Home");
+			//}
+			//catch (Exception e) {
+			//	TempData["Error"] = String.Format("<strong>Whoops.</strong> We fucked up: {0} ",e.Message);
+			//	return View();
+			//}
 		}
 
 		//

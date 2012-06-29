@@ -1,13 +1,44 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Web;
+using System.Web.Mvc;
 using ObCore.Helpers;
 
 namespace ObMobile.Helpers {
 	public static class HtmlHelpers {
 		public enum HtmlDefinitionStyle {
 			Plain, QuotedAnswer
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="key"></param>
+		/// <returns></returns>
+		public static IHtmlString ToFlashMessageHtml(this TempDataDictionary tdd, string key) {
+			var obj = tdd[key];
+
+			if (obj == null) return null;
+
+			// If it's a just return a string (remember: string is IEnumerable, so we have to check this first!)
+			if (obj is string) return ((string)obj).ToHtmlString();
+
+			// If it's an array, convert it to a UL
+			if (obj is IEnumerable) return ((IEnumerable)obj).ToHtmlUl().ToHtmlString();
+
+			// Give up (maybe it's just a regular string?
+			return obj.ToString().ToHtmlString();
+		}
+
+		public static string ToHtmlUl(this IEnumerable ie) { 
+			var sb = new StringBuilder("<ul>"); 
+			
+			foreach (object obj in ie) sb.Append("<li>").Append(obj.ToString()).Append("</li>");
+			sb.Append("</ul>");
+			return sb.ToString();
 		}
 
 

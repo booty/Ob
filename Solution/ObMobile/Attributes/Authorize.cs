@@ -20,7 +20,8 @@ namespace ObMobile.Attributes {
 			if (Member.IsAuthorized(member, Requirement)) return;
 
 			// they failed authorization; send them to the appropriate URL
-			filterContext.HttpContext.Response.Redirect(AuthorizationFailedUrl);
+			// todo: store currently requested route in session/tempdata so we can send the user back there after successful auth
+			filterContext.Result = new RedirectResult("/Session/Create");
 		}
 
 		public ObAuthorizationRequired(ObCore.AuthorizationRequirement ar) {
