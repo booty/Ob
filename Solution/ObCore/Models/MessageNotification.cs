@@ -37,7 +37,7 @@ namespace ObCore.Models {
 		public int IdComment { get; set; }
 
 		public static List<MessageNotification> Fetch(int idMember) {
-			using (var db = new ObCore.Models.ObDb()) {
+			using (var db = new ObCore.ObDb()) {
 				return db.Fetch<MessageNotification>("select * from dbo.ToolbarMessages(@0) order by event_time desc", idMember);
 			}
 		}

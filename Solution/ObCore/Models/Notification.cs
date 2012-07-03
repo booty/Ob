@@ -64,7 +64,7 @@ namespace ObCore.Models {
 		public static string EventTypeProfileView="Profile View";
 
 		public static List<Notification> Fetch(int idMember) {
-			using (var db=new ObCore.Models.ObDb()) {
+			using (var db=new ObCore.ObDb()) {
 				return db.Fetch<Notification>("select * from dbo.ClitterNotifications(@0) order by event_time desc", idMember);
 			}
 		}

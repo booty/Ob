@@ -45,7 +45,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="DataAccess.cs" />
     <Compile Include="Helpers\ConfigurationHelpers.cs" />
@@ -60,10 +59,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Database.tt</DependentUpon>
     </None>
+    <Compile Include="Security.cs" />
     <Compile Include="Models\Member.cs" />
     <Compile Include="Models\MessageNotification.cs" />
     <Compile Include="Models\Notification.cs" />
-    <Compile Include="Models\ObDb.cs" />
+    <Compile Include="ObDb.cs" />
     <Compile Include="Models\PetaPoco.cs" />
     <Compile Include="Models\Picture.cs" />
     <Compile Include="Models\Relationship.cs" />

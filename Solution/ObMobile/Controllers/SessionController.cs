@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using ObCore;
 using ObCore.Helpers;
 using ObCore.Models;
 using ObMobile.Helpers;
@@ -47,7 +48,7 @@ namespace ObMobile.Controllers {
 
 			// Try the login
 			string loginToken;
-			Member member = Member.AttemptLogin(Request.Form["login"], Request.Form["password"], Request.ServerVariables["REMOTE_ADDR"] , Request.ServerVariables["HTTP_URL"], out loginToken);
+			Member member = Security.AttemptLogin(Request.Form["login"], Request.Form["password"], Request.ServerVariables["REMOTE_ADDR"] , Request.ServerVariables["HTTP_URL"], out loginToken);
 			if (member == null) {
 				TempData.AddErrorMessage("Sorry!", "We couldn't find that login and password. Maybe you mistyped some shit.");
 				return View();
