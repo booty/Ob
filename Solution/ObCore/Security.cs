@@ -1,66 +1,114 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using ObCore.Models;
 
 namespace ObCore {
+
+
 	public static class Security {
 
-		/*
-		 ALTER  PROCEDURE [dbo].[Process_Login_Token]
-	@Login char(25) output,
-	@Pword char(25),
-	@ID_Member_Login_Method int,
-	@URL varchar(100),
-	@IP_Address char(15),
-	@RecordLogin bit=1,
-	@id_member int=null,
-	@login_token varchar(36)=null
-		 */
+		/// <summary>
+		/// Represents why the authentication result attempt occurred. If failure, why?
+		/// Kludge: these values must match up to the result codes returned by the sproc Process_Login_Token, except for FailureWhatTheFuckHappenedHere
+		/// </summary>
+		public enum AuthenticationResultCode {
+			Success = 0,
+			FailureTooManyLogins = 1,
+			FailureMemberBanned = 2,
+			FailureIpBanned = 3,
+			FailureMemberNotActivated = 4,
+			FailureMemberNotFound = 5,
+			FailureWhatTheFuckHappened = 999
+		}
 
 
-		// todo: return LoginResult object (contains member, error, and/or login token)
-		public static Member AttemptLogin(string login, string password, string ipAddress, string url, out string loginToken) {
+		/*ALTER  PROCEDURE [dbo].[Process_Login_Token]
+		@Login char(25) output,
+		@Pword char(25),
+		@ID_Member_Login_Method int,
+		@URL varchar(100),
+		@IP_Address char(15),
+		@RecordLogin bit=1,
+		@id_member int=null,
+		@login_token varchar(36)=null
+		*/
 
-			int idMember;
 
+
+		public static AuthenticationResultCode GetAuthenticationResultCode(int code) {
+			if (Enum.IsDefined(typeof(AuthenticationResultCode), code))
+				return (AuthenticationResultCode)code;
+			else
+				return AuthenticationResultCode.FailureWhatTheFuckHappened;
+		}
+
+		/// <summary>
+		/// Attempt to authenticate a member via a login token
+		/// </summary>
+		/// <param name="token">Token, presumably found in their cookies or whatever</param>
+		/// <param name="ipAddress">Where dey be?</param>
+		/// <param name="url">URL they're accessing</param>
+		/// <returns></returns>
+		public static AuthenticationResult Authenticate(string token, string ipAddress, string url) {
 			using (var cmd = DataAccess.GetCommandStoredProcedure("Process_Login_Token")) {
-				cmd.Parameters.AddWithValue("Login", login).Size = 25;
-				cmd.Parameters.AddWithValue("Pword", password).Size = 25;
+				cmd.Parameters.AddWithValue("Login", DBNull.Value).Size = 25;
+				cmd.Parameters.AddWithValue("Pword", DBNull.Value).Size = 25;
 				cmd.Parameters.AddWithValue("ID_Member_Login_Method", ObCore.LoginMethod.Form);
 				cmd.Parameters.AddWithValue("URL", url);
 				cmd.Parameters.AddWithValue("IP_Address", ipAddress).Size = 25;
 				cmd.Parameters.AddWithValue("RecordLogin", false);
-				cmd.Parameters.AddWithValue("login_token", ""); // horrible kludge, shitty sproc expects blank
-				/*
-				cmd.Parameters.AddWithValue("id_member", DBNull.Value).Direction=ParameterDirection.InputOutput;
-				cmd.Parameters["id_member"].Size = 4;
-				cmd.Parameters.AddWithValue("login_token", DBNull.Value).Direction=ParameterDirection.InputOutput;
-				cmd.Parameters["login_token"].Size = 36;
-				*/
+				cmd.Parameters.AddWithValue("login_token", token); // horrible kludge, shitty sproc expects blank
 				var dr = DataAccess.GetDataRow(cmd);
-				if (dr.Table.Columns.Contains("login_token")) {
-					loginToken = (string)dr["login_token"];
-					idMember = (int)dr["id_member"];
+				return DataRowToAuthResult(dr);
+			}
+		}
+
+		/// <summary>
+		/// Attempt to authenticate a member via a username+pass
+		/// </summary>
+		/// <param name="login">Member's login. Note: either a current or previous login (from the name change feature) can be used</param>
+		/// <param name="password">The member's password, surprisingly</param>
+		/// <param name="ipAddress">Where dey be?</param>
+		/// <param name="url">URL they're accessing</param>
+		/// <returns></returns>
+		public static AuthenticationResult Authenticate(string login, string password, string ipAddress, string url) {
+
+			using (var cmd = DataAccess.GetCommandStoredProcedure("Process_Login_Token")) {
+				cmd.Parameters.AddWithValue("Login", login);
+				cmd.Parameters.AddWithValue("Pword", password);
+				cmd.Parameters.AddWithValue("ID_Member_Login_Method", ObCore.LoginMethod.Form);
+				cmd.Parameters.AddWithValue("URL", url);
+				cmd.Parameters.AddWithValue("IP_Address", ipAddress);
+				cmd.Parameters.AddWithValue("RecordLogin", false);
+				cmd.Parameters.AddWithValue("login_token", ""); // horrible kludge, shitty sproc expects blank
+				var dr = DataAccess.GetDataRow(cmd);
+				return DataRowToAuthResult(dr);
+			}
+
+		}
+
+		private static AuthenticationResult DataRowToAuthResult(System.Data.DataRow dr) {
+			if (dr.Table == null) {
+				// we don't really know what happened. stupid sproc!
+				return new AuthenticationResult(AuthenticationResultCode.FailureWhatTheFuckHappened, null, null);
+			}
+
+			if (!dr.Table.Columns.Contains("login_token")) {
+				if (dr.Table.Columns.Contains("result")) {
+					// at least the stupid sproc gave us a reason
+					return new AuthenticationResult((AuthenticationResultCode)dr["result"], null, null);
 				}
 				else {
-					loginToken = null;
-					return null;
+					// we don't really know what happened
+					return new AuthenticationResult(AuthenticationResultCode.FailureWhatTheFuckHappened, null, null);
 				}
-
-			}
-			// Whoops, PetaPoco is weird about nulls
-			// var idMember = db.ExecuteScalar<int>("select isnull(dbo.MemberValidate(@0,@1), -1)", login, password);
-			using (var db = new ObDb()) {
-				//var result = db.Fetch<Member>("select * from MemberBasic where id_member = dbo.MemberValidate(@0,@1)", login, password);
-				var result = db.Fetch<Member>("select * from MemberBasic where id_member=@0", idMember);
-				if (result.Count == 0) return null;
-				return result[0];
 			}
 
-
-			// todo: call proper login Sproc (to update "lastlogin" and stuff and get a real token)
+			// Hooray! Return the member 
+			return new AuthenticationResult(AuthenticationResultCode.Success, Member.Find((int)dr["id_member"]), (string)dr["login_token"]);
 		}
 
 		/// <summary>

@@ -53,16 +53,19 @@
 </div>
 <div class="row">
 	<div class="span12 memberPictureThumbnails">
-		@if (ViewBag.Pictures.Count > 0) {
-			<h3>Public Pictures</h3>
-			foreach (Picture p in ViewBag.Pictures) {
-				<p>
-					<a href="@p.IdPictureMember.MemberProfilePictureUrl(PictureSize.Full)">
-						@p.IdPictureMember.MemberProfilePictureImg(PictureSize.Thumb75Px)</a><br>
-																																	@if (!String.IsNullOrWhiteSpace(@p.Caption)) {
-																																		<small>&ldquo;@p.Caption&rdquo;</small>
-																																	}
-				</p>
+		@if ((ViewBag.Pictures)!=null) {
+			if (ViewBag.Pictures.Count > 0) 
+			{
+				<h3>Public Pictures</h3>
+				foreach (Picture p in ViewBag.Pictures) {
+					<p>
+						<a href="@p.IdPictureMember.MemberProfilePictureUrl(PictureSize.Full)">
+							@p.IdPictureMember.MemberProfilePictureImg(PictureSize.Thumb75Px)</a><br>
+																														@if (!String.IsNullOrWhiteSpace(@p.Caption)) {
+																															<small>&ldquo;@p.Caption&rdquo;</small>
+																														}
+					</p>
+				}
 			}
 		}
 	</div>

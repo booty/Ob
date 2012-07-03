@@ -1,5 +1,6 @@
 ﻿using System.Configuration;
 using System.Diagnostics;
+using System.Web;
 using System.Web.Mvc;
 using ObCore;
 using ObCore.Models;
@@ -38,19 +39,29 @@ namespace ObMobile.Attributes {
 				return;
 			}
 
-			// Obviously, nothing to do
-			if (filterContext.HttpContext.Request.Cookies["token"] == null) {
-				Trace.Write("There's no login token cookie; nothing to do", "CheckForLoginToken");
-				return;
-			}
-
 			// If they're logging in via a form submit, this should take precedence over the cookie token
 			if (!string.IsNullOrWhiteSpace(filterContext.HttpContext.Request.Form["login"]) && !string.IsNullOrWhiteSpace(filterContext.HttpContext.Request.Form["password"])) {
 				Trace.Write("They're logging in via a form submit; don't look for login token", "CheckForLoginToken");
 				return;
 			}
 
-			Trace.Write("Hey, there's a login token cookie. Should probably do something here!", "CheckForLoginToken");
+			// Nothing to do
+			var cookie = filterContext.HttpContext.Request.Cookies.Get("token");
+			if (cookie==null) return;
+			if(string.IsNullOrWhiteSpace(cookie.Value)) return;
+
+			Trace.Write(string.Format("Hey, there's a login token cookie ({0}) Should probably do something here!", cookie.Value), "CheckForLoginToken");
+			var req = filterContext.HttpContext.Request;
+			var authResult = Security.Authenticate(cookie.Value, req.ServerVariables["REMOTE_ADDR"], req.ServerVariables["HTTP_URL"] );
+			if (authResult.AuthenticationResultCode == Security.AuthenticationResultCode.Success) {
+				Trace.Write("Auth successful", "CheckForLoginToken");
+				filterContext.HttpContext.MakeAuthenticatedAsFuck(authResult);
+			}
+			else {
+				Trace.Write("Auth unsuccessful","CheckForLoginToken");
+				//todo: delete the cookie
+			}
+
 
 		}
 

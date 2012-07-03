@@ -31,6 +31,10 @@ namespace ObMobile.Controllers {
 		// GET: /Session/Create
 
 		public ActionResult Create() {
+			Trace.Write(String.Format("Session.IsObLoggedIn? {0}", Session.IsObLoggedIn()), "SessionController.Create");
+			if (Session.IsObLoggedIn()) {
+				RedirectToAction("Index", "Home");
+			}
 			return View();
 		}
 
@@ -39,6 +43,8 @@ namespace ObMobile.Controllers {
 
 		[HttpPost]
 		public ActionResult Create(FormCollection collection) {
+			
+
 			//try {
 			// Did they forget one or the other?
 			if ((String.IsNullOrWhiteSpace(Request.Form["login"])) || (String.IsNullOrWhiteSpace(Request.Form["password"]))) {
@@ -48,20 +54,14 @@ namespace ObMobile.Controllers {
 
 			// Try the login
 			string loginToken;
-			Member member = Security.AttemptLogin(Request.Form["login"], Request.Form["password"], Request.ServerVariables["REMOTE_ADDR"] , Request.ServerVariables["HTTP_URL"], out loginToken);
-			if (member == null) {
+			AuthenticationResult authResult = Security.Authenticate(Request.Form["login"], Request.Form["password"], Request.ServerVariables["REMOTE_ADDR"] , Request.ServerVariables["HTTP_URL"]);
+			if (authResult.AuthenticationResultCode != Security.AuthenticationResultCode.Success) {
 				TempData.AddErrorMessage("Sorry!", "We couldn't find that login and password. Maybe you mistyped some shit.");
 				return View();
 			}
 
 			// Store member in in session
-			Session[SessionVars.CurrentObMember] = member;
-			Trace.Write("Farting!!!!");
-			if (Response.Cookies != null) {
-				Response.Cookies.Add(new HttpCookie("token", loginToken));
-				Response.Cookies["token"].Expires = DateTime.Now + new TimeSpan(ConfigurationManager.AppSettings.ValueOrDefault("LoginTokenCookieExpirationDays", 30), 0, 0,0);
-			}
-		
+			HttpContext.MakeAuthenticatedAsFuck(authResult, true);
 			return RedirectToAction("Index", "Home");
 
 
