@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Security.Principal;
 using System.Web;
@@ -210,16 +212,54 @@ namespace ObCore.Models {
 			}
 		}
 
+		/*
+		 ALTER  PROCEDURE [dbo].[Process_Login_Token]
+	@Login char(25) output,
+	@Pword char(25),
+	@ID_Member_Login_Method int,
+	@URL varchar(100),
+	@IP_Address char(15),
+	@RecordLogin bit=1,
+	@id_member int=null,
+	@login_token varchar(36)=null
+		 */
 
-		# region Static Authorization / Authentication
-		public static Member AttemptLogin(string login, string password) {
- 
+		# region Static Authorization / Authentication (Move to sep. auth class?)
+		// todo: return LoginResult object (contains member, error, and/or login token)
+		public static Member AttemptLogin(string login, string password, string ipAddress, string url, out string loginToken) {
+			
+			int idMember;
+
+			using (var cmd = DataAccess.GetCommandStoredProcedure("Process_Login_Token")) {
+				cmd.Parameters.AddWithValue("Login", login).Size=25;
+				cmd.Parameters.AddWithValue("Pword", password).Size=25;
+				cmd.Parameters.AddWithValue("ID_Member_Login_Method", ObCore.LoginMethod.Form);
+				cmd.Parameters.AddWithValue("URL", url);
+				cmd.Parameters.AddWithValue("IP_Address", ipAddress).Size=25;
+				cmd.Parameters.AddWithValue("RecordLogin", false);
+				cmd.Parameters.AddWithValue("login_token", ""); // horrible kludge, shitty sproc expects blank
+				/*
+				cmd.Parameters.AddWithValue("id_member", DBNull.Value).Direction=ParameterDirection.InputOutput;
+				cmd.Parameters["id_member"].Size = 4;
+				cmd.Parameters.AddWithValue("login_token", DBNull.Value).Direction=ParameterDirection.InputOutput;
+				cmd.Parameters["login_token"].Size = 36;
+				*/
+				var dr = DataAccess.GetDataRow(cmd);
+				if (dr.Table.Columns.Contains("login_token")) {
+					loginToken = (string)dr["login_token"];
+					idMember = (int)dr["id_member"];
+				}
+				else {
+					loginToken = null;
+					return null;
+				}
+
+			}
 			// Whoops, PetaPoco is weird about nulls
 			// var idMember = db.ExecuteScalar<int>("select isnull(dbo.MemberValidate(@0,@1), -1)", login, password);
 			using (var db = new ObDb()) {
-
-
-				var result = db.Fetch<Member>("select * from MemberBasic where id_member = dbo.MemberValidate(@0,@1)", login, password);
+				//var result = db.Fetch<Member>("select * from MemberBasic where id_member = dbo.MemberValidate(@0,@1)", login, password);
+				var result = db.Fetch<Member>("select * from MemberBasic where id_member=@0", idMember);
 				if (result.Count == 0) return null;
 				return result[0];
 			}

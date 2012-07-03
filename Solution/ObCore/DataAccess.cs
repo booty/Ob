@@ -10,10 +10,14 @@ namespace ObCore {
 	/// Convenience functions to wrap common ADO.NET stuff
 	/// This is entirely unrelated to the PetaPoco stuff
 	/// Use THIS class when you just want to do straight database stuff; use PetaPoco when
-	/// you care about ORM-lite functionality 
+	/// you care about ORM-lite functionality.
+	/// 
+	/// These functions are NOT SQL injection safe. 
+	/// Potentially hostile input should be sanitized before sending it here (=
 	/// </summary>
 	public static class DataAccess {
-		public static string ConnectionString = String.Empty;
+		// Defaults to the last connection string. If there are no connection strings, defaults to String.Empty
+		public static string ConnectionString = (ConfigurationManager.ConnectionStrings.Count>0) ? ConfigurationManager.ConnectionStrings[ConfigurationManager.ConnectionStrings.Count-1].ConnectionString : string.Empty;
 		public static SqlConnection Connection;
 
 		//todo: handle non-int primary keys
@@ -34,9 +38,9 @@ namespace ObCore {
 		public static DataSet GetDataSet(string cmd) {
 			SqlConnection conn;
 			var ds = new DataSet();
-			using (SqlDataAdapter da = GetDataAdapter(cmd, out conn))
+			using (SqlDataAdapter da = GetDataAdapter(cmd, out conn)) {
 				da.Fill(ds);
-
+			}
 			return ds;
 		}
 
@@ -107,9 +111,10 @@ namespace ObCore {
 		}
 
 		public static SqlConnection GetConnection() {
-			//if (ConnectionString == String.Empty) ConnectionString = ConfigurationManager.ConnectionStrings[Environment.MachineName].ConnectionString;
-			ConnectionString = ConfigurationManager.ConnectionStrings["epace"].ConnectionString;
-			if (Connection == null) Connection = new SqlConnection(ConnectionString);
+			if (String.IsNullOrEmpty(ConnectionString)) 
+				throw new ConfigurationErrorsException("Couldn't find any connection strings in your configuration file, and you didn't set DataAccess.ConnectionString manually");
+
+			Connection = Connection ?? new SqlConnection(ConnectionString);
 			if (Connection.State != ConnectionState.Open) Connection.Open();
 			return Connection;
 		}
@@ -117,8 +122,6 @@ namespace ObCore {
 		public static int GetScalarInt(string cmd) {
 			SqlCommand foo = GetCommand(cmd);
 			return GetScalarInt(foo);
-			//object result = foo.ExecuteScalar();
-			//return (int)result;
 		}
 
 		public static int GetScalarInt(SqlCommand cmd) {
@@ -179,20 +182,19 @@ namespace ObCore {
 		}
 
 
+		/* This stuff should really be replaced with functions 
+		 * that leverage a mature library like CsvHelpers or something
+		 * */
+		
+		/*
 		private static string QuoteIfNeeded(this string s) {
 			if ((s.Contains("\"")) || (s.Contains(","))) return "\"" + s.Replace("\"", "\"\"") + "\"";
 			return s;
 		}
 
-		/* This stuff should really be replaced with functions 
-		 * that leverage a mature library like CsvHelpers or something
-		 * */
-
-		/*
 		public static string ToCsv(this DataTable dt) {
 			return dt.ToDelimited(",");
 		}
-
 
 		public static string ToDelimited(this DataTable dt, string delimiter) {
 			var s = new StringBuilder(String.Empty);

@@ -8,11 +8,14 @@ using ObMobile.Attributes;
 using ObCore.Models;
 using ObCore.Helpers;
 using ObMobile.Helpers;
+using System.Diagnostics;
+
 namespace ObMobile.Controllers {
 	public class HomeController : Controller {
 		
 		[ObAuthorizationRequired(AuthorizationRequirement.IsAuthenticated)]
 		public ActionResult Index() {
+			Trace.Write("Hey! Hello!");
 			var notifications = Notification.Fetch(Session.CurrentObMember().IdMember);
 			var messages = from n in notifications
 									 where n.EventType == "Comment" || n.EventType == "Private Message"

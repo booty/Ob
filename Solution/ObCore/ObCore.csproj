@@ -47,6 +47,8 @@
   <ItemGroup>
     <Compile Include="Class1.cs" />
     <Compile Include="Constants.cs" />
+    <Compile Include="DataAccess.cs" />
+    <Compile Include="Helpers\ConfigurationHelpers.cs" />
     <Compile Include="Helpers\DateTimeHelpers.cs" />
     <Compile Include="Helpers\HtmlHelpers.cs" />
     <Compile Include="Helpers\StringHelpers.cs" />

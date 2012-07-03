@@ -1,4 +1,5 @@
 ﻿using System.Configuration;
+using System.Diagnostics;
 using System.Web.Mvc;
 using ObCore;
 using ObCore.Models;
@@ -28,5 +29,27 @@ namespace ObMobile.Attributes {
 			Requirement = ar;
 			AuthorizationFailedUrl = ConfigurationManager.AppSettings["AuthorizationFailedUrl"] ?? "/Session/Create";
 		}
+	}
+
+	public class CheckForLoginToken : AuthorizeAttribute {
+		public override void OnAuthorization(AuthorizationContext filterContext) {
+			if (filterContext.HttpContext.Session.IsObLoggedIn()) {
+				Trace.Write("Already logged in; nothing to do", "CheckForLoginToken");
+				return;
+			}
+
+			if (filterContext.HttpContext.Request.Cookies["token"] == null) {
+				Trace.Write("There's no login token cookie; nothing to do", "CheckForLoginToken");
+				return;
+			}
+
+			Trace.Write("Hey, there's a login token cookie. Should probably do something here!", "CheckForLoginToken");
+		}
+
+		protected override void HandleUnauthorizedRequest(AuthorizationContext filterContext) {
+			return;
+			// base.HandleUnauthorizedRequest(filterContext);
+		}
+
 	}
 }
