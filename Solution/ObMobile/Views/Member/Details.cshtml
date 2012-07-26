@@ -5,68 +5,67 @@
 @using ObMobile.Helpers
 @using HtmlHelpers = ObMobile.Helpers.HtmlHelpers
 @{
-	ViewBag.Title = "Details";
+    ViewBag.Title = "Details";
 }
 <div class="row">
-	<div class="span12">
-		<h2>
-			@Model.Login <small>@Model.Age/@Model.Gender @Model.FriendlyLocation</small> </h2>
-		@if (!String.IsNullOrWhiteSpace(@Model.AboutSelf)) {
-			<p>
-				<em>"@Html.DisplayFor(m => m.AboutSelf)"</em>
-			</p>
-  }
-	</div>
+    <div class="span12">
+        <h2>
+            @Model.Login <small>@Model.Age/@Model.Gender @Model.FriendlyLocation</small> </h2>
+        @if (!String.IsNullOrWhiteSpace(@Model.AboutSelf)) {
+            <p>
+                <em>"@Html.DisplayFor(m => m.AboutSelf)"</em>
+            </p>
+        }
+    </div>
 </div>
 <div class="row">
-	<div class="span12">
-		<a class="btn btn-large btn-primary" href="/Message/Create/@Model.IdMember">Send Message</a> <a class="btn btn-large btn-primary" href="/Comment/Create/@Model.IdMember">Send Comment</a> <a class="btn btn-large btn-primary" href="/Friend/Create/@Model.IdMember">+Friend</a>
-	</div>
+    <div class="span12">
+        <a class="btn btn-large btn-primary" href="/Message/Create/@Model.IdMember">Send Message</a> <a class="btn btn-large btn-primary" href="/Comment/Create/@Model.IdMember">Send Comment</a> <a class="btn btn-large btn-primary" href="/Friend/Create/@Model.IdMember">+Friend</a>
+    </div>
 </div>
 <div class="row">
-	<div class="span4">
-		<dl>
-			@Model.LastLogin.ToShortFriendlyDate().ToHtmlDefinition("Last Visit")
-			@Model.LoginsPrevious.ToHtmlDefinition("Also Known As")
-			@Model.YourJob.ToHtmlDefinition("So, What Do You Do For a Living?", HtmlHelpers.HtmlDefinitionStyle.QuotedAnswer, false)
-			@Model.YourDreamJob.ToHtmlDefinition("What's Your Dream Job?", HtmlHelpers.HtmlDefinitionStyle.QuotedAnswer, false)
-			@Model.AnimeHobbies.ToHtmlDefinition("Tell Us About Your Nerdy Hobbies", HtmlHelpers.HtmlDefinitionStyle.QuotedAnswer, false)
-		</dl>
-	</div>
-	<div class="span4">
-		<dl>
-			@Model.CurrentRelationshipDescriptionOthers.ToHtmlDefinition("Current Relationship")
-			@if (!String.IsNullOrWhiteSpace(@Model.RelationshipDesiredDescriptionOthers)) {
-				<dt>Looking For</dt>
-				<dd>@Model.GenderPreference - @Model.RelationshipDesiredDescriptionOthers</dd>
-	}
-			@Model.OtherInterests.ToHtmlDefinition("What Are Your Other Interests?", HtmlHelpers.HtmlDefinitionStyle.QuotedAnswer, false)
-			@Model.FavoriteGames.ToHtmlDefinition("What Are Your Favorite Games?", HtmlHelpers.HtmlDefinitionStyle.QuotedAnswer, false)
-			@Model.SomethingFunnyYouOwn.ToHtmlDefinition("Tell Us About Something Funny You Own", HtmlHelpers.HtmlDefinitionStyle.QuotedAnswer, false)
-			@Model.Conventions.ToHtmlDefinition("Attending Any Conventions Soon?", HtmlHelpers.HtmlDefinitionStyle.QuotedAnswer, false)
-		</dl>
-	</div>
-	<div class="span4">
-		<a href="@Model.IdPictureMember.MemberProfilePictureUrl(PictureSize.Full)">
-			@Model.IdPictureMember.MemberProfilePictureImg(PictureSize.Medium150Px)</a>
-	</div>
+    <div class="span4">
+        <dl>
+            @Model.LastLogin.ToShortFriendlyDate().ToHtmlDefinition("Last Visit")
+            @Model.LoginsPrevious.ToHtmlDefinition("Also Known As")
+            @Model.YourJob.ToHtmlDefinition("So, What Do You Do For a Living?", HtmlHelpers.HtmlDefinitionStyle.QuotedAnswer, false)
+            @Model.YourDreamJob.ToHtmlDefinition("What's Your Dream Job?", HtmlHelpers.HtmlDefinitionStyle.QuotedAnswer, false)
+            @Model.AnimeHobbies.ToHtmlDefinition("Tell Us About Your Nerdy Hobbies", HtmlHelpers.HtmlDefinitionStyle.QuotedAnswer, false)
+        </dl>
+    </div>
+    <div class="span4">
+        <dl>
+            @Model.CurrentRelationshipDescriptionOthers.ToHtmlDefinition("Current Relationship")
+            @if (!String.IsNullOrWhiteSpace(@Model.RelationshipDesiredDescriptionOthers)) {
+                <dt>Looking For</dt>
+                <dd>@Model.GenderPreference - @Model.RelationshipDesiredDescriptionOthers</dd>
+            }
+            @Model.OtherInterests.ToHtmlDefinition("What Are Your Other Interests?", HtmlHelpers.HtmlDefinitionStyle.QuotedAnswer, false)
+            @Model.FavoriteGames.ToHtmlDefinition("What Are Your Favorite Games?", HtmlHelpers.HtmlDefinitionStyle.QuotedAnswer, false)
+            @Model.SomethingFunnyYouOwn.ToHtmlDefinition("Tell Us About Something Funny You Own", HtmlHelpers.HtmlDefinitionStyle.QuotedAnswer, false)
+            @Model.Conventions.ToHtmlDefinition("Attending Any Conventions Soon?", HtmlHelpers.HtmlDefinitionStyle.QuotedAnswer, false)
+        </dl>
+    </div>
+    <div class="span4">
+        <a href="@Model.IdPictureMember.MemberProfilePictureUrl(PictureSize.Full)">
+            @Model.IdPictureMember.MemberProfilePictureImg(PictureSize.Medium150Px)</a>
+    </div>
 </div>
 <div class="row">
-	<div class="span12 memberPictureThumbnails">
-		@if ((ViewBag.Pictures)!=null) {
-			if (ViewBag.Pictures.Count > 0) 
-			{
-				<h3>Public Pictures</h3>
-				foreach (Picture p in ViewBag.Pictures) {
-					<p>
-						<a href="@p.IdPictureMember.MemberProfilePictureUrl(PictureSize.Full)">
-							@p.IdPictureMember.MemberProfilePictureImg(PictureSize.Thumb75Px)</a><br>
-																														@if (!String.IsNullOrWhiteSpace(@p.Caption)) {
-																															<small>&ldquo;@p.Caption&rdquo;</small>
-																														}
-					</p>
-				}
-			}
-		}
-	</div>
+    <div class="span12 memberPictureThumbnails">
+@if ((ViewBag.Pictures) != null) {
+    if (ViewBag.Pictures.Count > 0) {
+        <h3>Public Pictures</h3>
+        foreach (Picture p in ViewBag.Pictures) {
+            <p>
+                <a href="@p.IdPictureMember.MemberProfilePictureUrl(PictureSize.Full)">
+                    @p.IdPictureMember.MemberProfilePictureImg(PictureSize.Thumb75Px)</a><br>
+            @if (!String.IsNullOrWhiteSpace(@p.Caption)) {
+                <small>&ldquo;@p.Caption&rdquo;</small>
+            }
+            </p>
+        }
+    }
+}
+    </div>
 </div>

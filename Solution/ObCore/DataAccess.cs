@@ -149,7 +149,9 @@ namespace ObCore {
 			SqlCommand sqlCommand = GetCommand(cmd);
 			SqlDataReader dr;
 			try {
+				Trace.Write(String.Format("Start execute: {0}", cmd), "DataAccess.GetDataReader");
 				dr = sqlCommand.ExecuteReader();
+				Trace.Write(String.Format("Start execute: {0}", cmd), "DataAccess.GetDataReader");
 			}
 			catch (Exception e) {
 				sqlCommand.Connection.Close();
@@ -164,11 +166,12 @@ namespace ObCore {
 		}
 
 		public static SqlDataReader GetDataReader(SqlCommand cmd) {
-			Trace.Write(cmd.CommandText, "DataAccess.GetDataReader");
 			SqlDataReader reader;
 			try {
+				Trace.Write(String.Format("Start execute: {0}", cmd.CommandText), "DataAccess.GetDataReader");
 				reader = cmd.ExecuteReader();
 				reader.Read(); //????? not like GetDataReader(string)
+				Trace.Write(String.Format("Start execute: {0}", cmd.CommandText), "DataAccess.GetDataReader");
 			}
 			catch (Exception e) {
 				cmd.Connection.Close();

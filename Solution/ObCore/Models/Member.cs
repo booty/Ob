@@ -185,6 +185,8 @@ namespace ObCore.Models {
 		#endregion
 
 
+
+
 		public bool IsAuthorized(ObCore.AuthorizationRequirement authorizationRequirement) {
 			return ObCore.Security.IsAuthorized(this, authorizationRequirement);
 		}
@@ -201,6 +203,12 @@ namespace ObCore.Models {
 			}
 		}
 
+		public List<Picture> PublicPictures {
+			get {
+				return Picture.Fetch(this.IdMember, false);
+			}
+		}
+
 		public static Member Find(int idMember) {
 			using (var db=new ObDb()) {
 				return db.First<Member>("select * from MemberBasic where id_member=@0", idMember);
@@ -213,6 +221,7 @@ namespace ObCore.Models {
 			}
 		}
 
+		
 
 
 	}
