@@ -177,15 +177,26 @@ namespace ObCore.Models {
 		[DisplayName("Favorite Games")]
 		public string FavoriteGames { get; set; }
 
-		[PetaPoco.Column("Your_Job")]
-		[DisplayName("Your_Job")]
+		[PetaPoco.Column("your_job")]
+		[DisplayName("Your Job")]
 		public string YourJob { get; set; }
 
+		[PetaPoco.Column("id_member_invite")]
+		[DisplayName("id_member_invite")]
+		public int? IdMemberInvite{ get; set; }
 
+		[PetaPoco.Column("login_invite")]
+		[DisplayName("Invited By")]
+		public string LoginInvite { get; set; }
 		#endregion
 
 
-
+		public Member MemberInvitedBy {
+			get {
+				if (IdMemberInvite.HasValue) return Member.Find(IdMemberInvite.Value);
+				return null;
+			}
+		}
 
 		public bool IsAuthorized(ObCore.AuthorizationRequirement authorizationRequirement) {
 			return ObCore.Security.IsAuthorized(this, authorizationRequirement);

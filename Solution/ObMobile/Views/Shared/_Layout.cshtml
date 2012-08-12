@@ -1,4 +1,5 @@
-﻿@using ObCore.Helpers
+﻿@using System.Web.Optimization
+@using ObCore.Helpers
 @using ObMobile
 @using ObMobile.Helpers
 @{
@@ -39,57 +40,42 @@
 	<div class="navbar navbar-fixed-top">
 		<div class="navbar-inner">
 			<div class="container">
-@if (Session.IsObLoggedIn()) {
-						<text><strong>@currentMember.Login</strong> [ <a href="/Session/End">Log Out</a> ]</text>
-}
-
-				<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-					<span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
-				</a>
-				
 				<a class="brand" href="#">Clitter</a>
+				@if (Session.IsObLoggedIn()) {
+					<p class="navbar-text">
+						<strong>@currentMember.Login</strong> [ <a href="/Session/End">Log Out</a> ]
+					</p>
+	 }
 
-				<div class="nav-collapse">
-					<!--
-						<ul class="nav">
-							<li @Html.Raw(Html.CurrentControllerIs("Home") ? "class=\"active\"" : String.Empty)><a href="#">Home</a></li>
-							<li @Html.Raw(Html.CurrentControllerIs("Message") ? "class=\"active\"" : String.Empty)><a href="/Message">Messages</a></li>
-							<li @Html.Raw(Html.CurrentControllerIs("Fop") ? "class=\"active\"" : String.Empty)><a href="/Fop">FOPs</a></li>
-							<li @Html.Raw(Html.CurrentControllerIs("Phone") ? "class=\"active\"" : String.Empty)><a href="/Phone">Phone List</a></li>
-						</ul>
-						-->
 
-				</div>
-				<!--/.nav-collapse -->
 			</div>
 		</div>
 	</div>
 	<div class="container">
 		@if (TempData.Peek(Flash.Alert) != null) {
 			<div class="alert">
-			<button class="close" data-dismiss="alert">×</button>
-			@TempData.ToFlashMessageHtml(Flash.Alert)
+				<button class="close" data-dismiss="alert">×</button>
+				@TempData.ToFlashMessageHtml(Flash.Alert)
 			</div>
-		}
+  }
 		@if (TempData.Peek(Flash.Error) != null) {
 			<div class="alert alert-error">
-			<button class="close" data-dismiss="alert">×</button>
-			@TempData.ToFlashMessageHtml(Flash.Error)
+				<button class="close" data-dismiss="alert">×</button>
+				@TempData.ToFlashMessageHtml(Flash.Error)
 			</div>
-		}
+  }
 		@if (TempData.Peek(Flash.Success) != null) {
 			<div class="alert alert-success">
-			<button class="close" data-dismiss="alert">×</button>
-			@TempData.ToFlashMessageHtml(Flash.Success)
+				<button class="close" data-dismiss="alert">×</button>
+				@TempData.ToFlashMessageHtml(Flash.Success)
 			</div>
-		}
+  }
 		@if (TempData.Peek(Flash.Info) != null) {
 			<div class="alert alert-info">
-			<button class="close" data-dismiss="alert">×</button>
-			@TempData.ToFlashMessageHtml(Flash.Info)
+				<button class="close" data-dismiss="alert">×</button>
+				@TempData.ToFlashMessageHtml(Flash.Info)
 			</div>
-		}
-		
+  }
 		@RenderBody()
 	</div>
 	<script src="/Content/js/jquery-1.7.2.min.js"></script>

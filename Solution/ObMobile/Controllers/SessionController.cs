@@ -53,7 +53,6 @@ namespace ObMobile.Controllers {
 			}
 
 			// Try the login
-			string loginToken;
 			AuthenticationResult authResult = Security.Authenticate(Request.Form["login"], Request.Form["password"], Request.ServerVariables["REMOTE_ADDR"] , Request.ServerVariables["HTTP_URL"]);
 			if (authResult.AuthenticationResultCode != Security.AuthenticationResultCode.Success) {
 				TempData.AddErrorMessage("Sorry!", "We couldn't find that login and password. Maybe you mistyped some shit.");

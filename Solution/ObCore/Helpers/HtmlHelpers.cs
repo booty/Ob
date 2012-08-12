@@ -12,9 +12,7 @@ namespace ObCore.Helpers {
 			return htmlHelper.ViewContext.RouteData.GetRequiredString("controller");
 		}
 
-		public static bool CurrentControllerIs(this HtmlHelper hh, string controllerName) {
-			return hh.ViewContext.RouteData.GetRequiredString("controller").Equals(controllerName);
-		}
+
 
 		public static IHtmlString DisplayName<TModel, TValue>(
 									  this HtmlHelper<TModel> html,

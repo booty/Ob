@@ -20,7 +20,6 @@ a.memberProfile {
 	font-weight:bold;	
 }
 
-
 small blockquote {
 font-style:italic;		
 }
@@ -42,7 +41,6 @@ table.notifications h3, h4 {
 table.notifications small {
 	font-size: 11px;
 	color: #999;
-	
 }
 
 .memberPictureThumbnails p {
@@ -52,7 +50,10 @@ table.notifications small {
 	margin: 5px;
 }
 
-
 .alert ul {
 	margin-bottom: 0px;	
+}
+
+a:active, a:hover, a:visited, a:focus, a {
+	outline:0;
 }

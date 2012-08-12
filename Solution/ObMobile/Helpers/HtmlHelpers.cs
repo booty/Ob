@@ -54,5 +54,18 @@ namespace ObMobile.Helpers {
 			
 			}
 		}
+
+		public static IHtmlString ToHtmlDefinition(this IHtmlString value, string label, HtmlDefinitionStyle hds = HtmlDefinitionStyle.Plain, bool encodeHtml = true) {
+			return ToHtmlDefinition(value.ToString(), label, hds, encodeHtml);
+		}
+
+		public static String ToMemberPath(this int idMember, string login) {
+			return String.Format("Member/{0}", idMember);
+		}
+
+		public static IHtmlString ToHtmlMemberA(this int idMember, string login) {
+			return String.Format("<a href=\"Member/{0}\">{1}</a>", idMember, login).ToHtmlString();
+		}
+
 	}
 }
