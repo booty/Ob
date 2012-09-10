@@ -183,13 +183,56 @@ namespace ObCore.Models {
 
 		[PetaPoco.Column("id_member_invite")]
 		[DisplayName("id_member_invite")]
-		public int? IdMemberInvite{ get; set; }
+		public int? IdMemberInvite { get; set; }
 
 		[PetaPoco.Column("login_invite")]
 		[DisplayName("Invited By")]
 		public string LoginInvite { get; set; }
+
+		[PetaPoco.Column("phone_number_visibility")] 
+		public PhoneNumberVisibility PhoneNumberVisibility { get; set; }
+
+		[PetaPoco.Column("phone_number_us")] public string PhoneNumberUs { get; set; }
+
 		#endregion
 
+		private Dictionary<int,Relationship> _relationships;
+
+		#region Relationship methods. Mostly here to make things more friendly.
+		/// <summary>
+		/// Returns relationship to another member. Member1=this member, Member2=the other member
+		/// </summary>
+		/// <param name="idMember"></param>
+		/// <returns></returns>
+		public Relationship RelationshipTo(int idMember) {
+			if (_relationships == null) _relationships = new Dictionary<int, Relationship>();
+
+			// Do we already have it in the collection?
+			if (_relationships.ContainsKey(idMember)) return _relationships[idMember];
+
+			// Fetch it, put it in the collection (if not null) and return it
+			var rel = Relationship.Find(IdMember, idMember);
+			if (rel == null) return null;
+			_relationships.Add(idMember, rel);
+			return rel;
+		}
+
+		public bool CanViewFopsOf(int idOfOtherMember, out int count) { 
+			count=RelationshipTo(idOfOtherMember).Member2FopCount;
+			return RelationshipTo(idOfOtherMember).Member2FopsVisible; 
+		}
+		public bool CanViewFopsOf(Member otherMember, out int count) { return CanViewFopsOf(otherMember.IdMember, out count); }
+		public bool CanViewFopsOf(int idMember) { return RelationshipTo(idMember).Member2FopsVisible; }
+		public bool CanViewFopsOf(Member member) { return RelationshipTo(member.IdMember).Member2FopsVisible; }
+		public bool HasFriended(int idMember) { return RelationshipTo(idMember).Member2IsFriended; }
+		public bool HasFriended(Member idMember) { return RelationshipTo(idMember.IdMember).Member2IsFriended; }
+		public bool CanSendAdultCommentsTo(int idOfOtherMember) { return RelationshipTo(idOfOtherMember).Member2CanRecieveAdultComments; }
+		public bool CanSendAdultCommentsTo(Member member) { return RelationshipTo(member.IdMember).Member2CanRecieveAdultComments; }
+		public bool CanViewPhoneNumberOf(Member member) { return RelationshipTo(member.IdMember).Member1CanViewMember2PhoneNumber;}
+		public bool CanViewPhoneNumberOf(int idMember) { return RelationshipTo(idMember).Member1CanViewMember2PhoneNumber;}
+
+
+		#endregion
 
 		public Member MemberInvitedBy {
 			get {
@@ -214,11 +257,47 @@ namespace ObCore.Models {
 			}
 		}
 
+		/// <summary>
+		/// Returns all the public pictures, newest first
+		/// </summary>
+		/// <returns>What do you *think* it returns?</returns>
 		public List<Picture> PublicPictures {
 			get {
-				return Picture.Fetch(this.IdMember, false);
+				return Picture.Find(this.IdMember, false);
 			}
 		}
+
+		/// <summary>
+		/// Friends-only pictures; assumes you've already determined that viewing member has permission
+		/// </summary>
+		/// <param name="limit">Number to return</param>
+		/// <param name="relationship">If omitted, assumes you've already figured out the permissions :-)</param>
+		/// <returns>A List of friends-only pictures</returns>
+		public List<Picture> FriendsOnlyPictures(Relationship relationship = null) {
+			if (relationship != null) {
+				// shouldn't happen; throw exception
+				if ((relationship.Member1IdMember != IdMember) && (relationship.Member2IdMember != IdMember)) {
+					throw new ArgumentException("The supplied relationship does not apply to this member. Neither Member1IdMember nor Member2IdMember are equal to this member's memberID.");
+				}
+
+				// if these FOPs aren't authorized, return empty list
+				if ((relationship.Member1IdMember == IdMember) && (!relationship.Member1FopsVisible)) return new List<Picture>(0);
+				if ((relationship.Member2IdMember == IdMember) && (!relationship.Member2FopsVisible)) return new List<Picture>(0);
+			}
+
+			return Picture.Find(IdMember, true);
+		}
+
+		public List<Picture> FriendsOnlyPicturesViewableBy(Member member) {
+			if (member.CanViewFopsOf(this)) return Picture.Find(IdMember, true);
+			return new List<Picture>(0);
+		}
+
+
+
+		/*
+		 Static Methods
+		*/
 
 		public static Member Find(int idMember) {
 			using (var db=new ObDb()) {
@@ -232,7 +311,7 @@ namespace ObCore.Models {
 			}
 		}
 
-		
+
 
 
 	}

@@ -31,7 +31,7 @@ namespace ObCore.Helpers {
 		 *		
 		*/
 
-		#region Helpers for regular member pictures
+		
 
 		public static string MemberProfilePath(this int idMember) {
 			return string.Format("/Member/{0}", idMember);
@@ -45,6 +45,8 @@ namespace ObCore.Helpers {
 			if (!idMember.HasValue) return String.Empty.ToHtmlString();
 			return idMember.Value.MemberProfileA(login);
 		}
+
+		#region Helpers for regular member pictures
 
 		public static string MemberProfilePictureUrl(this int idPictureMember, string size = "") {
 			return String.Format("{0}/user/pic/{1}/{2}{3}.jpg",
@@ -60,45 +62,49 @@ namespace ObCore.Helpers {
 			return idPictureMember.Value.MemberProfilePictureUrl(size);
 		}
 
-		public static HtmlString MemberProfilePictureImg(this int idPictureMember, string login, string size) {
-
+		public static HtmlString MemberProfilePictureImg(this int idPictureMember, string login, string size, bool lazyLoad=true) {
+			if (lazyLoad) {
+				return new HtmlString(System.String.Format("<img alt=\"{0}\" data-original=\"{1}\" src=\"/Content/img/spinner.gif\" class=\"lazy\"><noscript><img alt=\"{0}\" src=\"{1}\"></noscript>", HttpUtility.HtmlEncode(login), idPictureMember.MemberProfilePictureUrl(size)));
+			}
 			return new HtmlString(System.String.Format("<img alt=\"{0}\" src=\"{1}\">", HttpUtility.HtmlEncode(login), idPictureMember.MemberProfilePictureUrl(size)));
 		}
 
-		public static HtmlString MemberProfilePictureImg(this int? idPictureMember, string login, string size) {
+		public static HtmlString MemberProfilePictureImg(this int? idPictureMember, string login, string size, bool lazyLoad=true) {
 			return idPictureMember.HasValue ? idPictureMember.Value.MemberProfilePictureImg() : new HtmlString(string.Empty);
 		}
 
-		public static HtmlString MemberProfilePictureImg(this int idPictureMember, string size = "") {
+		public static HtmlString MemberProfilePictureImg(this int idPictureMember, string size = "", bool lazyLoad=true) {
+			if (lazyLoad) {
+				return new HtmlString(System.String.Format("<img src=\"Content/img/spinner.gif\" class=\"lazy\" data-original=\"{0}\"><noscript><img src=\"{0}\"></noscript>", idPictureMember.MemberProfilePictureUrl(size)));
+			}
 			return new HtmlString(System.String.Format("<img src=\"{0}\">", idPictureMember.MemberProfilePictureUrl(size)));
 		}
 
-		public static HtmlString MemberProfilePictureImg(this int? idPictureMember, string size = "") {
-			return idPictureMember.HasValue ? idPictureMember.Value.MemberProfilePictureImg(size) : new HtmlString(System.String.Empty);
+		public static HtmlString MemberProfilePictureImg(this int? idPictureMember, string size = "", bool lazyLoad=true) {
+			return idPictureMember.HasValue ? idPictureMember.Value.MemberProfilePictureImg(size, lazyLoad) : new HtmlString(System.String.Empty);
 		}
 
-		public static HtmlString MemberProfilePicture(this int? idPictureMember, string size, int idMember, string login) {
+		public static HtmlString MemberProfilePictureImgA(this int? idPictureMember, string size, int idMember, string textForAltAttribute, bool lazyLoad=true) {
 			if (!idPictureMember.HasValue) return String.Empty.ToHtmlString();
 			return System.String.Format(
 				"<div class=\"memberPicture{2}\"><a href=\"{0}\">{1}</a></div>", 
 				idMember.MemberProfilePath(), 
-				idPictureMember.Value.MemberProfilePictureImg(login,size),
+				idPictureMember.Value.MemberProfilePictureImg(textForAltAttribute,size),
 				size
 			).ToHtmlString();
 			
 		}
 
-		public static HtmlString MemberProfilePicture(this int? idPictureMember, string size, int? idMember, string login) {
+		public static HtmlString MemberProfilePictureImgA(this int? idPictureMember, string size, int? idMember, string textForAltAttribute, bool lazyLoad=true) {
 			if ((!idMember.HasValue) || (!idPictureMember.HasValue)) return String.Empty.ToHtmlString();
-			return idPictureMember.Value.MemberProfilePicture(size, idMember.Value, login);
-
+			return idPictureMember.Value.MemberProfilePictureImgA(size, idMember.Value, textForAltAttribute, lazyLoad);
 		}
 
-		public static HtmlString MemberProfilePicture(this int idPictureMember, string size, int idMember, string login) {
+		public static HtmlString MemberProfilePictureImgA(this int idPictureMember, string size, int idMember, string textForAltAttribute, bool lazyLoad=true, bool linkToFullSizePicture=false) {
 			return System.String.Format(
 				"<div class=\"memberPicture{2}\"><a href=\"{0}\">{1}</a></div>", 
-				idMember.MemberProfilePath(), 
-				idPictureMember.MemberProfilePictureImg(login,size),
+				(linkToFullSizePicture ? idPictureMember.MemberProfilePictureUrl(): idMember.MemberProfilePath()), 
+				idPictureMember.MemberProfilePictureImg(textForAltAttribute,size,lazyLoad),
 				size
 				).ToHtmlString();
 		}
@@ -107,14 +113,32 @@ namespace ObCore.Helpers {
 
 		# region Helpers for Friends-Only Pictures (FOPs)
 
-		public static string FopUrl(this string guid, string size) {
+		public static string MemberFopUrl(this Guid guid, string size) {
+			return guid.ToString().MemberFopUrl(size);
+		}
+
+		public static string MemberFopUrl(this string guid, string size) {
 			if (String.IsNullOrEmpty(guid)) return string.Empty;
 			return String.Format("{0}/user/fop/{1}{2}.jpg", ConfigurationManager.AppSettings["StaticAssetRootUrl"], guid, size);
 		}
 
-		public static HtmlString FopThumbImgA(this string guid, string size, string login = "") {
+		public static HtmlString MemberFopImgA(this Guid guid, string size, string login = "", bool lazyLoad = true) {
+			return guid.ToString().MemberFopImgA(size, login, lazyLoad);
+		}
+
+		public static HtmlString MemberFopImgA(this string guid, string size, string login = "", bool lazyLoad=true) {
 			if (String.IsNullOrEmpty(guid)) return string.Empty.ToHtmlString();
-			return String.Format("<a href=\"{0}\"><img src=\"{1}\" alt=\"{2}\"></a>", guid.FopUrl(ObCore.PictureSize.Full), guid.FopUrl(size), login).ToHtmlString();
+			
+			if (lazyLoad) {
+				return String.Format(
+					"<div class=\"memberPicture{2}\"><a href=\"{0}\"><img src=\"/Content/img/spinner.gif\" class=\"lazy\" data-original=\"{1}\" alt=\"{2}\"><noscript><img src=\"{1}\" alt=\"{2}\"></noscript></a></div>", 
+					guid.MemberFopUrl(ObCore.PictureSize.Full), 
+					guid.MemberFopUrl(size), 
+					login
+				).ToHtmlString();
+			}
+
+			return String.Format("<a href=\"{0}\"><img src=\"{1}\" alt=\"{2}\"></a>", guid.MemberFopUrl(ObCore.PictureSize.Full), guid.MemberFopUrl(size), login).ToHtmlString();
 		}
 
 

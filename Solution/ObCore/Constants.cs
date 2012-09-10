@@ -27,6 +27,15 @@ namespace ObCore {
 		Activation=4
 	}
 
+	/// <summary>
+	/// Phone number visibility levels
+	/// </summary>
+	public enum PhoneNumberVisibility {
+		Private=0,
+		FriendsOnly=1,
+		AllMembers=2
+	}
+
 
 
 

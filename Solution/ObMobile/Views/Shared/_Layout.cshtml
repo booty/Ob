@@ -78,10 +78,11 @@
   }
 		@RenderBody()
 	</div>
-	<script src="/Content/js/jquery-1.7.2.min.js"></script>
-	<script src="/Content/js/bootstrap.js"></script>
+	@Scripts.Render("/Content/js/jquery-1.7.2.min.js", "/Content/js/bootstrap.js", "/Content/js/jqm.autoComplete.min-1.4.2.js", "/Content/js/jquery.lazyload.min.js", "/Content/js/ob-mobile.js" );
 	<script type="text/javascript">
+		
 		$().ready(function () {
+			// Make 'em clickable
 			$('*[data-id-member]').click(function (e) {
 				window.location.href = '/Member/' + $(e.currentTarget).data('id-member');
 			});
@@ -94,8 +95,12 @@
 			$('*[data-id-post]').click(function (e) {
 				window.location.href = '/Post/' + $(e.currentTarget).data('id-post');
 			});
-		}
-		)
+
+			// image lazy loading, w/ fall back for noscript browsers, ref: http://www.appelsiini.net/projects/lazyload
+			$("img.lazy").show().lazyload();	// 
+
+		});
 	</script>
+	@RenderSection("PageBottomScript", required:false)
 </body>
 </html>

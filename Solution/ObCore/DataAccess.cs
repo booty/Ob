@@ -115,7 +115,7 @@ namespace ObCore {
 				throw new ConfigurationErrorsException("Couldn't find any connection strings in your configuration file, and you didn't set DataAccess.ConnectionString manually");
 
 			Connection = Connection ?? new SqlConnection(ConnectionString);
-			if (Connection.State != ConnectionState.Open) Connection.Open();
+			if ((Connection.State != ConnectionState.Open) && (Connection.State!=ConnectionState.Connecting)) Connection.Open();
 			return Connection;
 		}
 

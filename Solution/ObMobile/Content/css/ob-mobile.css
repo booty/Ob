@@ -1,17 +1,23 @@
-﻿.memberPicture_50 {
-	height: 50px;
+﻿small {
+	font-size: 8.5pt;
+	line-height: 9pt;
+	color:#999;
+}
+
+.memberPicture_50 {
+	max-height: 50px;
 	overflow: hidden;
 	width: 50px;	
 }
 
 .memberPicture_thumb {
-	height: 75px;
+	max-height: 75px;
 	overflow: hidden;
 	width: 75px;	
 }
 
 .memberPicture_150 {
-	height: 150px;
+	max-height: 150px;
 	overflow: hidden;
 	width: 150px;	
 }
@@ -40,7 +46,6 @@ table.notifications h3, h4 {
 
 table.notifications small {
 	font-size: 11px;
-	color: #999;
 }
 
 .memberPictureThumbnails p {
@@ -56,4 +61,33 @@ table.notifications small {
 
 a:active, a:hover, a:visited, a:focus, a {
 	outline:0;
+}
+
+
+
+.thumbnailList div.thumbnailListInner {
+	float:left;
+	margin: 0px 5px 5px 0px;
+	padding:5px;
+	border-radius: 5px;
+	overflow:hidden;
+	text-align: center;
+	height:130px;
+	width: 120px;
+}
+
+.thumbnailList div.thumbnailListInner:hover {
+	background-color:pink;
+}
+
+div.thumbnailListInner .memberPicture_thumb,
+div.thumbnailListInner .memberPicture_50,
+div.thumbnailListInner .memberPicture_150 {
+	margin-left: auto;
+	margin-right: auto;
+}
+
+/* image lazy-load; fallback for noscript browsers http://www.appelsiini.net/projects/lazyload */
+.lazy {
+  display: none;
 }

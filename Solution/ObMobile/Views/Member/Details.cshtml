@@ -3,9 +3,11 @@
 @using ObCore.Helpers
 @using ObCore.Models
 @using ObMobile.Helpers
+@using ObCore.Helpers
 @using HtmlHelpers = ObMobile.Helpers.HtmlHelpers
 @{
 	ViewBag.Title = "Details";
+	var CurrentMember = (Member)Session.CurrentObMember();
 }
 <div class="row">
 	<div class="span12">
@@ -27,8 +29,8 @@
 	<div class="span4">
 		<dl>
 			@Model.LastLogin.ToShortFriendlyDate().ToHtmlDefinition("Last Visit")
-			@if (Model.IdMemberInvite.HasValue) {
-				@Model.IdMemberInvite.Value.ToHtmlMemberA(Model.LoginInvite).ToHtmlDefinition("Invited To OtakuBooty By");
+	@if (Model.IdMemberInvite.HasValue) {
+				@Model.IdMemberInvite.Value.ToHtmlMemberA(Model.LoginInvite).ToHtmlDefinition("Invited To OtakuBooty By", HtmlHelpers.HtmlDefinitionStyle.Plain, false)			
 	}
 			@Model.LoginsPrevious.ToHtmlDefinition("Also Known As")
 			@Model.YourJob.ToHtmlDefinition("So, What Do You Do For a Living?", HtmlHelpers.HtmlDefinitionStyle.QuotedAnswer, false)
@@ -47,28 +49,57 @@
 			@Model.FavoriteGames.ToHtmlDefinition("What Are Your Favorite Games?", HtmlHelpers.HtmlDefinitionStyle.QuotedAnswer, false)
 			@Model.SomethingFunnyYouOwn.ToHtmlDefinition("Tell Us About Something Funny You Own", HtmlHelpers.HtmlDefinitionStyle.QuotedAnswer, false)
 			@Model.Conventions.ToHtmlDefinition("Attending Any Conventions Soon?", HtmlHelpers.HtmlDefinitionStyle.QuotedAnswer, false)
-		</dl>
+			@if(CurrentMember.CanViewPhoneNumberOf(@Model)) {
+				@Model.PhoneNumberUs.ToHtmlDefinition("Phone Number", HtmlHelpers.HtmlDefinitionStyle.Plain, false);
+	}
+				</dl>
 	</div>
 	<div class="span4">
 		<a href="@Model.IdPictureMember.MemberProfilePictureUrl(PictureSize.Full)">
 			@Model.IdPictureMember.MemberProfilePictureImg(PictureSize.Medium150Px)</a>
 	</div>
 </div>
-<div class="row">
-	<div class="span12 memberPictureThumbnails">
-		@if ((ViewBag.Pictures) != null) {
-	  if (ViewBag.Pictures.Count > 0) {
-			<h3>Public Pictures</h3>
-		  foreach (Picture p in ViewBag.Pictures) {
-			<p>
-				<a href="@p.IdPictureMember.MemberProfilePictureUrl(PictureSize.Full)">
-					@p.IdPictureMember.MemberProfilePictureImg(PictureSize.Thumb75Px)</a><br>
-				@if (!String.IsNullOrWhiteSpace(@p.Caption)) {
-					<small>&ldquo;@p.Caption&rdquo;</small>
+
+
+@if (ViewBag.PublicPictures.Count > 0) {
+	<div class="row">
+		<div class="span12 memberPictureThumbnails">
+			<h3>Public Pictures <small>(@ViewBag.PublicPictures.Count)</small></h3>
+			<div class="thumbnailList">
+				@foreach (Picture p in ViewBag.PublicPictures) {
+					<div class="thumbnailListInner">
+						@p.IdPictureMember.MemberProfilePictureImgA(PictureSize.Thumb75Px, Model.IdMember, p.Caption, true, true)
+						@if (!String.IsNullOrWhiteSpace(p.Caption)) {
+							<br>
+							<small>&ldquo;@p.Caption&rdquo;</small> 
+		}
+					</div>
 	 }
-			</p>
-		  }
-	  }
-  }
+			</div>
+		</div>
+	</div>  
+}
+
+
+@if (ViewBag.FriendsOnlyPictures.Count > 0) {
+	<div class="row">
+		<div class="span12 memberPictureThumbnails">
+			<h3>Friends-Only Pictures <small>(@ViewBag.FriendsOnlyPictures.Count)</small></h3>
+			<div class="thumbnailList">
+	@foreach (Picture p in ViewBag.FriendsOnlyPictures) {
+					<div class="thumbnailListInner">
+		@p.Guid.MemberFopImgA(PictureSize.Thumb75Px, String.Empty, true)
+		@if (!String.IsNullOrWhiteSpace(p.Caption)) {	
+						<small><br>&ldquo;@p.Caption&rdquo;</small>
+	  
+		}
+				</div>			
+	 }
+			
+			</div>
+		</div>
 	</div>
-</div>
+}
+
+
+

@@ -64,7 +64,7 @@ namespace ObMobile.Helpers {
 		}
 
 		public static IHtmlString ToHtmlMemberA(this int idMember, string login) {
-			return String.Format("<a href=\"Member/{0}\">{1}</a>", idMember, login).ToHtmlString();
+			return String.Format("<a href=\"/Member/{0}\">{1}</a>", idMember, login).ToHtmlString();
 		}
 
 	}

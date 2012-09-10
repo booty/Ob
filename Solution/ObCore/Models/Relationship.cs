@@ -8,8 +8,7 @@ using System.ComponentModel.DataAnnotations;
 
 
 namespace ObCore.Models {
-	[TableName("MemberBasic")]
-	[ExplicitColumns]
+	[TableName("MemberRelationship")]
 	public class Relationship {
 		//[PetaPoco.Column("Member1_ID_Member")]
 		public int Member1IdMember { get; set; }
@@ -47,10 +46,13 @@ namespace ObCore.Models {
 		public string Member2AdultCommentsStatusDescription { get; set; }
 		//[PetaPoco.Column("Member2_Can_Recieve_Adult_Comments")]
 		public bool Member2CanRecieveAdultComments { get; set; }
+		public bool Member2CanViewMember1PhoneNumber { get; set; }
+		public bool Member1CanViewMember2PhoneNumber { get; set; }
+
 
 		public static Relationship Find(int idMember1, int idMember2) {
 			using (var db=new ObDb()) {
-				return db.First<Relationship>("select * from dbo.Relationship(@0,@1)", idMember1, idMember2);
+				return db.First<Relationship>("select * from dbo.MemberRelationship(@0,@1)", idMember1, idMember2);
 			}
 		}
 	}

@@ -25,10 +25,25 @@ namespace ObCore.Models {
 		[PetaPoco.Column("Primary_Photo")]
 		public bool PrimaryPhoto { get; set; }
 
-		public static List<Picture> Fetch(int idMember, bool friendsOnly=false, int limit=999) {
+		/// <summary>
+		/// Returns a list of pictures.
+		/// </summary>
+		/// <param name="idMember">Person who's pictures we're looking for</param>
+		/// <param name="friendsOnly">True if FOPs; false if public</param>
+		/// <param name="relationship">If supplied, it will only return FOPs if authorized. If omitted, it assumes you've already verified this!!!!</param>
+		/// <returns></returns>
+		public static List<Picture> Find(int idMember, bool friendsOnly=false, Relationship relationship=null) {
 			using (var db=new ObDb()) {
-				if (friendsOnly) return db.Fetch<Picture>(String.Format("select top {0} * from Picture_Member where id_menber=@0 and id_member friends_only=1 order by id_picture_member desc", limit), idMember);
-				return db.Fetch<Picture>(String.Format("select top {0} * from Picture_Member where id_member=@0 and friends_only=0 and id_approval_status=0 order by primary_photo desc, id_picture_member desc", limit),  idMember);
+				// fail out (return empty list) if this member isn't authorized
+				if (relationship != null) {
+					if (!relationship.Member2FopsVisible) return new List<Picture>(0);
+				}
+
+				if (friendsOnly) {
+					return db.Fetch<Picture>("select * from Picture_Member where id_member=@0 and friends_only=1 order by id_picture_member desc", idMember);
+				}
+
+				return db.Fetch<Picture>("select * from Picture_Member where id_member=@0 and friends_only=0 and id_approval_status=0 order by primary_photo desc, id_picture_member desc",  idMember);
 			}
 		}
 

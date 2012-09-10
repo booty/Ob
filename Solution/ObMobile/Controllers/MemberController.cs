@@ -4,96 +4,31 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using ObCore;
+using ObCore.Models;
 using ObMobile.Attributes;
+using ObMobile.Helpers;
 
 namespace ObMobile.Controllers {
 	public class MemberController : Controller {
-		//
-		// GET: /Member/
 
-		public ActionResult Index() {
-			return View();
-		}
-
-		public ActionResult Index(int id) {
-			return Details(id);
-		}
-
-		//
 		// GET: /Member/Details/5
 		[ObAuthorizationRequired(AuthorizationRequirement.IsAuthenticated)]
 		public ActionResult Details(int id) {
 			if (Request.IsAuthenticated) {
 				//User.Identity.Name
 			}
-			ViewBag.Picstures = ObCore.Models.Picture.Fetch(id, false, 5);
-			return View(ObCore.Models.Member.Find(id));
+
+			Member currentMember = Session.CurrentObMember();
+			Member member = Member.Find(id);
+			Relationship rel = Relationship.Find(Session.CurrentObMember().IdMember, id);
+
+			// Get first five public pictures
+			ViewBag.PublicPictures = member.PublicPictures;
+			ViewBag.FriendsOnlyPictures = member.FriendsOnlyPicturesViewableBy(currentMember);
+			
+			return View(member);
 		}
 
-		//
-		// GET: /Member/Create
 
-		public ActionResult Create() {
-			return View();
-		}
-
-		//
-		// POST: /Member/Create
-
-		[HttpPost]
-		public ActionResult Create(FormCollection collection) {
-			try {
-				// TODO: Add insert logic here
-
-				return RedirectToAction("Index");
-			}
-			catch {
-				return View();
-			}
-		}
-
-		//
-		// GET: /Member/Edit/5
-
-		public ActionResult Edit(int id) {
-			return View();
-		}
-
-		//
-		// POST: /Member/Edit/5
-
-		[HttpPost]
-		public ActionResult Edit(int id, FormCollection collection) {
-			try {
-				// TODO: Add update logic here
-
-				return RedirectToAction("Index");
-			}
-			catch {
-				return View();
-			}
-		}
-
-		//
-		// GET: /Member/Delete/5
-
-		public ActionResult Delete(int id) {
-			return View();
-		}
-
-		//
-		// POST: /Member/Delete/5
-
-		[HttpPost]
-		public ActionResult Delete(int id, FormCollection collection) {
-			try {
-				// TODO: Add delete logic here
-
-				return RedirectToAction("Index");
-			}
-			catch {
-				return View();
-			}
-		}
 	}
 }
