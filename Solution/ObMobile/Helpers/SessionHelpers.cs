@@ -9,6 +9,7 @@ using ObCore.Helpers;
 
 namespace ObMobile.Helpers {
 	public static class SessionHelpers {
+
 		public static ObCore.Models.Member CurrentObMember(this HttpContext ctx) {
 			if (ctx.Session == null) return null;
 			return ctx.Session.CurrentObMember();

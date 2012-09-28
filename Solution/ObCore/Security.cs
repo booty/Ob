@@ -24,20 +24,6 @@ namespace ObCore {
 			FailureWhatTheFuckHappened = 999
 		}
 
-
-		/*ALTER  PROCEDURE [dbo].[Process_Login_Token]
-		@Login char(25) output,
-		@Pword char(25),
-		@ID_Member_Login_Method int,
-		@URL varchar(100),
-		@IP_Address char(15),
-		@RecordLogin bit=1,
-		@id_member int=null,
-		@login_token varchar(36)=null
-		*/
-
-
-
 		public static AuthenticationResultCode GetAuthenticationResultCode(int code) {
 			if (Enum.IsDefined(typeof(AuthenticationResultCode), code))
 				return (AuthenticationResultCode)code;
@@ -53,7 +39,8 @@ namespace ObCore {
 		/// <param name="url">URL they're accessing</param>
 		/// <returns></returns>
 		public static AuthenticationResult Authenticate(string token, string ipAddress, string url) {
-			using (var cmd = DataAccess.GetCommandStoredProcedure("Process_Login_Token")) {
+			var da = new DataAccess();
+			using (var cmd = da.GetCommandStoredProcedure("Process_Login_Token")) {
 				cmd.Parameters.AddWithValue("Login", DBNull.Value).Size = 25;
 				cmd.Parameters.AddWithValue("Pword", DBNull.Value).Size = 25;
 				cmd.Parameters.AddWithValue("ID_Member_Login_Method", ObCore.LoginMethod.Form);
@@ -61,7 +48,7 @@ namespace ObCore {
 				cmd.Parameters.AddWithValue("IP_Address", ipAddress).Size = 25;
 				cmd.Parameters.AddWithValue("RecordLogin", false);
 				cmd.Parameters.AddWithValue("login_token", token); // horrible kludge, shitty sproc expects blank
-				var dr = DataAccess.GetDataRow(cmd);
+				var dr = da.GetDataRow(cmd);
 				return DataRowToAuthResult(dr);
 			}
 		}
@@ -75,8 +62,8 @@ namespace ObCore {
 		/// <param name="url">URL they're accessing</param>
 		/// <returns></returns>
 		public static AuthenticationResult Authenticate(string login, string password, string ipAddress, string url) {
-
-			using (var cmd = DataAccess.GetCommandStoredProcedure("Process_Login_Token")) {
+			var da = new DataAccess();
+			using (var cmd = da.GetCommandStoredProcedure("Process_Login_Token")) {
 				cmd.Parameters.AddWithValue("Login", login);
 				cmd.Parameters.AddWithValue("Pword", password);
 				cmd.Parameters.AddWithValue("ID_Member_Login_Method", ObCore.LoginMethod.Form);
@@ -84,7 +71,7 @@ namespace ObCore {
 				cmd.Parameters.AddWithValue("IP_Address", ipAddress);
 				cmd.Parameters.AddWithValue("RecordLogin", false);
 				cmd.Parameters.AddWithValue("login_token", ""); // horrible kludge, shitty sproc expects blank
-				var dr = DataAccess.GetDataRow(cmd);
+				var dr = da.GetDataRow(cmd);
 				return DataRowToAuthResult(dr);
 			}
 

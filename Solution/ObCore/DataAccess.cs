@@ -15,27 +15,38 @@ namespace ObCore {
 	/// These functions are NOT SQL injection safe. 
 	/// Potentially hostile input should be sanitized before sending it here (=
 	/// </summary>
-	public static class DataAccess {
+	public class DataAccess {
 		// Defaults to the last connection string. If there are no connection strings, defaults to String.Empty
-		public static string ConnectionString = (ConfigurationManager.ConnectionStrings.Count>0) ? ConfigurationManager.ConnectionStrings[ConfigurationManager.ConnectionStrings.Count-1].ConnectionString : string.Empty;
-		public static SqlConnection Connection;
+		public  string ConnectionString = (ConfigurationManager.ConnectionStrings.Count>0) ? ConfigurationManager.ConnectionStrings[ConfigurationManager.ConnectionStrings.Count-1].ConnectionString : string.Empty;
+		public SqlConnection Connection;
+
+		public  SqlConnection GetConnection() {
+			if (String.IsNullOrEmpty(ConnectionString)) 
+				throw new ConfigurationErrorsException("Couldn't find any connection strings in your configuration file, and you didn't set DataAccess.ConnectionString manually");
+
+			Connection = Connection ?? new SqlConnection(ConnectionString);
+			if ((Connection.State != ConnectionState.Open) && (Connection.State!=ConnectionState.Connecting)) Connection.Open();
+			return Connection;
+		}
+
+
 
 		//todo: handle non-int primary keys
 		//todo: handle no rows returned
-		public static DataRow GetUpdateableRow(string tableName, string primaryKeyColumnName, int primaryKeyValue) {
+		public  DataRow GetUpdateableRow(string tableName, string primaryKeyColumnName, int primaryKeyValue) {
 			Trace.Write(string.Format("{0} {1}", tableName, primaryKeyValue), "DataAccess.GetUpdateableRow");
 			DataTable dt =
 					GetDataTable(String.Format("select * from {0} where {1}={2}", tableName, primaryKeyColumnName, primaryKeyValue));
 			return dt.Rows[0];
 		}
 
-		public static void ExecuteNonQuery(string cmd) {
+		public  void ExecuteNonQuery(string cmd) {
 			Trace.Write(cmd, "ExecuteNonQuery(string)");
 			GetCommand(cmd).ExecuteNonQuery();
 			Trace.Write("...done", "ExecuteNonQuery");
 		}
 
-		public static DataSet GetDataSet(string cmd) {
+		public  DataSet GetDataSet(string cmd) {
 			SqlConnection conn;
 			var ds = new DataSet();
 			using (SqlDataAdapter da = GetDataAdapter(cmd, out conn)) {
@@ -44,7 +55,7 @@ namespace ObCore {
 			return ds;
 		}
 
-		public static DataRow GetDataRow(SqlCommand cmd) {
+		public  DataRow GetDataRow(SqlCommand cmd) {
 			var dt = new DataTable();
 			cmd.Connection = GetConnection();
 			var da = new SqlDataAdapter(cmd);
@@ -52,11 +63,11 @@ namespace ObCore {
 			return dt.Rows.Count > 0 ? dt.Rows[0] : null;
 		}
 
-		public static DataRow GetDataRow(string cmd) {
+		public  DataRow GetDataRow(string cmd) {
 			return GetDataRow(GetCommand(cmd));
 		}
 
-		public static DataTable GetDataTable(SqlCommand cmd) {
+		public  DataTable GetDataTable(SqlCommand cmd) {
 			var dt = new DataTable();
 			cmd.Connection = GetConnection();
 			var da = new SqlDataAdapter(cmd);
@@ -64,7 +75,7 @@ namespace ObCore {
 			return dt;
 		}
 
-		public static DataTable GetDataTable(string cmd) {
+		public  DataTable GetDataTable(string cmd) {
 			Trace.Write(cmd, "DataAccess.GetDataTable");
 			SqlConnection conn;
 			var dt = new DataTable();
@@ -77,74 +88,66 @@ namespace ObCore {
 		}
 
 		// todo: if conn is supplied, don't create new connection
-		public static SqlDataAdapter GetDataAdapter(string cmd, out SqlConnection conn) {
+		public  SqlDataAdapter GetDataAdapter(string cmd, out SqlConnection conn) {
 			Trace.Write(cmd, "DataAccess.GetDataAdapter");
 			conn = GetConnection();
 			return new SqlDataAdapter(cmd, conn);
 		}
 
-		public static SqlCommand GetCommand() {
+		public  SqlCommand GetCommand() {
 			return GetCommand(GetConnection());
 		}
 
-		public static SqlCommand GetCommand(SqlConnection conn) {
+		public  SqlCommand GetCommand(SqlConnection conn) {
 			using (var myCommand = new SqlCommand()) {
 				myCommand.Connection = conn;
 				return myCommand;
 			}
 		}
 
-		public static SqlCommand GetCommand(string cmd) {
+		public  SqlCommand GetCommand(string cmd) {
 			Trace.Write(cmd, "DataAccess.GetCommand");
 			return new SqlCommand(cmd, GetConnection());
 		}
 
-		public static SqlCommand GetCommandStoredProcedure(string storedProcedureName) {
+		public  SqlCommand GetCommandStoredProcedure(string storedProcedureName) {
 			return GetStoredProcedureCommand(storedProcedureName, GetConnection());
 		}
 
-		public static SqlCommand GetStoredProcedureCommand(string storedProcedureName, SqlConnection conn) {
+		public  SqlCommand GetStoredProcedureCommand(string storedProcedureName, SqlConnection conn) {
 			SqlCommand myCommand = GetCommand(conn);
 			myCommand.CommandType = CommandType.StoredProcedure;
 			myCommand.CommandText = storedProcedureName;
 			return myCommand;
 		}
 
-		public static SqlConnection GetConnection() {
-			if (String.IsNullOrEmpty(ConnectionString)) 
-				throw new ConfigurationErrorsException("Couldn't find any connection strings in your configuration file, and you didn't set DataAccess.ConnectionString manually");
-
-			Connection = Connection ?? new SqlConnection(ConnectionString);
-			if ((Connection.State != ConnectionState.Open) && (Connection.State!=ConnectionState.Connecting)) Connection.Open();
-			return Connection;
-		}
-
-		public static int GetScalarInt(string cmd) {
+		
+		public  int GetScalarInt(string cmd) {
 			SqlCommand foo = GetCommand(cmd);
 			return GetScalarInt(foo);
 		}
 
-		public static int GetScalarInt(SqlCommand cmd) {
+		public  int GetScalarInt(SqlCommand cmd) {
 			object result = cmd.ExecuteScalar();
 			return (int)result;
 		}
 
-		public static string GetScalarString(string cmd) {
+		public  string GetScalarString(string cmd) {
 			SqlCommand foo = GetCommand(cmd);
 			var result = foo.ExecuteScalar();
 			return result == null ? string.Empty : result.ToString();
 		}
 
-		public static DateTime GetScalarDateTime(string cmd) {
+		public  DateTime GetScalarDateTime(string cmd) {
 			SqlCommand foo = GetCommand(cmd);
 			return (DateTime)foo.ExecuteScalar();
 		}
 
-		public static object GetScalar(SqlCommand cmd) {
+		public  object GetScalar(SqlCommand cmd) {
 			return cmd.ExecuteScalar();
 		}
 
-		public static SqlDataReader GetDataReader(string cmd) {
+		public  SqlDataReader GetDataReader(string cmd) {
 			Trace.Write(cmd, "DataAccess.GetDataReader");
 			SqlCommand sqlCommand = GetCommand(cmd);
 			SqlDataReader dr;
@@ -165,7 +168,7 @@ namespace ObCore {
 			return dr;
 		}
 
-		public static SqlDataReader GetDataReader(SqlCommand cmd) {
+		public  SqlDataReader GetDataReader(SqlCommand cmd) {
 			SqlDataReader reader;
 			try {
 				Trace.Write(String.Format("Start execute: {0}", cmd.CommandText), "DataAccess.GetDataReader");
@@ -184,48 +187,6 @@ namespace ObCore {
 			return reader;
 		}
 
-
-		/* This stuff should really be replaced with functions 
-		 * that leverage a mature library like CsvHelpers or something
-		 * */
-		
-		/*
-		private static string QuoteIfNeeded(this string s) {
-			if ((s.Contains("\"")) || (s.Contains(","))) return "\"" + s.Replace("\"", "\"\"") + "\"";
-			return s;
-		}
-
-		public static string ToCsv(this DataTable dt) {
-			return dt.ToDelimited(",");
-		}
-
-		public static string ToDelimited(this DataTable dt, string delimiter) {
-			var s = new StringBuilder(String.Empty);
-
-			// write header
-			for (int x = 0; x < dt.Columns.Count; x++) {
-				if (!dt.Columns[x].ColumnName.Equals("ip_address")) {
-					s.Append(dt.Columns[x].ColumnName.QuoteIfNeeded());
-					if (x < dt.Columns.Count - 1) s.Append(delimiter);
-				}
-			}
-			s.Append(Environment.NewLine);
-
-			// write rows
-			foreach (DataRow dr in dt.Rows) {
-				for (int x = 0; x < dt.Columns.Count; x++) {
-					if (!dt.Columns[x].ColumnName.Equals("ip_address")) {
-						s.Append(dr[x].ToString().QuoteIfNeeded());
-						if (x < dt.Columns.Count - 1) s.Append(delimiter);
-					}
-				}
-				s.Append(Environment.NewLine);
-			}
-
-			return s.ToString();
-
-		}
-		*/
 	}
 
 }

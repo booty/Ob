@@ -1,6 +1,7 @@
 ﻿@using ObCore.Helpers
 @using ObCore
 @model ObCore.Models.Notification
+
 @*
 Comment
 FOP Shared
@@ -8,10 +9,13 @@ FOPs Shared
 Friended
 Private Message
 Profile View
-
-
 *@
-<tr @Html.Raw(Model.HtmlDataAttribute)>
+
+@{
+	string rowClass = (Model.EventType.Equals("Profile View")) ? " class=\"condensed\"" : String.Empty;
+}
+
+<tr @Html.Raw(Model.HtmlDataAttribute)@Html.Raw(rowClass)>
 	<td>
 		@if (!Model.EventType.Equals("Profile View")) {
 			@Model.IdPictureMember.MemberProfilePictureImgA(PictureSize.Small50Px, Model.IdMemberFrom, Model.Login)

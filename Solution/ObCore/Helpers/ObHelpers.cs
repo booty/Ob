@@ -75,7 +75,7 @@ namespace ObCore.Helpers {
 
 		public static HtmlString MemberProfilePictureImg(this int idPictureMember, string size = "", bool lazyLoad=true) {
 			if (lazyLoad) {
-				return new HtmlString(System.String.Format("<img src=\"Content/img/spinner.gif\" class=\"lazy\" data-original=\"{0}\"><noscript><img src=\"{0}\"></noscript>", idPictureMember.MemberProfilePictureUrl(size)));
+				return new HtmlString(System.String.Format("<img src=\"/Content/img/spinner.gif\" class=\"lazy\" data-original=\"{0}\"><noscript><img src=\"{0}\"></noscript>", idPictureMember.MemberProfilePictureUrl(size)));
 			}
 			return new HtmlString(System.String.Format("<img src=\"{0}\">", idPictureMember.MemberProfilePictureUrl(size)));
 		}

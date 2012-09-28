@@ -42,6 +42,11 @@ table.notifications blockquote {
 table.notifications h3, h4 {
 	font-size: 13px;	
 	color: #777;
+	line-height:20px;
+}
+
+tr.condensed h3 {
+	line-height:normal;
 }
 
 table.notifications small {

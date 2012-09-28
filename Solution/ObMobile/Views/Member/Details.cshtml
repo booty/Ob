@@ -22,14 +22,47 @@
 </div>
 <div class="row">
 	<div class="span12">
-		<a class="btn btn-large btn-primary" href="/Message/Create/@Model.IdMember">Send Message</a> <a class="btn btn-large btn-primary" href="/Comment/Create/@Model.IdMember">Send Comment</a> <a class="btn btn-large btn-primary" href="/Friend/Create/@Model.IdMember">+Friend</a>
+		<div class="well well-small">
+			<a class="btn btn-large btn-primary" href="/Message/Create/@Model.IdMember">
+				<i class="icon-envelope icon-white"></i>Send Message
+			</a>
+			<a href="#myModal"  class="btn btn-large btn-primary" role="button" data-toggle="modal">
+				<i class="icon-comment icon-white"></i>Send Comment
+			</a>
+			<a class="btn btn-large btn-primary" href="/Friend/Create/@Model.IdMember">
+				<i class="icon-heart icon-white"></i>Add Friend
+			</a>
+			@if ((!String.IsNullOrWhiteSpace(Model.PhoneNumberUs)) && (CurrentMember.CanViewPhoneNumberOf(@Model))) {
+				<a class="btn btn-large btn-primary" href="tel:@Model.PhoneNumberUs"><i class="icon-volume-up icon-white"></i>Call @Model.PhoneNumberUs.ToPhoneNumber()</a>
+				<a class="btn btn-large btn-primary" href="tel:@Model.PhoneNumberUs"><i class="icon-pencil icon-white"></i>Text @Model.PhoneNumberUs.ToPhoneNumber()</a>
+	}
+		</div>
 	</div>
 </div>
+
+
+
+<div class="modal hide" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+		<h3 id="myModalLabel">Send @Model.Login a Comment</h3>
+
+	</div>
+	<div class="modal-body">
+		<p>One fine body…</p>
+	</div>
+	<div class="modal-footer">
+		<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+		<button class="btn btn-primary">Save changes</button>
+	</div>
+</div>
+
+
 <div class="row">
 	<div class="span4">
 		<dl>
 			@Model.LastLogin.ToShortFriendlyDate().ToHtmlDefinition("Last Visit")
-	@if (Model.IdMemberInvite.HasValue) {
+			@if (Model.IdMemberInvite.HasValue) {
 				@Model.IdMemberInvite.Value.ToHtmlMemberA(Model.LoginInvite).ToHtmlDefinition("Invited To OtakuBooty By", HtmlHelpers.HtmlDefinitionStyle.Plain, false)			
 	}
 			@Model.LoginsPrevious.ToHtmlDefinition("Also Known As")
@@ -49,10 +82,10 @@
 			@Model.FavoriteGames.ToHtmlDefinition("What Are Your Favorite Games?", HtmlHelpers.HtmlDefinitionStyle.QuotedAnswer, false)
 			@Model.SomethingFunnyYouOwn.ToHtmlDefinition("Tell Us About Something Funny You Own", HtmlHelpers.HtmlDefinitionStyle.QuotedAnswer, false)
 			@Model.Conventions.ToHtmlDefinition("Attending Any Conventions Soon?", HtmlHelpers.HtmlDefinitionStyle.QuotedAnswer, false)
-			@if(CurrentMember.CanViewPhoneNumberOf(@Model)) {
-				@Model.PhoneNumberUs.ToHtmlDefinition("Phone Number", HtmlHelpers.HtmlDefinitionStyle.Plain, false);
+			@if ((!String.IsNullOrWhiteSpace(Model.PhoneNumberUs)) && (CurrentMember.CanViewPhoneNumberOf(@Model))) {
+				@Model.PhoneNumberUs.ToHtmlDefinition("Phone Number", HtmlHelpers.HtmlDefinitionStyle.PhoneNumber, false);
 	}
-				</dl>
+		</dl>
 	</div>
 	<div class="span4">
 		<a href="@Model.IdPictureMember.MemberProfilePictureUrl(PictureSize.Full)">
@@ -70,32 +103,31 @@
 					<div class="thumbnailListInner">
 						@p.IdPictureMember.MemberProfilePictureImgA(PictureSize.Thumb75Px, Model.IdMember, p.Caption, true, true)
 						@if (!String.IsNullOrWhiteSpace(p.Caption)) {
-							<br>
-							<small>&ldquo;@p.Caption&rdquo;</small> 
+							<text><br>
+							<small>&ldquo;@p.Caption&rdquo;</small></text>
 		}
 					</div>
 	 }
 			</div>
 		</div>
-	</div>  
+	</div>
 }
-
 
 @if (ViewBag.FriendsOnlyPictures.Count > 0) {
 	<div class="row">
 		<div class="span12 memberPictureThumbnails">
 			<h3>Friends-Only Pictures <small>(@ViewBag.FriendsOnlyPictures.Count)</small></h3>
 			<div class="thumbnailList">
-	@foreach (Picture p in ViewBag.FriendsOnlyPictures) {
+				@foreach (Picture p in ViewBag.FriendsOnlyPictures) {
 					<div class="thumbnailListInner">
-		@p.Guid.MemberFopImgA(PictureSize.Thumb75Px, String.Empty, true)
-		@if (!String.IsNullOrWhiteSpace(p.Caption)) {	
-						<small><br>&ldquo;@p.Caption&rdquo;</small>
-	  
+						@p.Guid.MemberFopImgA(PictureSize.Thumb75Px, String.Empty, true)
+						@if (!String.IsNullOrWhiteSpace(p.Caption)) {	
+							<small>
+								<br>
+								&ldquo;@p.Caption&rdquo;</small>
 		}
-				</div>			
+					</div>			
 	 }
-			
 			</div>
 		</div>
 	</div>

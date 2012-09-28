@@ -10,7 +10,7 @@ using ObCore.Helpers;
 namespace ObMobile.Helpers {
 	public static class HtmlHelpers {
 		public enum HtmlDefinitionStyle {
-			Plain, QuotedAnswer
+			Plain, QuotedAnswer, PhoneNumber
 		}
 
 		/// <summary>
@@ -48,6 +48,8 @@ namespace ObMobile.Helpers {
 			switch (hds) {
 				case HtmlDefinitionStyle.QuotedAnswer:
 					return String.Format("<dt>{0}</dt><dd>&ldquo;{1}&rdquo;</dd>", label, (encodeHtml ? HttpUtility.HtmlEncode(value) : value.HtmlEntitiesToQuotes())).ToHtmlString();
+				case HtmlDefinitionStyle.PhoneNumber:
+					return String.Format("<dt>{0}</dt><dd><a href=\"tel:{1}\">{2}</a></dd>", label, value, value.ToPhoneNumber() ).ToHtmlString();
 				case HtmlDefinitionStyle.Plain:
 				default:
 					return String.Format("<dt>{0}</dt><dd>{1}</dd>", label, (encodeHtml ? HttpUtility.HtmlEncode(value) : value)).ToHtmlString();

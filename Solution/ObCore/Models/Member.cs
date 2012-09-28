@@ -2,12 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.Data;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Security.Principal;
-using System.Web;
-using System.Web.Security;
 using PetaPoco;
 
 namespace ObCore.Models {
@@ -238,6 +232,12 @@ namespace ObCore.Models {
 			get {
 				if (IdMemberInvite.HasValue) return Member.Find(IdMemberInvite.Value);
 				return null;
+			}
+		}
+
+		public bool IsAdult {
+			get {
+				return (Age >= 18);
 			}
 		}
 
