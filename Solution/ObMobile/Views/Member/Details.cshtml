@@ -22,19 +22,19 @@
 </div>
 <div class="row">
 	<div class="span12">
-		<div class="well well-small">
+		<div class="well well-small" id="MemberDetailButtonBar">
 			<a class="btn btn-large btn-primary" href="/Message/Create/@Model.IdMember">
-				<i class="icon-envelope icon-white"></i>Send Message
+				<i class="icon-envelope icon-white"></i> Message
 			</a>
 			<a href="#myModal"  class="btn btn-large btn-primary" role="button" data-toggle="modal">
-				<i class="icon-comment icon-white"></i>Send Comment
+				<i class="icon-comment icon-white"></i> Comment
 			</a>
 			<a class="btn btn-large btn-primary" href="/Friend/Create/@Model.IdMember">
-				<i class="icon-heart icon-white"></i>Add Friend
+				<i class="icon-plus icon-white"></i><i class="icon-heart icon-white"></i> Add Friend
 			</a>
 			@if ((!String.IsNullOrWhiteSpace(Model.PhoneNumberUs)) && (CurrentMember.CanViewPhoneNumberOf(@Model))) {
-				<a class="btn btn-large btn-primary" href="tel:@Model.PhoneNumberUs"><i class="icon-volume-up icon-white"></i>Call @Model.PhoneNumberUs.ToPhoneNumber()</a>
-				<a class="btn btn-large btn-primary" href="tel:@Model.PhoneNumberUs"><i class="icon-pencil icon-white"></i>Text @Model.PhoneNumberUs.ToPhoneNumber()</a>
+				<a class="btn btn-large btn-primary" href="tel:@Model.PhoneNumberUs"><i class="icon-volume-up icon-white"></i> Call @Model.PhoneNumberUs.ToPhoneNumber()</a>
+				<a class="btn btn-large btn-primary" href="tel:@Model.PhoneNumberUs"><i class="icon-pencil icon-white"></i> Text @Model.PhoneNumberUs.ToPhoneNumber()</a>
 	}
 		</div>
 	</div>
