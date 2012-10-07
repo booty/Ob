@@ -1,89 +1,81 @@
 ﻿small {
 	font-size: 8.5pt;
 	line-height: 9pt;
-	color:#999;
+	color: #999;
+}
+
+.alert ul {
+	margin-bottom: 0px;
+}
+
+a:active, a:hover, a:visited, a:focus, a {
+	outline: 0;
+}
+
+/* ********************************************
+	
+	Divs to wrap member pictures, so that over-tall member pics don't screw up layouts
+
+******************************************** */
+
+.memberPicture {
+	float: left;
+	margin-right: 10px;
 }
 
 .memberPicture_50 {
 	max-height: 50px;
 	overflow: hidden;
-	width: 50px;	
+	width: 50px;
 }
 
 .memberPicture_thumb {
 	max-height: 75px;
 	overflow: hidden;
-	width: 75px;	
+	width: 75px;
 }
 
 .memberPicture_150 {
 	max-height: 150px;
 	overflow: hidden;
-	width: 150px;	
+	width: 150px;
 }
 
 a.memberProfile {
-	font-weight:bold;	
+	font-weight: bold;
 }
 
 small blockquote {
-font-style:italic;		
-}
-
-table.notifications blockquote {
-	color: #777;
-	border-left: none;	
-	padding-left: 0;
-	padding-top: 5px;
-	margin-bottom: 5px;
-	margin-left: 0;
-}
-
-table.notifications h3, h4 {
-	font-size: 13px;	
-	color: #777;
-	line-height:20px;
-}
-
-tr.condensed h3 {
-	line-height:normal;
-}
-
-table.notifications small {
-	font-size: 11px;
+	font-style: italic;
 }
 
 .memberPictureThumbnails p {
 	text-align: center;
 	font-size: smaller;
-	float:left;
+	float: left;
 	margin: 5px;
 }
 
-.alert ul {
-	margin-bottom: 0px;	
-}
+/* ********************************************
 
-a:active, a:hover, a:visited, a:focus, a {
-	outline:0;
-}
+	List o' thumbnails - like in member profiles
 
-
+******************************************** */
 
 .thumbnailList div.thumbnailListInner {
-	float:left;
+	float: left;
 	margin: 0px 5px 5px 0px;
-	padding:5px;
+	padding: 5px;
 	border-radius: 5px;
-	overflow:hidden;
+	overflow: hidden;
 	text-align: center;
-	height:130px;
+	height: 130px;
 	width: 120px;
 }
 
-.thumbnailList div.thumbnailListInner:hover {
-	background-color:pink;
-}
+	.thumbnailList div.thumbnailListInner:hover {
+		background-color: pink;
+	}
 
 div.thumbnailListInner .memberPicture_thumb,
 div.thumbnailListInner .memberPicture_50,
@@ -92,7 +84,54 @@ div.thumbnailListInner .memberPicture_150 {
 	margin-right: auto;
 }
 
-/* image lazy-load; fallback for noscript browsers http://www.appelsiini.net/projects/lazyload */
+/* ********************************************
+
+ image lazy-load; fallback for noscript browsers http://www.appelsiini.net/projects/lazyload 
+
+******************************************** */
+
 .lazy {
-  display: none;
+	display: none;
+}
+
+#MemberDetailButtonBar .btn {
+	margin-top: 2px;
+	margin-bottom: 2px;
+}
+
+#MemberDetailButtonBar.well-small {
+	padding: 7px;
+}
+
+/* ********************************************
+
+List o' notifications	
+
+******************************************** */
+
+table.notifications h3 {
+	margin-top: 0px;
+}
+
+table.notifications blockquote {
+	color: #777;
+	border-left: none;
+	padding-left: 0;
+	padding-top: 5px;
+	margin-bottom: 5px;
+	margin-left: 0;
+}
+
+table.notifications h3, h4 {
+	font-size: 13px;
+	color: #777;
+	line-height: 20px;
+}
+
+tr.condensed h3 {
+	line-height: normal;
+}
+
+table.notifications small {
+	font-size: 11px;
 }
