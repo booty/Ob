@@ -64,7 +64,7 @@ namespace ObCore.Helpers {
 
 		public static HtmlString MemberProfilePictureImg(this int idPictureMember, string login, string size, bool lazyLoad=true) {
 			if (lazyLoad) {
-				return new HtmlString(System.String.Format("<img alt=\"{0}\" data-original=\"{1}\" src=\"/Content/img/spinner.gif\" class=\"lazy\"><noscript><img alt=\"{0}\" src=\"{1}\"></noscript>", HttpUtility.HtmlEncode(login), idPictureMember.MemberProfilePictureUrl(size)));
+				return new HtmlString(System.String.Format("<img alt=\"{0}\" data-original=\"{1}\" src=\"/Content/img/spinner-16-dark.gif\" class=\"lazy\"><noscript><img alt=\"{0}\" src=\"{1}\"></noscript>", HttpUtility.HtmlEncode(login), idPictureMember.MemberProfilePictureUrl(size)));
 			}
 			return new HtmlString(System.String.Format("<img alt=\"{0}\" src=\"{1}\">", HttpUtility.HtmlEncode(login), idPictureMember.MemberProfilePictureUrl(size)));
 		}
@@ -75,7 +75,7 @@ namespace ObCore.Helpers {
 
 		public static HtmlString MemberProfilePictureImg(this int idPictureMember, string size = "", bool lazyLoad=true) {
 			if (lazyLoad) {
-				return new HtmlString(System.String.Format("<img src=\"/Content/img/spinner.gif\" class=\"lazy\" data-original=\"{0}\"><noscript><img src=\"{0}\"></noscript>", idPictureMember.MemberProfilePictureUrl(size)));
+				return new HtmlString(System.String.Format("<img src=\"/Content/img/spinner-16-dark.gif\" class=\"lazy\" data-original=\"{0}\"><noscript><img src=\"{0}\"></noscript>", idPictureMember.MemberProfilePictureUrl(size)));
 			}
 			return new HtmlString(System.String.Format("<img src=\"{0}\">", idPictureMember.MemberProfilePictureUrl(size)));
 		}
@@ -131,7 +131,7 @@ namespace ObCore.Helpers {
 			
 			if (lazyLoad) {
 				return String.Format(
-					"<div class=\"memberPicture{2}\"><a href=\"{0}\"><img src=\"/Content/img/spinner.gif\" class=\"lazy\" data-original=\"{1}\" alt=\"{2}\"><noscript><img src=\"{1}\" alt=\"{2}\"></noscript></a></div>", 
+					"<div class=\"memberPicture{2}\"><a href=\"{0}\"><img src=\"/Content/img/spinner-16-dark.gif\" class=\"lazy\" data-original=\"{1}\" alt=\"{2}\"><noscript><img src=\"{1}\" alt=\"{2}\"></noscript></a></div>", 
 					guid.MemberFopUrl(ObCore.PictureSize.Full), 
 					guid.MemberFopUrl(size), 
 					login
