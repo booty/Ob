@@ -15,7 +15,7 @@ Profile View
 	string rowClass = (Model.EventType.Equals("Profile View")) ? " class=\"condensed\"" : String.Empty;
 }
 
-<tr @Html.Raw(Model.HtmlDataAttribute)@Html.Raw(rowClass)>
+<tr @Html.Raw(Model.HtmlDataAttribute)@Html.Raw(rowClass) class="@Model.EventType.ToLower()">
 	<td>
 		@if (!Model.EventType.Equals("Profile View")) {
 			@Model.IdPictureMember.MemberProfilePictureImgA(PictureSize.Small50Px, Model.IdMemberFrom, Model.Login)
@@ -26,9 +26,7 @@ Profile View
 		@{
 			switch (@Model.EventType) {
 				case "Comment":
-			<p>
-				<strong>"@Html.DisplayFor(modelItem => @Model.Body)"</strong>
-			</p>
+				<h4>&ldquo;@Html.DisplayFor(modelItem => @Model.Body)&rdquo;</h4>
 					break;
 				case "FOP Shared":
 				case "FOPs Shared":
@@ -45,7 +43,7 @@ Profile View
 				case "Private Message":
 			
 			<h4>@Html.DisplayFor(m => @Model.Subject)</h4>
-			<blockquote>@Model.Body.Until("-------[").TruncateFriendly(225)</blockquote>			
+			<blockquote>&ldquo;@Html.Raw(Model.Body.Until("-------[").TruncateFriendly(225))&rdquo;</blockquote>			
 					break;
 				case "Friended":
 				case "Profile View":

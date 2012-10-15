@@ -35,6 +35,8 @@ a:active, a:hover, a:visited, a:focus, a {
 	width: 75px;
 }
 
+
+
 .memberPicture_150 {
 	max-height: 150px;
 	overflow: hidden;
@@ -77,6 +79,13 @@ small blockquote {
 		background-color: pink;
 	}
 
+
+.thumbnailList small {
+	display: block;
+	clear: both;
+}
+
+
 div.thumbnailListInner .memberPicture_thumb,
 div.thumbnailListInner .memberPicture_50,
 div.thumbnailListInner .memberPicture_150 {
@@ -117,15 +126,27 @@ table.notifications blockquote {
 	color: #777;
 	border-left: none;
 	padding-left: 0;
-	padding-top: 5px;
+	padding-top: 0px;
 	margin-bottom: 5px;
 	margin-left: 0;
 }
+
+
+
 
 table.notifications h3, h4 {
 	font-size: 13px;
 	color: #777;
 	line-height: 20px;
+}
+
+table.notifications h3 {
+	margin-bottom:4px;
+}
+
+table.notifications h4 {
+	margin-top: 2px;
+	margin-bottom: 2px;
 }
 
 tr.condensed h3 {
@@ -135,3 +156,35 @@ tr.condensed h3 {
 table.notifications small {
 	font-size: 11px;
 }
+
+table.notifications .memberPicture_thumb img {
+	opacity: 0.1;
+}
+
+	table.notifications .memberPicture_thumb img:hover {
+		opacity: 1.0;
+	}
+
+
+.notifications .memberPicture_thumb {
+	float: left;
+	margin-right: 10px;
+}
+
+.table-striped tbody tr:nth-child(even) td:hover,
+.table-striped tbody tr:nth-child(odd) td:hover {
+	background-color: rgba(255,255,255,0.11);
+	background-image: url('../img/right-arrow-30px.png');
+	background-position: right center;
+	background-repeat: no-repeat;
+}
+
+
+table.notifications tr.comment h4,
+table.notifications tr.comment p,
+table.notifications tr.message h4, 
+table.notifications tr.message p, 
+table.notifications tr.message blockquote {
+	padding-left:10px;
+}
+

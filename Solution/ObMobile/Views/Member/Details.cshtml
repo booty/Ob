@@ -103,8 +103,7 @@
 					<div class="thumbnailListInner">
 						@p.IdPictureMember.MemberProfilePictureImgA(PictureSize.Thumb75Px, Model.IdMember, p.Caption, true, true)
 						@if (!String.IsNullOrWhiteSpace(p.Caption)) {
-							<text><br>
-							<small>&ldquo;@p.Caption&rdquo;</small></text>
+							<small>&ldquo;@p.Caption&rdquo;</small>
 		}
 					</div>
 	 }
@@ -122,9 +121,7 @@
 					<div class="thumbnailListInner">
 						@p.Guid.MemberFopImgA(PictureSize.Thumb75Px, String.Empty, true)
 						@if (!String.IsNullOrWhiteSpace(p.Caption)) {	
-							<small>
-								<br>
-								&ldquo;@p.Caption&rdquo;</small>
+							<small>&ldquo;@p.Caption&rdquo;</small>
 		}
 					</div>			
 	 }

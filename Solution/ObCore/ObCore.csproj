@@ -63,6 +63,7 @@
       <DependentUpon>Database.tt</DependentUpon>
     </None>
     <Compile Include="Models\CommentType.cs" />
+    <Compile Include="Models\PhoneNumber.cs" />
     <Compile Include="Security.cs" />
     <Compile Include="Models\Member.cs" />
     <Compile Include="Models\MessageNotification.cs" />
