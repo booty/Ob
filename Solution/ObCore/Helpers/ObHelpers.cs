@@ -49,12 +49,15 @@ namespace ObCore.Helpers {
 		#region Helpers for regular member pictures
 
 		public static string MemberProfilePictureUrl(this int idPictureMember, string size = "") {
-			return String.Format("{0}/user/pic/{1}/{2}{3}.jpg",
+			return ObCore.Models.Picture.PublicPictureUrl(idPictureMember, size);
+			/*
+			 * return String.Format("{0}/user/pic/{1}/{2}{3}.jpg",
 				ConfigurationManager.AppSettings["StaticAssetRootUrl"],
 				idPictureMember.ToString().Left(2),
 				idPictureMember,
 				size
 			);
+			 */
 		}
 
 		public static string MemberProfilePictureUrl(this int? idPictureMember, string size = "") {
@@ -131,10 +134,11 @@ namespace ObCore.Helpers {
 			
 			if (lazyLoad) {
 				return String.Format(
-					"<div class=\"memberPicture{2}\"><a href=\"{0}\"><img src=\"/Content/img/spinner-16-dark.gif\" class=\"lazy\" data-original=\"{1}\" alt=\"{2}\"><noscript><img src=\"{1}\" alt=\"{2}\"></noscript></a></div>", 
+					"<div class=\"memberPicture{3}\"><a href=\"{0}\"><img src=\"/Content/img/spinner-16-dark.gif\" class=\"lazy\" data-original=\"{1}\" alt=\"{2}\"><noscript><img src=\"{1}\" alt=\"{2}\"></noscript></a></div>", 
 					guid.MemberFopUrl(ObCore.PictureSize.Full), 
 					guid.MemberFopUrl(size), 
-					login
+					login,
+					size
 				).ToHtmlString();
 			}
 

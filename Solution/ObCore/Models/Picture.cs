@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
+using ObCore.Helpers;
 using PetaPoco;
 
 namespace ObCore.Models {
@@ -47,6 +49,15 @@ namespace ObCore.Models {
 			}
 		}
 
+		
+		public static string PublicPictureUrl(int idPictureMember, string size="") {
+			return String.Format("{0}/user/pic/{1}/{2}{3}.jpg",
+				ConfigurationManager.AppSettings["StaticAssetRootUrl"],
+				idPictureMember.ToString().Left(2),
+				idPictureMember,
+				size
+			);
+		}
 
 	}
 }
