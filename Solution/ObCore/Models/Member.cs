@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Web.Script.Serialization;
+using Newtonsoft.Json;
 using PetaPoco;
+using System.Web;
 
 namespace ObCore.Models {
 
@@ -47,6 +50,14 @@ namespace ObCore.Models {
 
 		[PetaPoco.Column("id_picture_member")]
 		public int? IdPictureMember { get; set; }
+
+		public string PrimaryPhotoUrl {
+			get {
+				if (IdPictureMember.HasValue) 
+					return Picture.PublicPictureUrl(IdPictureMember.Value, PictureSize.Small50Px);
+				return String.Empty;
+			}
+		}
 
 		[PetaPoco.Column("Current_Relationship_Description_Others")]
 		[DisplayName("Current Relationship")]
@@ -228,6 +239,8 @@ namespace ObCore.Models {
 
 		#endregion
 
+		[ScriptIgnore]
+		[JsonIgnore]
 		public Member MemberInvitedBy {
 			get {
 				if (IdMemberInvite.HasValue) return Member.Find(IdMemberInvite.Value);
@@ -261,6 +274,7 @@ namespace ObCore.Models {
 		/// Returns all the public pictures, newest first
 		/// </summary>
 		/// <returns>What do you *think* it returns?</returns>
+		[ScriptIgnore]
 		public List<Picture> PublicPictures {
 			get {
 				return Picture.Find(this.IdMember, false);
@@ -270,7 +284,6 @@ namespace ObCore.Models {
 		/// <summary>
 		/// Friends-only pictures; assumes you've already determined that viewing member has permission
 		/// </summary>
-		/// <param name="limit">Number to return</param>
 		/// <param name="relationship">If omitted, assumes you've already figured out the permissions :-)</param>
 		/// <returns>A List of friends-only pictures</returns>
 		public List<Picture> FriendsOnlyPictures(Relationship relationship = null) {
@@ -292,7 +305,6 @@ namespace ObCore.Models {
 			if (member.CanViewFopsOf(this)) return Picture.Find(IdMember, true);
 			return new List<Picture>(0);
 		}
-
 
 
 		/*

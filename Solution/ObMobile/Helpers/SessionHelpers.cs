@@ -49,7 +49,7 @@ namespace ObMobile.Helpers {
 			ctx.Session[SessionVars.CurrentObMember] = ar.Member;
 
 			if (saveInCookies) {
-				ctx.Response.Cookies.Add(new HttpCookie("token", ar.Token));
+				ctx.Response.Cookies.Add(new HttpCookie("token", ar.AuthenticationToken));
 				ctx.Response.Cookies["token"].Expires = DateTime.Now + new TimeSpan(ConfigurationManager.AppSettings.ValueOrDefault("LoginTokenCookieExpirationDays", 30), 0, 0, 0);
 			}
 

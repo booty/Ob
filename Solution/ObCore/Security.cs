@@ -24,6 +24,30 @@ namespace ObCore {
 			FailureWhatTheFuckHappened = 999
 		}
 
+		/// <summary>
+		/// Provides English description of a login result code
+		/// Kludge; should obviously be a localizable resource or something
+		/// </summary>
+		/// <param name="arc">The code you want a description for</param>
+		/// <returns>The English description</returns>
+		public static string AuthenticationResultDescription(AuthenticationResultCode arc) {
+			switch (arc) {
+				case AuthenticationResultCode.Success:
+					return "Success";
+				case AuthenticationResultCode.FailureWhatTheFuckHappened:
+					return "I don't know what happened";
+				case AuthenticationResultCode.FailureMemberNotFound:
+					return "Login name or password not correct";
+				case AuthenticationResultCode.FailureIpBanned:
+					return "IP address is banned";
+				case AuthenticationResultCode.FailureMemberBanned:
+					return "Member banned";
+				case AuthenticationResultCode.FailureTooManyLogins:
+					return "Too many recent login attempts";
+			}
+			return String.Empty;
+		}
+
 		public static AuthenticationResultCode GetAuthenticationResultCode(int code) {
 			if (Enum.IsDefined(typeof(AuthenticationResultCode), code))
 				return (AuthenticationResultCode)code;
