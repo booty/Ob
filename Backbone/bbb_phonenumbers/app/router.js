@@ -10,10 +10,11 @@ function(app, Phonelist) {
   // Defining the application router, you can attach sub routers here.
   var Router = Backbone.Router.extend({
     routes: {
-      "": "index"
+      "/": "index"
     },
 
     index: function() {
+      console.log("index");
       var list = new Phonelist.List();
       // Create a layout and associate it with the main div
       app.useLayout("main").setViews({
