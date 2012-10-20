@@ -121,14 +121,27 @@ namespace ObCore {
 			return myCommand;
 		}
 
-		
 		public  int GetScalarInt(string cmd) {
 			SqlCommand foo = GetCommand(cmd);
 			return GetScalarInt(foo);
 		}
 
-		public  int GetScalarInt(SqlCommand cmd) {
+		public int GetScalarInt(SqlCommand cmd) {
 			object result = cmd.ExecuteScalar();
+			return (int)result;
+		}
+
+		public int? GetScalarIntNullable(string sql) {
+			SqlCommand cmd = GetCommand(sql);
+			object result = cmd.ExecuteScalar();
+			if (result == DBNull.Value) return null;
+			return (int) result;
+		}
+
+
+		public int? GetScalarIntNullable(SqlCommand cmd) {
+			object result = cmd.ExecuteScalar();
+			if (result == DBNull.Value) return null;
 			return (int)result;
 		}
 
