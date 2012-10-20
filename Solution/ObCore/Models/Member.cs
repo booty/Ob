@@ -275,6 +275,7 @@ namespace ObCore.Models {
 		/// </summary>
 		/// <returns>What do you *think* it returns?</returns>
 		[ScriptIgnore]
+		[JsonIgnore]
 		public List<Picture> PublicPictures {
 			get {
 				return Picture.Find(this.IdMember, false);
