@@ -11,6 +11,16 @@ using ObCore;
 
 namespace ObApi {
 	public static class Helpers {
+		public static HttpResponseMessage CreateMissingAuthorizationTokenResponse(this HttpRequestMessage hrm) {
+			var result = hrm.CreateErrorResponse(HttpStatusCode.Unauthorized, ConfigurationManager.AppSettings["BadOrMissingAuthorizationTokenMessage"]).WithObApiDefaults();
+			//var result = hrm.CreateErrorResponse(HttpStatusCode.Unauthorized, ConfigurationManager.AppSettings["BadOrMissingAuthorizationTokenMessage"]).WithObApiDefaults();
+			//result.ReasonPhrase = ConfigurationManager.AppSettings["BadOrMissingAuthorizationTokenMessage"];
+			result.Content.Headers.Remove("Content-Type");
+			result.Content.Headers.Add("Content-Type", "text/plain");
+			return result;
+		}
+
+
 		/// <summary>
 		/// Adds default headers to HttpResponse
 		/// </summary>
@@ -19,6 +29,7 @@ namespace ObApi {
 		/// <returns>The same HttpResponseMessage, with added headers</returns>
 		public static HttpResponseMessage WithObApiDefaults(this HttpResponseMessage httpResponseMessage, bool cachePrivate=true) {
 			httpResponseMessage.Headers.Add("Cache-Control", cachePrivate ? "private" : "public");
+			httpResponseMessage.Headers.Add("Access-Control-Allow-Origin", "*");
 			httpResponseMessage.Content.Headers.Add("Expires", DateTime.UtcNow.AddSeconds(ApiResponseTtlSeconds()).ToString("R"));
 			return httpResponseMessage;
 		}
