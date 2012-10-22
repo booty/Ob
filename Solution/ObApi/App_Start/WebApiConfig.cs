@@ -1,5 +1,7 @@
 ﻿using System.Linq;
 using System.Web.Http;
+using Newtonsoft.Json.Serialization;
+using WebApiContrib.Formatting;
 
 namespace ObApi {
 	public static class WebApiConfig {
@@ -18,6 +20,12 @@ namespace ObApi {
 					 id = RouteParameter.Optional
 				 }
 			);
+
+			config.Formatters.Add(new PlainTextFormatter());
+
+			var json = config.Formatters.JsonFormatter;
+			json.SerializerSettings.Formatting = Newtonsoft.Json.Formatting.Indented; 
+			json.SerializerSettings.ContractResolver =  new CamelCasePropertyNamesContractResolver();
 
 			var appXmlType = config.Formatters.XmlFormatter.SupportedMediaTypes.FirstOrDefault(t => t.MediaType == "application/xml");
 			config.Formatters.XmlFormatter.SupportedMediaTypes.Remove(appXmlType);
