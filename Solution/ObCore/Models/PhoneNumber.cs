@@ -11,7 +11,7 @@ namespace ObApi.Models {
 	public class PhoneNumber {
 		public int IdMember;
 		public int? IdPictureMember;
-		public string Login, PhoneNumberUs, LoginsPrevious, FirstName, LastName, URL;
+		public string Login, PhoneNumberUs, LoginsPrevious, FirstName, LastName, PictureUrl;
 		public DateTime ClitterPreferencesUpdated;
 
 		public static List<PhoneNumber> Find(int idMember, bool friendsOnly = true) {
@@ -37,7 +37,7 @@ namespace ObApi.Models {
 				IdMember = (int) dr["id_member"],
 				PhoneNumberUs = (string) dr["phone_number_us"]
 			};
-			pn.URL = Picture.PublicPictureUrl(pn.IdMember, PictureSize.Small50Px);
+			pn.PictureUrl = Picture.PublicPictureUrl(pn.IdMember, PictureSize.Small50Px);
 			if (dr["logins_previous"] != DBNull.Value) pn.LoginsPrevious = (string) dr["logins_previous"]; 
 			if (dr["id_picture_member"] != DBNull.Value) pn.IdPictureMember = (int) dr["id_picture_member"]; 
 
