@@ -17,7 +17,6 @@ namespace ObCore.Models {
 		public string Body { get; set; }
 		[PetaPoco.Column]
 		public string Description { get; set; }
-
 		[PetaPoco.Column("event_type")]
 		public string EventType { get; set; }
 		[PetaPoco.Column("event_time")]
@@ -44,7 +43,17 @@ namespace ObCore.Models {
 		public int? IdComment { get; set; }
 		[PetaPoco.Column("Id_Message")]
 		public int? IdMessage { get; set; }
+		[PetaPoco.Column("Id_Notification_Event_Type")] 
+		public int? IdNotificationEventType { get; set; }
 
+		public string PictureUrl {
+			get {
+				if (!IdPictureMember.HasValue) return String.Empty;
+				return Picture.PublicPictureUrl(IdPictureMember.Value);
+			}
+		}
+
+		// todo: This should really be client-side, right?
 		public string HtmlDataAttribute {
 			get {
 				if (IdComment.HasValue) return String.Format(@"data-id-comment=""{0}""", IdComment.Value);
@@ -56,18 +65,60 @@ namespace ObCore.Models {
 			}
 		}
 
-		public static string EventTypeComment="Comment";
-		public static string EventTypeFopShared="FOP Shared";
-		public static string EventTypeFopsShared="FOPs Shared";
-		public static string EventTypeFriended="Friended";
-		public static string EventTypePrivateMessage="Private Message";
-		public static string EventTypeProfileView="Profile View";
-
-		public static List<Notification> Fetch(int idMember) {
+		public static List<Notification> Find(int idMember, NotificationType notificationType=NotificationType.All) {
 			using (var db=new ObCore.ObDb()) {
-				return db.Fetch<Notification>("select * from dbo.ClitterNotifications(@0) order by event_time desc", idMember);
+				switch (notificationType) {
+					case NotificationType.PrivateMessages:
+						return db.Fetch<Notification>("select * from dbo.ClitterNotifications(@0) where id_notification_event_type=1 order by event_time desc", idMember);					
+					case NotificationType.Comments:
+						return db.Fetch<Notification>("select * from dbo.ClitterNotifications(@0) where id_notification_event_type=2 order by event_time desc", idMember);					
+					case NotificationType.PrivateMessagesAndComments:
+						return db.Fetch<Notification>("select * from dbo.ClitterNotifications(@0) where id_notification_event_type in (1,2) order by event_time desc", idMember);
+					case NotificationType.Fops: 
+						return db.Fetch<Notification>("select * from dbo.ClitterNotifications(@0) where id_notification_event_type in (5,6) order by event_time desc", idMember);
+					case NotificationType.Friendings:
+						return db.Fetch<Notification>("select * from dbo.ClitterNotifications(@0) where id_notification_event_type=4 order by event_time desc", idMember);					
+					case NotificationType.All:
+						return db.Fetch<Notification>("select * from dbo.ClitterNotifications(@0) order by event_time desc", idMember);
+					default:
+						throw new NotImplementedException("Booty didn't implement that notificationt type yet. :-(");
+				}
+				
 			}
 		}
+
+		public static NotificationType ToNotificationType(string s) {
+			switch (s.ToLower()) {
+				case "all":
+					return NotificationType.All;
+				case "messagesandcomments": 
+					return NotificationType.PrivateMessagesAndComments;
+				case "fops":
+					return NotificationType.Fops;
+				case "friendings":
+					return NotificationType.Friendings;
+				case "profileviews":
+					return NotificationType.ProfileViews;
+				case "messages":
+					return NotificationType.PrivateMessages;
+				case "comments":
+					return NotificationType.Comments;
+				default:
+					throw new ArgumentException("Don't know that notification type!");
+			}
+		}
+
+		public enum NotificationType {
+			PrivateMessagesAndComments = 1000,
+			Fops = 1001,
+			Friendings = 4,
+			ProfileViews = 3,
+			PrivateMessages = 1,
+			Comments = 2,
+			All = 9999
+		}
+
+
 	}
 
 }
