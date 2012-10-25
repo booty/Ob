@@ -1,9 +1,9 @@
 phonenumbers.Collections.Phonelist = Backbone.Collection.extend({
     model: phonenumbers.Models.Phonelist,
-    token: "abc123",
     url: function(){
+      var token = "5DC92AF6-D811-43EA-B3A1-E6078C70E9C5";
       //return "http://127.0.0.1:8000/assets/testData.json";
-      return "http://api.otakubooty.com/api/phonenumber?token="+this.token+"&friendsonly=true";
+      return "http://api.otakubooty.com/api/phonenumbers?authenticationToken="+token+"&friendsonly=true";
     },
     parse: function(response){
         var id = 1;

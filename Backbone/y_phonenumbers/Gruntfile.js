@@ -19,7 +19,7 @@ module.exports = function( grunt ) {
     coffee: {
       compile: {
         files: {
-          'temp/scripts/*.js': 'app/scripts/**/*.coffee'
+          'temp/scripts/*.js': 'app/scripts/**/*.coffee' 
         },
         options: {
           basePath: 'app/scripts'
@@ -80,7 +80,7 @@ module.exports = function( grunt ) {
       files: [
         'Gruntfile.js',
         'app/scripts/**/*.js',
-        'test/**/*.js'
+        'spec/**/*.js'
       ]
     },
 
@@ -168,11 +168,22 @@ module.exports = function( grunt ) {
       // no minification, is done by the min task
       optimize: 'none',
       baseUrl: './scripts',
-      wrap: true
+      wrap: true,
+      name: 'main'
     },
+
+    // While Yeoman handles concat/min when using
+    // usemin blocks, you can still use them manually
+    concat: {
+      dist: ''
+    },
+
+    min: {
+      dist: ''
+    }
   });
 
   // Alias the `test` task to run the `mocha` task instead
-  grunt.registerTask('test', 'mocha');
+  grunt.registerTask('test', 'server:phantom mocha');
 
 };
