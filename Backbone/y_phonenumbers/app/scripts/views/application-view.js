@@ -1,6 +1,6 @@
 phonenumbers.Views.Item = Backbone.View.extend({
     manage:true,
-	template: "#item",
+	template: "item",
 	tagName: "tr",
 	events: {},
 	initialize: function() {
@@ -12,11 +12,14 @@ phonenumbers.Views.Item = Backbone.View.extend({
 	},
 	serialize: function() {
         console.log("serialize called");
+        var number = this.model.get("phoneNumberUs");
+        var phonenumber = number.substr(0,3)+"-"+number.substr(3,3)+"-"+number.substr(6);
 		return {
-			FirstName: this.model.get("FirstName"),
-			LastName: this.model.get("LastName"),
-			Login: this.model.get("Login"),
-			PhoneNumberUs: this.model.get("PhoneNumberUs")
+			FirstName: this.model.get("firstName"),
+			LastName: this.model.get("lastName"),
+			Login: this.model.get("login"),
+			PhoneNumberUs: this.model.get("phoneNumberUs"),
+            PhoneNumber: phonenumber
 		};
 	},
     beforeRender: function(){
