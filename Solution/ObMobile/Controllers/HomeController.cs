@@ -16,7 +16,7 @@ namespace ObMobile.Controllers {
 		[ObAuthorizationRequired(AuthorizationRequirement.IsAuthenticated)]
 		public ActionResult Index() {
 			Trace.Write("Hey! Hello!");
-			var notifications = Notification.Find(Session.CurrentObMember().IdMember);
+			var notifications = Notification.Find(Session.CurrentObMember().IdMember,0,30);
 			var messages = from n in notifications
 									 where n.EventType == "Comment" || n.EventType == "Private Message"
 									 select n;

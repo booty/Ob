@@ -15,7 +15,7 @@ namespace ObApi.Controllers {
 		// GET api/notifications
 		// todo: use ObAuthorizationRequired attribute from ObMobile
 		// todo: allow client to request a range of notifications
-		public HttpResponseMessage Get(string notificationType = "all") {
+		public HttpResponseMessage Get(string notificationType = "all", int skip=0, int take=25) {
 			int? memberId = HttpContext.Current.MemberId();
 			if (!memberId.HasValue) return Request.CreateMissingAuthorizationTokenResponse();
 
@@ -23,7 +23,7 @@ namespace ObApi.Controllers {
 			IEnumerable<Notification> notifications;
 			try {
 				nt = Notification.ToNotificationType(notificationType);
-				notifications = Notification.Find(memberId.Value, nt);
+				notifications = Notification.Find(memberId.Value, skip, take, nt);
 			}
 			catch (Exception e) {
 				return Request.CreateResponse<string>(HttpStatusCode.BadRequest, e.Message);
