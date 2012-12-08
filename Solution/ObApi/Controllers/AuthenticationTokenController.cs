@@ -16,14 +16,8 @@ namespace ObApi.Controllers {
 
 		private const int DefaultAuthCookieTtlDays = 30;  // use this only if value missing from web.config
 
-		// GET api/authenticate
-		/// <summary>Authenticates a user based on an auth token</summary>
-		/// <param name="login">Login, as entered by the user</param>
-		/// <param name="password">Password, as entered by the user</param>
-		/// <returns>
-		/// AuthenticationResult
-		/// </returns>
-		public HttpResponseMessage Get(string login, string password) {
+		
+		private HttpResponseMessage Authenticate(string login, string password) {
 			var authResult = Security.Authenticate(
 				login, 
 				password, 
@@ -58,16 +52,10 @@ namespace ObApi.Controllers {
 				cookies.Add(new CookieHeaderValue("login", String.Empty));
 				response.Headers.AddCookies(cookies);
 			}
-
-			
 			return response;
 		}
 
-		// GET api/authenticate
-		/// <summary>Authenticates a user based on an auth token</summary>
-		/// <param name="authenticationToken">Auth token, presumably stored in user's cookies or elsewhere</param>
-		/// <returns></returns>
-		public HttpResponseMessage Get(string authenticationToken) {
+		private HttpResponseMessage Authenticate(string authenticationToken) {
 			var authResult = Security.Authenticate(
 				authenticationToken,
 				HttpContext.Current.Request.UserHostAddress, 
@@ -77,11 +65,37 @@ namespace ObApi.Controllers {
 			return response;
 		}
 
-		// POST api/authentication
-		public void Post([FromBody]string value) {
 
+		// GET api/authenticate
+		/// <summary>Authenticates a user based on an auth token</summary>
+		/// <param name="login">Login, as entered by the user</param>
+		/// <param name="password">Password, as entered by the user</param>
+		/// <returns>
+		/// AuthenticationResult
+		/// </returns>
+		public HttpResponseMessage Get(string login, string password) {
+			return Authenticate(login, password);
 		}
 
+		// GET api/authenticate
+		/// <summary>Authenticates a user based on an auth token</summary>
+		/// <param name="authenticationToken">Auth token, presumably stored in user's cookies or elsewhere</param>
+		/// <returns></returns>
+		public HttpResponseMessage Get([FromBody]string authenticationToken) {
+			return Authenticate(authenticationToken);
+		}
+
+		// POST api/authenticationtoken
+		public HttpResponseMessage Post([FromBody]string login, [FromBody]string password) {
+			return Authenticate(login, password);
+		}
+
+		public HttpResponseMessage Post([FromBody] string authenticationToken) {
+			return Authenticate(authenticationToken);
+		}
+
+
+		/*
 		// PUT api/authentication/5
 		public void Put(int id, [FromBody]string value) {
 
@@ -91,6 +105,6 @@ namespace ObApi.Controllers {
 		public void Delete(int id) {
 
 		}
-
+		*/
 	}
 }
