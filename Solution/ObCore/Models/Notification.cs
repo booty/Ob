@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using PetaPoco;
@@ -66,18 +67,20 @@ namespace ObCore.Models {
 		}
 
 		public static List<Notification> Find(int idMember, int skip, int take, NotificationType notificationType=NotificationType.All) {
+			Trace.WriteLine("Hello, world, from Notification#Find");
 			using (var db=new ObCore.ObDb()) {
 				switch (notificationType) {
 					case NotificationType.PrivateMessages:
-						return db.Fetch<Notification>("select * from dbo.MessageNotifications(@0,@1,@2) where id_notification_event_type=1 order by event_time desc", idMember, skip, take);					
+						return db.Fetch<Notification>("select * from dbo.MessageNotificationsEx(@0,@1,@2) where id_notification_event_type=1 order by event_time desc", idMember, skip, take);					
 					case NotificationType.Comments:
-						return db.Fetch<Notification>("select * from dbo.CommentNotifications(@0,@1,@2) order by event_time desc", idMember, skip, take);					
+						return db.Fetch<Notification>("select * from dbo.CommentNotificationsEx(@0,@1,@2) order by event_time desc", idMember, skip, take);					
 					case NotificationType.PrivateMessagesAndComments:
-						return db.Fetch<Notification>("select * from dbo.ClitterNotifications(@0,@1,@2) where id_notification_event_type in (1,2) order by event_time desc", idMember, skip, take);
+						// todo: Should have a SQL table-valued function just for this notification type instead of calling the "general" one
+						return db.Fetch<Notification>("select * from dbo.ClitterNotificationsEx(@0,@1,@2) where id_notification_event_type in (1,2) order by event_time desc", idMember, skip, take);
 					case NotificationType.Fops: 
-						return db.Fetch<Notification>("select * from dbo.FopNotifications(@0,@1,@2) where id_notification_event_type in (5,6) order by event_time desc", idMember, skip, take);
+						return db.Fetch<Notification>("select * from dbo.FopNotificationsEx(@0,@1,@2) where id_notification_event_type in (5,6) order by event_time desc", idMember, skip, take);
 					case NotificationType.Friendings:
-						return db.Fetch<Notification>("select * from dbo.FriendNotifications(@0,@1,@2) where id_notification_event_type=4 order by event_time desc", idMember, skip, take);					
+						return db.Fetch<Notification>("select * from dbo.FriendNotificationsEx(@0,@1,@2) where id_notification_event_type=4 order by event_time desc", idMember, skip, take);					
 					case NotificationType.All:
 						return db.Fetch<Notification>("select * from dbo.ClitterNotifications(@0,@1,@2) order by event_time desc", idMember, skip, take);
 					default:
@@ -104,7 +107,7 @@ namespace ObCore.Models {
 				case "comments":
 					return NotificationType.Comments;
 				default:
-					throw new ArgumentException("Don't know that notification type!");
+					throw new ArgumentException("Don't know that notification type! Supported types are: 'all', 'messagesandcomments', 'fops', 'friendings', 'profileviews', 'messages', and 'comments'. Default, if not specified, is 'all.'");
 			}
 		}
 

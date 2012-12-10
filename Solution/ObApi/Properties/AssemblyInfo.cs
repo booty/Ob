@@ -6,12 +6,12 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("ObApi")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Some hardcore shit.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("OB Games")]
 [assembly: AssemblyProduct("ObApi")]
 [assembly: AssemblyCopyright("Copyright ©  2012")]
-[assembly: AssemblyTrademark("")]
+[assembly: AssemblyTrademark("Suck My Dick")]
 [assembly: AssemblyCulture("")]
 
 // Setting ComVisible to false makes the types in this assembly not visible 

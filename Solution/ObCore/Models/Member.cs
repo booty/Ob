@@ -313,7 +313,9 @@ namespace ObCore.Models {
 		*/
 
 		public static Member Find(int idMember) {
+			
 			using (var db=new ObDb()) {
+				
 				return db.First<Member>("select * from MemberBasic where id_member=@0", idMember);
 			}
 		}
