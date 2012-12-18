@@ -25,7 +25,7 @@ namespace ObApi.Controllers {
 		public HttpResponseMessage Get(bool friendsOnly = false) {
 			int? memberId = HttpContext.Current.MemberId();
 			if (!memberId.HasValue) return Request.CreateMissingAuthorizationTokenResponse();
-			return Request.CreateResponse<IEnumerable<PhoneNumber>>(HttpStatusCode.OK, PhoneNumber.Find(memberId.Value, friendsOnly)).WithObApiDefaults();
+			return Request.CreateResponse<IEnumerable<PhoneNumber>>(HttpStatusCode.OK, PhoneNumber.Find(memberId.Value, friendsOnly)).WithObApiPublicDefaults();
 		}
 
 

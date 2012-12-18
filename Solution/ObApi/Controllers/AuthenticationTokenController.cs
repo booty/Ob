@@ -29,7 +29,7 @@ namespace ObApi.Controllers {
 				var ttlDays = Helpers.ConfigValueOrDefault("AuthenticationCookieTtlDays", DefaultAuthCookieTtlDays);
 				
 				// Build client response
-				response = Request.CreateResponse<AuthenticationResult>(HttpStatusCode.OK, authResult).WithObApiDefaults();
+				response = Request.CreateResponse<AuthenticationResult>(HttpStatusCode.OK, authResult).WithObApiPublicDefaults();
 				var cookies = new List<CookieHeaderValue>();
 				cookies.Add(new CookieHeaderValue("idMember", authResult.Member.IdMember.ToString()) { Expires = DateTime.UtcNow.AddDays(ttlDays) });
 				cookies.Add(new CookieHeaderValue("authenticationToken", authResult.AuthenticationToken) { Expires = DateTime.UtcNow.AddDays(ttlDays) });
@@ -45,7 +45,7 @@ namespace ObApi.Controllers {
 			}
 			else {
 				// unauthorized = Http Status 401
-				response = Request.CreateResponse<string>(HttpStatusCode.Unauthorized, authResult.AuthenticationResultDescription).WithObApiDefaults();
+				response = Request.CreateResponse<string>(HttpStatusCode.Unauthorized, authResult.AuthenticationResultDescription).WithObApiPublicDefaults();
 				var cookies = new List<CookieHeaderValue>();
 				cookies.Add(new CookieHeaderValue("idMember", String.Empty));
 				cookies.Add(new CookieHeaderValue("authenticationToken", String.Empty));
@@ -61,7 +61,7 @@ namespace ObApi.Controllers {
 				HttpContext.Current.Request.UserHostAddress, 
 				HttpContext.Current.Request.Url.ToString());
 
-			var response = Request.CreateResponse<AuthenticationResult>(HttpStatusCode.OK, authResult).WithObApiDefaults();
+			var response = Request.CreateResponse<AuthenticationResult>(HttpStatusCode.OK, authResult).WithObApiPublicDefaults();
 			return response;
 		}
 

@@ -12,7 +12,7 @@ using ObCore;
 namespace ObApi {
 	public static class Helpers {
 		public static HttpResponseMessage CreateMissingAuthorizationTokenResponse(this HttpRequestMessage hrm) {
-			var result = hrm.CreateErrorResponse(HttpStatusCode.Unauthorized, ConfigurationManager.AppSettings["BadOrMissingAuthorizationTokenMessage"]).WithObApiDefaults();
+			var result = hrm.CreateErrorResponse(HttpStatusCode.Unauthorized, ConfigurationManager.AppSettings["BadOrMissingAuthorizationTokenMessage"]).WithObApiPublicDefaults();
 			//var result = hrm.CreateErrorResponse(HttpStatusCode.Unauthorized, ConfigurationManager.AppSettings["BadOrMissingAuthorizationTokenMessage"]).WithObApiDefaults();
 			//result.ReasonPhrase = ConfigurationManager.AppSettings["BadOrMissingAuthorizationTokenMessage"];
 			result.Content.Headers.Remove("Content-Type");
@@ -25,16 +25,26 @@ namespace ObApi {
 		/// Adds default headers to HttpResponse
 		/// </summary>
 		/// <param name="httpResponseMessage">The response we're adding these headers to</param>
-		/// <param name="cachePrivate">Should the cache-control header be set to "private?"</param>
 		/// <returns>The same HttpResponseMessage, with added headers</returns>
-		public static HttpResponseMessage WithObApiDefaults(this HttpResponseMessage httpResponseMessage, bool cachePrivate=true) {
-			httpResponseMessage.Headers.Add("Cache-Control", cachePrivate ? "private" : "public");
+		public static HttpResponseMessage WithObApiPublicDefaults(this HttpResponseMessage httpResponseMessage) {
+			httpResponseMessage.Headers.Add("Cache-Control", "public");
 			httpResponseMessage.Headers.Add("Access-Control-Allow-Origin", "*");
 			httpResponseMessage.Content.Headers.Add("Expires", DateTime.UtcNow.AddSeconds(ApiResponseTtlSeconds()).ToString("R"));
 			return httpResponseMessage;
 		}
 
-		
+		/// <summary>
+		/// Adds default headers to HttpResponse
+		/// </summary>
+		/// <param name="httpResponseMessage">The response we're adding these headers to</param>
+		/// <returns>The same HttpResponseMessage, with added headers</returns>
+		public static HttpResponseMessage WithObApiPrivateDefaults(this HttpResponseMessage httpResponseMessage) {
+			httpResponseMessage.Headers.Add("Cache-Control", "private");
+			httpResponseMessage.Headers.Add("Access-Control-Allow-Origin", "*");
+			httpResponseMessage.Content.Headers.Add("Expires", DateTime.UtcNow.AddSeconds(ApiResponseTtlSeconds()).ToString("R"));
+			return httpResponseMessage;
+		}
+
 		/// <summary>
 		/// Checks the message request for a valid authentication token and returns MemberId.
 		/// First checks an Application object cache for the member ID, if not found it checks the database

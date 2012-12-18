@@ -986,6 +986,7 @@ namespace PetaPoco {
 			return SingleOrDefault<T>(string.Format("WHERE {0}=@0", EscapeSqlIdentifier(PocoData.ForType(typeof(T)).TableInfo.PrimaryKey)), primaryKey);
 		}
 		public T Single<T>(string sql, params object[] args) {
+			// return null if no results; don't throw an exception -booty 12/18/2012
 			return Query<T>(sql, args).Single();
 		}
 		public T SingleOrDefault<T>(string sql, params object[] args) {

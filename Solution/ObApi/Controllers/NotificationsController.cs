@@ -33,7 +33,7 @@ namespace ObApi.Controllers {
 				return Request.CreateResponse<string>(HttpStatusCode.BadRequest, e.Message);
 			}
 			
-			return Request.CreateResponse<IEnumerable<ObCore.Models.Notification>>(HttpStatusCode.OK, notifications).WithObApiDefaults();
+			return Request.CreateResponse<IEnumerable<ObCore.Models.Notification>>(HttpStatusCode.OK, notifications).WithObApiPublicDefaults();
 			
 		}
 
