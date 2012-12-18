@@ -70,7 +70,7 @@ namespace ObCore.Models {
 		/// </summary>
 		/// <param name="idMessage"></param>
 		/// <param name="markAsRead"></param>
-		/// <returns></returns>
+		/// <returns></returns> 
 		public static PrivateMessage Find(int idMessage, bool markAsRead=false) {
 			throw new NotImplementedException();
 		}
