@@ -20,7 +20,7 @@ Currently, you can pass login and password either as form fields or in the query
 
 Since this method also sets the authenticationToken cookie, theoretically you can authenticate via the URL and then hit any of the other methods without any further effort, since they'll all look for and respect that cookie.
 
-## API: Everything Else
+## API: Authentication Conventions
 
 These methods require a valid authentication token so that they know who you are. They look for an authentication token in the following places, in this order:
 
@@ -29,6 +29,22 @@ These methods require a valid authentication token so that they know who you are
 3. Form field named "authenticationToken"
 4. Cookie named "authenticationToken"
  
+If the API method requires authentication and your token is missing or invalid, you'll receive an error message and the appropriate HTTP error code.
+
+## API: Skip/Take Conventions
+
+Methods that support multiple results usually support "skip" and "take" parameters.
+
+This returns the first _n_ results. 
+http://api.otakubooty.com/api/notifications
+
+If you need a specific number of results, like the first 30 results:
+http://api.otakubooty.com/api/notifications?take=30
+
+For the 51st through 75th results: 
+http://api.otakubooty.com/api/notifications?skip=50&take=25
+
+## API: Notifications
 
 http://api.otakubooty.com/api/notifications?type=messages
 
@@ -36,13 +52,13 @@ http://api.otakubooty.com/api/notifications?type=messages
 * __skip:__ for paging. number of records to skip. currently not implemented!
 * __take:__ for paging. number of records to take (ie, page size). currently not implemented!
 
+## API: Private Messages
 
 http://api.otakubooty.com/api/privatemessages?type=sent
-
 http://api.otakubooty.com/api/privatemessages?type=received
-
 http://api.otakubooty.com/api/privatemessages (same as type=received)
 
-http://api.otakubooty.com/api/phonenumbers?friendsOnly=true
+## API: Phone Numbers
 
+http://api.otakubooty.com/api/phonenumbers?friendsOnly=true
 http://api.otakubooty.com/api/phonenumbers
