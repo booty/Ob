@@ -36,9 +36,6 @@ namespace ObCore {
 		AllMembers=2
 	}
 
-
-
-
 	/// <summary>
 	/// Represents the authorization required to access a given resource
 	/// </summary>
@@ -49,12 +46,24 @@ namespace ObCore {
 		IsFreeMember,
 		HasPaidMemberPriviledges,
 		IsModOrHigher,
-		IsUberModOrHigher,
+		IsAdminOrHigher,
 		IsCustomerServiceRepresentative,
 		IsCustomerServiceRepresentativeAdmin,
 		CanApprovePictures,
 		CanApproveProfiles,
-		CanApproveAds
+		CanApproveAds,
+		CanSendPrivateMessages,
+		CanSendComments,
+		IsSysAdmin
+	}
+
+	public enum MemberPermissionLevel {
+		Unauthenticated=0,
+		FreeMember=1,
+		PaidMember=2,
+		Moderator=3,
+		UberModerator=4,
+		SysAdmin=5
 	}
 
 }

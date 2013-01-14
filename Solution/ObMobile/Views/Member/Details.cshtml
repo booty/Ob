@@ -99,7 +99,7 @@
 		<div class="span12 memberPictureThumbnails">
 			<h3>Public Pictures <small>(@ViewBag.PublicPictures.Count)</small></h3>
 			<div class="thumbnailList">
-				@foreach (Picture p in ViewBag.PublicPictures) {
+				@foreach (MemberPicture p in ViewBag.PublicPictures) {
 					<div class="thumbnailListInner">
 						@p.IdPictureMember.MemberProfilePictureImgA(PictureSize.Thumb75Px, Model.IdMember, p.Caption, true, true)
 						@if (!String.IsNullOrWhiteSpace(p.Caption)) {
@@ -117,7 +117,7 @@
 		<div class="span12 memberPictureThumbnails">
 			<h3>Friends-Only Pictures <small>(@ViewBag.FriendsOnlyPictures.Count)</small></h3>
 			<div class="thumbnailList">
-				@foreach (Picture p in ViewBag.FriendsOnlyPictures) {
+				@foreach (MemberPicture p in ViewBag.FriendsOnlyPictures) {
 					<div class="thumbnailListInner">
 						@p.Guid.MemberFopImgA(PictureSize.Thumb75Px, String.Empty, true)
 						@if (!String.IsNullOrWhiteSpace(p.Caption)) {	

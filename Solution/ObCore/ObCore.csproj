@@ -56,6 +56,7 @@
     <Compile Include="AuthenticationResult.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="DataAccess.cs" />
+    <Compile Include="Exceptions.cs" />
     <Compile Include="Helpers\ConfigurationHelpers.cs" />
     <Compile Include="Helpers\DateTimeHelpers.cs" />
     <Compile Include="Helpers\HtmlHelpers.cs" />
@@ -67,16 +68,22 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Database.tt</DependentUpon>
     </None>
+    <Compile Include="Models\ApprovalStatus.cs" />
+    <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\CommentType.cs" />
+    <Compile Include="Models\Forum.cs" />
     <Compile Include="Models\PhoneNumber.cs" />
+    <Compile Include="Models\Post.cs" />
+    <Compile Include="Models\PostModerationStatus.cs" />
     <Compile Include="Models\PrivateMessage.cs" />
+    <Compile Include="Models\Thread.cs" />
     <Compile Include="Security.cs" />
     <Compile Include="Models\Member.cs" />
     <Compile Include="Models\MessageNotification.cs" />
     <Compile Include="Models\Notification.cs" />
     <Compile Include="ObDb.cs" />
     <Compile Include="Models\PetaPoco.cs" />
-    <Compile Include="Models\Picture.cs" />
+    <Compile Include="Models\MemberPicture.cs" />
     <Compile Include="Models\Relationship.cs" />
     <Compile Include="Models\Right.cs" />
     <Compile Include="Models\Role.cs" />

@@ -36,6 +36,7 @@ namespace ObApi {
 
 			// Tracing
 			//config.Services.Replace(typeof(ITraceWriter), new SimpleTracer());
+			config.EnableSystemDiagnosticsTracing();
 
 		}
 	}

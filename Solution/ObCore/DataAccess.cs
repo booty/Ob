@@ -1,11 +1,74 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Diagnostics;
-using System.Text;
+using System.Linq;
+using System.Web;
 
 namespace ObCore {
+	/// <summary>
+	/// Convenience extension methods for DataTables and other objects
+	/// </summary>
+	public static class DataExtensions {
+		public static string GetString(this DataRow dr, string columnName) {
+			return GetString(dr, columnName, null);
+		}
+
+		public static string GetString(this DataRow dr, string columnName, string defaultValue) {
+			if (dr.Table.Columns.Contains(columnName)) return dr[columnName].ToString();
+			return defaultValue;
+		}
+
+		public static int? GetNullableInt(this DataRow dr, string columnName) {
+			try {
+				return Convert.ToInt32(dr[columnName]);
+			}
+			catch (Exception) {
+				return null;
+			}
+		}
+
+		public static bool? GetNullableBool(this DataRow dr, string columnName) {
+			try {
+				return Convert.ToBoolean(dr[columnName]);
+			}
+			catch (Exception) {
+				return null;
+			}
+		}
+
+		public static DateTime? GetDateTime(this DataRow dr, string columnName) {
+			try {
+				return (DateTime) dr[columnName];
+			}
+			catch (Exception) {
+				return null;
+			}
+		}
+
+		public static bool GetBool(this DataRow dr, string columnName, bool defaultValue) {
+			try {
+				return Convert.ToBoolean(dr[columnName]);
+			}
+			catch (Exception) {
+				return defaultValue;
+			}
+		}
+
+		public static SqlCommand AsText(this SqlCommand cmd) {
+			cmd.CommandType=CommandType.Text;
+			return cmd;
+		}
+
+		public static SqlCommand AsStoredProcedure(this SqlCommand cmd) {
+			cmd.CommandType=CommandType.StoredProcedure;
+			return cmd;
+		}
+	}
+
+
 	/// <summary>
 	/// Convenience functions to wrap common ADO.NET stuff
 	/// This is entirely unrelated to the PetaPoco stuff
@@ -14,192 +77,213 @@ namespace ObCore {
 	/// 
 	/// These functions are NOT SQL injection safe. 
 	/// Potentially hostile input should be sanitized before sending it here (=
+	/// (Protip: Use parameterized queries!)
 	/// </summary>
 	public class DataAccess {
+
 		// Defaults to the last connection string. If there are no connection strings, defaults to String.Empty
-		public  string ConnectionString = (ConfigurationManager.ConnectionStrings.Count>0) ? ConfigurationManager.ConnectionStrings[ConfigurationManager.ConnectionStrings.Count-1].ConnectionString : string.Empty;
-		public SqlConnection Connection;
-
-		public  SqlConnection GetConnection() {
-			if (String.IsNullOrEmpty(ConnectionString)) 
-				throw new ConfigurationErrorsException("Couldn't find any connection strings in your configuration file, and you didn't set DataAccess.ConnectionString manually");
-
-			Connection = Connection ?? new SqlConnection(ConnectionString);
-			if ((Connection.State != ConnectionState.Open) && (Connection.State!=ConnectionState.Connecting)) Connection.Open();
-			return Connection;
+		// public  string ConnectionString = (ConfigurationManager.ConnectionStrings.Count > 0) ? ConfigurationManager.ConnectionStrings[ConfigurationManager.ConnectionStrings.Count - 1].ConnectionString : string.Empty;
+		public string ConnectionString {
+			get {
+				string result = (ConfigurationManager.ConnectionStrings[Environment.MachineName]
+					?? ConfigurationManager.ConnectionStrings[ConfigurationManager.ConnectionStrings.Count - 1]).ConnectionString;
+				if (String.IsNullOrEmpty(result))
+					throw new ConfigurationErrorsException("Couldn't find any connection strings in your configuration file, and you didn't set DataAccess.ConnectionString manually");
+				return result;
+			}
 		}
-
-
 
 		//todo: handle non-int primary keys
 		//todo: handle no rows returned
-		public  DataRow GetUpdateableRow(string tableName, string primaryKeyColumnName, int primaryKeyValue) {
+		/*
+		public DataRow GetUpdateableRow(string tableName, string primaryKeyColumnName, int primaryKeyValue) {
 			Trace.Write(string.Format("{0} {1}", tableName, primaryKeyValue), "DataAccess.GetUpdateableRow");
 			DataTable dt =
 					GetDataTable(String.Format("select * from {0} where {1}={2}", tableName, primaryKeyColumnName, primaryKeyValue));
 			return dt.Rows[0];
 		}
+		 * */
 
-		public  void ExecuteNonQuery(string cmd) {
-			Trace.Write(cmd, "ExecuteNonQuery(string)");
-			GetCommand(cmd).ExecuteNonQuery();
-			Trace.Write("...done", "ExecuteNonQuery");
+		public SqlConnection GetConnection() {
+			var conn = new SqlConnection(ConnectionString);
+			conn.Open();
+			return conn;
 		}
 
-		public  DataSet GetDataSet(string cmd) {
-			SqlConnection conn;
+		public SqlCommand GetCommand(string sql) {
+			return new SqlCommand(sql);
+		}
+
+		public void ExecuteNonQuery(string sql) {
+			using (var conn = GetConnection()) {
+				using (var cmd = new SqlCommand(sql)) {
+					cmd.Connection = conn;
+					cmd.CommandType = CommandType.Text;
+					cmd.CommandText = sql;
+					cmd.ExecuteNonQuery();
+				}
+			}
+		}
+
+		public DataSet GetDataSet(string sql) {
 			var ds = new DataSet();
-			using (SqlDataAdapter da = GetDataAdapter(cmd, out conn)) {
-				da.Fill(ds);
+			using (var conn = GetConnection()) {
+				Trace.Write("Starting " + sql, "DataAccess#GetDataSet");
+				using (var da = new SqlDataAdapter(sql, conn)) {
+					da.Fill(ds);
+				}
+				Trace.Write("Completed " + sql, "DataAccess#GetDataSet");
 			}
 			return ds;
 		}
 
-		public  DataRow GetDataRow(SqlCommand cmd) {
-			var dt = new DataTable();
-			cmd.Connection = GetConnection();
-			var da = new SqlDataAdapter(cmd);
-			da.Fill(dt);
-			return dt.Rows.Count > 0 ? dt.Rows[0] : null;
+		public DataSet GetDataSet(SqlCommand cmd) {
+			var ds = new DataSet();
+			using (var conn = GetConnection()) {
+				cmd.Connection = conn;
+				Trace.Write("Starting " + cmd.CommandText, "DataAccess#GetDataSet");
+				using (var da = new SqlDataAdapter()) {
+					da.SelectCommand = cmd;
+					da.Fill(ds);
+				}
+				Trace.Write("Completed " + cmd.CommandText, "DataAccess#GetDataSet");
+			}
+			return ds;
 		}
 
-		public  DataRow GetDataRow(string cmd) {
-			return GetDataRow(GetCommand(cmd));
+		public DataRow GetDataRow(SqlCommand cmd) {
+			using (var conn = GetConnection()) {
+				cmd.Connection = conn;
+				using (var da = new SqlDataAdapter()) {
+					da.SelectCommand = cmd;
+					using (var dt = new DataTable()) {
+						da.Fill(dt);
+						if (dt.Rows.Count == 0) return null;
+						return dt.Rows[0];
+					}
+				}
+			}
 		}
 
-		public  DataTable GetDataTable(SqlCommand cmd) {
+		public DataRow GetDataRow(string sql) {
+			using (var cmd = new SqlCommand(sql)) {
+				cmd.CommandType = CommandType.Text;
+				return GetDataRow(cmd);
+			}
+		}
+
+		public DataTable GetDataTable(SqlCommand cmd) {
 			var dt = new DataTable();
-			cmd.Connection = GetConnection();
-			var da = new SqlDataAdapter(cmd);
-			da.Fill(dt);
+			using (var conn = new SqlConnection(ConnectionString)) {
+				cmd.Connection = conn;
+				conn.Open();
+				using (var da = new SqlDataAdapter()) {
+					da.SelectCommand = cmd;
+					da.Fill(dt);
+				}
+				conn.Close();
+				conn.Dispose();
+			}
 			return dt;
 		}
 
-		public  DataTable GetDataTable(string cmd) {
-			Trace.Write(cmd, "DataAccess.GetDataTable");
-			SqlConnection conn;
+		public DataTable GetDataTable(string sql) {
 			var dt = new DataTable();
-			SqlDataAdapter da = GetDataAdapter(cmd, out conn);
-			da.Fill(dt);
-			conn.Close();
-			Trace.Write("...done " + cmd, "DataAccess.GetDataTable");
-
+			using (var conn = new SqlConnection(ConnectionString)) {
+				using (var cmd = new SqlCommand(sql, conn)) {
+					cmd.CommandType = CommandType.Text;
+					cmd.Connection = conn;
+					conn.Open();
+					using (var da = new SqlDataAdapter()) {
+						da.SelectCommand = cmd;
+						da.Fill(dt);
+					}
+					conn.Close();
+					conn.Dispose();
+				}
+			}
 			return dt;
 		}
 
-		// todo: if conn is supplied, don't create new connection
-		public  SqlDataAdapter GetDataAdapter(string cmd, out SqlConnection conn) {
-			Trace.Write(cmd, "DataAccess.GetDataAdapter");
-			conn = GetConnection();
-			return new SqlDataAdapter(cmd, conn);
-		}
-
-		public  SqlCommand GetCommand() {
-			return GetCommand(GetConnection());
-		}
-
-		public  SqlCommand GetCommand(SqlConnection conn) {
-			using (var myCommand = new SqlCommand()) {
-				myCommand.Connection = conn;
-				return myCommand;
+		public int? GetScalarInt(string sql) {
+			using (var conn = new SqlConnection(ConnectionString)) {
+				using (var cmd = new SqlCommand(sql, conn)) {
+					conn.Open();
+					cmd.CommandType = CommandType.Text;
+					var result = cmd.ExecuteScalar();
+					try {
+						return Convert.ToInt32(result);
+					}
+					catch (Exception)
+					{
+						return null;
+					}
+				}
 			}
 		}
 
-		public  SqlCommand GetCommand(string cmd) {
-			Trace.Write(cmd, "DataAccess.GetCommand");
-			return new SqlCommand(cmd, GetConnection());
-		}
-
-		public  SqlCommand GetCommandStoredProcedure(string storedProcedureName) {
-			return GetStoredProcedureCommand(storedProcedureName, GetConnection());
-		}
-
-		public  SqlCommand GetStoredProcedureCommand(string storedProcedureName, SqlConnection conn) {
-			SqlCommand myCommand = GetCommand(conn);
-			myCommand.CommandType = CommandType.StoredProcedure;
-			myCommand.CommandText = storedProcedureName;
-			return myCommand;
-		}
-
-		public  int GetScalarInt(string cmd) {
-			SqlCommand foo = GetCommand(cmd);
-			return GetScalarInt(foo);
-		}
-
-		public int GetScalarInt(SqlCommand cmd) {
-			object result = cmd.ExecuteScalar();
-			return (int)result;
-		}
-
-		public int? GetScalarIntNullable(string sql) {
-			SqlCommand cmd = GetCommand(sql);
-			object result = cmd.ExecuteScalar();
-			if (result == DBNull.Value) return null;
-			return (int) result;
-		}
-
-
-		public int? GetScalarIntNullable(SqlCommand cmd) {
-			object result = cmd.ExecuteScalar();
-			if (result == DBNull.Value) return null;
-			return (int)result;
-		}
-
-		public  string GetScalarString(string cmd) {
-			SqlCommand foo = GetCommand(cmd);
-			var result = foo.ExecuteScalar();
-			return result == null ? string.Empty : result.ToString();
-		}
-
-		public  DateTime GetScalarDateTime(string cmd) {
-			SqlCommand foo = GetCommand(cmd);
-			return (DateTime)foo.ExecuteScalar();
-		}
-
-		public  object GetScalar(SqlCommand cmd) {
-			return cmd.ExecuteScalar();
-		}
-
-		public  SqlDataReader GetDataReader(string cmd) {
-			Trace.Write(cmd, "DataAccess.GetDataReader");
-			SqlCommand sqlCommand = GetCommand(cmd);
-			SqlDataReader dr;
-			try {
-				Trace.Write(String.Format("Start execute: {0}", cmd), "DataAccess.GetDataReader");
-				dr = sqlCommand.ExecuteReader();
-				Trace.Write(String.Format("Start execute: {0}", cmd), "DataAccess.GetDataReader");
+		public int? GetScalarInt(SqlCommand cmd) {
+			using (var conn = GetConnection()) {
+				cmd.Connection = conn;
+				var result = cmd.ExecuteScalar();
+				try {
+					return Convert.ToInt32(result);
+				}
+				catch (Exception e) {
+					return null;
+				}
 			}
-			catch (Exception e) {
-				sqlCommand.Connection.Close();
-				Trace.Write(String.Format("Errored on this sql: {0}", cmd), "GetDataReader");
-				throw;
-			}
-			finally {
-				sqlCommand.Dispose();
-			}
-			Trace.Write("...done " + cmd, "DataAccess.GetDataReader");
-			return dr;
 		}
 
-		public  SqlDataReader GetDataReader(SqlCommand cmd) {
-			SqlDataReader reader;
-			try {
-				Trace.Write(String.Format("Start execute: {0}", cmd.CommandText), "DataAccess.GetDataReader");
-				reader = cmd.ExecuteReader();
-				reader.Read(); //????? not like GetDataReader(string)
-				Trace.Write(String.Format("Start execute: {0}", cmd.CommandText), "DataAccess.GetDataReader");
+		public string GetScalarString(string sql) {
+			using (var conn = GetConnection()) {
+				using (var cmd = new SqlCommand(sql, conn)) {
+					cmd.CommandType = CommandType.Text;
+					var result = cmd.ExecuteScalar();
+					try {
+						return result.ToString();
+					}
+					catch (Exception) {
+						return String.Empty;
+					}
+				}
 			}
-			catch (Exception e) {
-				cmd.Connection.Close();
-				throw;
-			}
-			finally {
-				cmd.Dispose();
-			}
-
-			return reader;
 		}
 
+		public string GetScalarString(SqlCommand cmd) {
+			using (var conn = GetConnection()) {
+				cmd.Connection = conn;
+				var result = cmd.ExecuteScalar();
+				try {
+					return result.ToString();
+				}
+				catch (Exception) {
+					return String.Empty;
+				}
+			}
+		}
+
+
+
+		public DateTime? GetScalarDateTime(string sql) {
+			using (var conn = new SqlConnection(ConnectionString)) {
+				using (var cmd = new SqlCommand(sql, conn)) {
+					var result = cmd.ExecuteScalar();
+					try {
+						return Convert.ToDateTime(result);
+					}
+					catch (Exception) {
+						return null;
+					}
+				}
+			}
+		}
+
+		public object GetScalar(SqlCommand cmd) {
+			using (var conn = GetConnection()) {
+				cmd.Connection = conn;
+				return cmd.ExecuteScalar();
+			}
+		}
 	}
-
 }

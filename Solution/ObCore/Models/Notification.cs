@@ -50,7 +50,7 @@ namespace ObCore.Models {
 		public string PictureUrl {
 			get {
 				if (!IdPictureMember.HasValue) return String.Empty;
-				return Picture.PublicPictureUrl(IdPictureMember.Value);
+				return MemberPicture.PublicPictureUrl(IdPictureMember.Value);
 			}
 		}
 

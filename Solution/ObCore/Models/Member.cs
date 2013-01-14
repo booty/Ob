@@ -14,329 +14,170 @@ namespace ObCore.Models {
 	[ExplicitColumns]
 	public class Member : ObDb.Record<Member> {
 
-		#region Stuff PetaPoco added
-		[Required]
-		[PetaPoco.Column("ID_Member")]
-		public int IdMember {
-			get;
-			set;
-		}
-		[Required]
-		[PetaPoco.Column]
-		public string Login {
-			get;
-			set;
-		}
-
-		[PetaPoco.Column("About_Self")]
-		[DisplayName("About")]
-		public string AboutSelf {
-			get;
-			set;
-		}
-
-		[PetaPoco.Column]
-		public int? Age {
-			get;
-			set;
-		}
-
-		[Required]
-		[PetaPoco.Column]
-		public string Gender {
-			get;
-			set;
-		}
-
-		[PetaPoco.Column]
-		public string City {
-			get;
-			set;
-		}
-
-		[PetaPoco.Column]
-		public string State {
-			get;
-			set;
-		}
-
-		[PetaPoco.Column]
-		public string Country {
-			get;
-			set;
-		}
-
-		[PetaPoco.Column("latitude")]
-		public double? Latitude {
-			get;
-			set;
-		}
-
-		[PetaPoco.Column("longitude")]
-		public double? Longitude {
-			get;
-			set;
-		}
-
-		[PetaPoco.Column("id_picture_member")]
-		public int? IdPictureMember {
-			get;
-			set;
-		}
+		#region Simple PetaPoco Properties
+		[Required][PetaPoco.Column("ID_Member")]public int IdMember { get; set; }
+		[Required][PetaPoco.Column]public string Login { get; set; }
+		[PetaPoco.Column("About_Self")][DisplayName("About")] public string AboutSelf { get; set; }
+		[PetaPoco.Column]public int? Age { get; set; }
+		[Required][PetaPoco.Column]public string Gender { get; set; }
+		[PetaPoco.Column]public string City { get; set; }
+		[PetaPoco.Column]public string State { get; set; }
+		[PetaPoco.Column]public string Country { get; set; }
+		[PetaPoco.Column("latitude")]public double? Latitude { get; set;}
+		[PetaPoco.Column("longitude")]public double? Longitude { get; set;}
+		[PetaPoco.Column("id_picture_member")]public int? IdPictureMember { get; set;}
+		// this field sucks. mostly (entirely?) for backwards compatibility with forum functions
+		public MemberPermissionLevel MemberPermissionLevel { get; set; } 
 
 		public string PrimaryPhotoUrl {
 			get {
 				if (IdPictureMember.HasValue)
-					return Picture.PublicPictureUrl(IdPictureMember.Value, PictureSize.Small50Px);
-				return String.Empty;
+					return MemberPicture.PublicPictureUrl(IdPictureMember.Value, PictureSize.Small50Px);
+				return null;
 			}
 		}
 
 		[PetaPoco.Column("Current_Relationship_Description_Others")]
 		[DisplayName("Current Relationship")]
-		public string CurrentRelationshipDescriptionOthers {
-			get;
-			set;
-		}
+		public string CurrentRelationshipDescriptionOthers {get;set;}
 
 		[PetaPoco.Column("Relationship_Desired_Description_Others")]
 		[DisplayName("Relationship Desired")]
-		public string RelationshipDesiredDescriptionOthers {
-			get;
-			set;
-		}
+		public string RelationshipDesiredDescriptionOthers {get;set;}
 
 		[PetaPoco.Column("logins_previous")]
 		[DisplayName("Previously Known As")]
-		public string LoginsPrevious {
-			get;
-			set;
-		}
+		public string LoginsPrevious {get;set;}
 
 		[PetaPoco.Column("lifetime_member")]
 		[DisplayName("Lifetime Member?")]
-		public bool? LifetimeMember {
-			get;
-			set;
-		}
+		public bool? LifetimeMember {get;set;}
 
+		[JsonIgnore]
 		[DisplayName("Paid Member?")]
-		public int IsPaidMember {
-			get;
-			set;
-		}
+		public int IsPaidMember {get;set;}
 
 		[PetaPoco.Column]
 		[DisplayName("Paid or Lifetime Member?")]
-		public bool IsPaidOrLifetimeMember {
-			get;
-			set;
-		}
+		public bool IsPaidOrLifetimeMember {get;set;}
 
 		[PetaPoco.Column]
 		[DisplayName("Is Moderator?")]
-		public bool IsMod {
-			get;
-			set;
-		}
+		public bool IsMod { get; set; }
 
 		[PetaPoco.Column]
-		[DisplayName("Is UberModerator?")]
-		public bool IsUberMod {
-			get;
-			set;
-		}
+		[DisplayName("Is Admin?")]
+		public bool IsAdmin { get; set; }
 
-		[PetaPoco.Column]
+		[PetaPoco.Column("IsUberAdmin")]
 		[DisplayName("Is SysAdmin?")]
-		public bool IsSysAdmin {
-			get;
-			set;
-		}
+		public bool IsSysAdmin {get;set;}
 
 		[PetaPoco.Column]
 		[DisplayName("Is a Customer Service Rep?")]
-		public bool IsCustomerServiceRepresentative {
-			get;
-			set;
-		}
+		public bool IsCustomerServiceRepresentative {get;set;}
 
 		[PetaPoco.Column]
 		[DisplayName("Is a Customer Server Rep Admin?")]
-		public bool IsCustomerServiceRepresentativeAdmin {
-			get;
-			set;
-		}
+		public bool IsCustomerServiceRepresentativeAdmin {get;set;}
 
 		[PetaPoco.Column]
 		[DisplayName("Can approve member-uploaded pictures?")]
-		public bool IsPicApprover {
-			get;
-			set;
-		}
+		public bool IsPicApprover {get;set;}
 
 		[PetaPoco.Column]
 		[DisplayName("Can approve member profiles?")]
-		public bool IsProfileApprover {
-			get;
-			set;
-		}
+		public bool IsProfileApprover {get;set;}
 
 		[Required]
 		[DisplayName("Last Visit")]
 		[PetaPoco.Column("last_login")]
-		public DateTime LastLogin {
-			get;
-			set;
-		}
+		public DateTime LastLogin {get;set;}
 
 		[PetaPoco.Column("Last_Login_Relative")]
 		[DisplayName("Last Visit")]
-		public string LastLoginRelative {
-			get;
-			set;
-		}
+		public string LastLoginRelative {get;set;}
 
 		[PetaPoco.Column("last_active")]
 		[DisplayName("Last Active")]
-		public DateTime? LastActive {
-			get;
-			set;
-		}
+		public DateTime? LastActive {get;set;}
 
 		[PetaPoco.Column("Last_Active_Relative")]
 		[DisplayName("Last Active")]
-		public string LastActiveRelative {
-			get;
-			set;
-		}
+		public string LastActiveRelative {get;set;}
 
 		[Required]
 		[PetaPoco.Column("Joined_Site")]
 		[DisplayName("Joined")]
-		public DateTime JoinedSite {
-			get;
-			set;
-		}
+		public DateTime JoinedSite {get;set;}
 
 		[PetaPoco.Column("Joined_Site_Relative")]
 		[DisplayName("Joined")]
-		public string JoinedSiteRelative {
-			get;
-			set;
-		}
+		public string JoinedSiteRelative {get;set;}
 
 		[Required]
 		[PetaPoco.Column("Likes_Females")]
 		[DisplayName("Interested In Females?")]
-		public bool LikesFemales {
-			get;
-			set;
-		}
+		public bool LikesFemales {get;set;}
 
 		[Required]
 		[PetaPoco.Column("Likes_Males")]
 		[DisplayName("Interested In Men?")]
-		public bool LikesMales {
-			get;
-			set;
-		}
+		public bool LikesMales {get;set;}
 
 		[PetaPoco.Column("Gender_Preference")]
 		[DisplayName("Gender Preference")]
-		public string GenderPreference {
-			get;
-			set;
-		}
+		public string GenderPreference {get;set;}
 
 		[PetaPoco.Column("Your_Dream_Job")]
 		[DisplayName("Your Dream Job")]
-		public string YourDreamJob {
-			get;
-			set;
-		}
+		public string YourDreamJob {get;set;}
 
 		[PetaPoco.Column("Anime_Hobbies")]
 		[DisplayName("Anime_Hobbies")]
-		public string AnimeHobbies {
-			get;
-			set;
-		}
+		public string AnimeHobbies {get;set;}
 
 		[PetaPoco.Column("Conventions")]
 		[DisplayName("Conventions")]
-		public string Conventions {
-			get;
-			set;
-		}
+		public string Conventions {get; set;}
 
 		[PetaPoco.Column("Music")]
 		[DisplayName("Music")]
-		public string Music {
-			get;
-			set;
-		}
+		public string Music {get;set;}
 
 		[PetaPoco.Column("Something_Funny_You_Own")]
 		[DisplayName("Something Funny You Own")]
-		public string SomethingFunnyYouOwn {
-			get;
-			set;
-		}
+		public string SomethingFunnyYouOwn {get;set;}
 
 		[PetaPoco.Column("Other_Interests")]
 		[DisplayName("Other Interests")]
-		public string OtherInterests {
-			get;
-			set;
-		}
+		public string OtherInterests {get;set;}
 
 		[PetaPoco.Column("Favorite_Anime_Manga")]
 		[DisplayName("Favorite Anime or Manga")]
-		public string FavoriteAnimeManga {
-			get;
-			set;
-		}
+		public string FavoriteAnimeManga {get;set;}
 
 		[PetaPoco.Column("Favorite_Games")]
 		[DisplayName("Favorite Games")]
-		public string FavoriteGames {
-			get;
-			set;
-		}
+		public string FavoriteGames {get;set;}
 
 		[PetaPoco.Column("your_job")]
 		[DisplayName("Your Job")]
-		public string YourJob {
-			get;
-			set;
-		}
+		public string YourJob {get;set;}
 
 		[PetaPoco.Column("id_member_invite")]
 		[DisplayName("id_member_invite")]
-		public int? IdMemberInvite {
-			get;
-			set;
-		}
+		public int? IdMemberInvite {get;set;}
 
 		[PetaPoco.Column("login_invite")]
 		[DisplayName("Invited By")]
-		public string LoginInvite {
-			get;
-			set;
-		}
+		public string LoginInvite {get;set;}
 
 		[PetaPoco.Column("phone_number_visibility")]
-		public PhoneNumberVisibility PhoneNumberVisibility {
-			get;
-			set;
-		}
+		public PhoneNumberVisibility PhoneNumberVisibility {get;set;}
 
 		[PetaPoco.Column("phone_number_us")]
-		public string PhoneNumberUs {
-			get;
-			set;
-		}
+		public string PhoneNumberUs {get;set;}
 
 		#endregion
 
@@ -358,6 +199,19 @@ namespace ObCore.Models {
 			var rel = Relationship.Find(IdMember, idMember);
 			if (rel == null) return null;
 			_relationships.Add(idMember, rel);
+			return rel;
+		}
+
+		public Relationship RelationshipTo(Member member) {
+			if (_relationships == null) _relationships = new Dictionary<int, Relationship>();
+
+			// Do we already have it in the collection?
+			if (_relationships.ContainsKey(member.IdMember)) return _relationships[member.IdMember];
+
+			// Fetch it, put it in the collection (if not null) and return it
+			var rel = Relationship.Find(IdMember, member.IdMember);
+			if (rel == null) return null;
+			_relationships.Add(member.IdMember , rel);
 			return rel;
 		}
 
@@ -396,20 +250,14 @@ namespace ObCore.Models {
 
 		#endregion
 
-		[ScriptIgnore]
-		[JsonIgnore]
-		public Member MemberInvitedBy {
+		[ScriptIgnore] [JsonIgnore] public Member MemberInvitedBy {
 			get {
 				if (IdMemberInvite.HasValue) return Member.Find(IdMemberInvite.Value);
 				return null;
 			}
 		}
 
-		public bool IsAdult {
-			get {
-				return (Age >= 18);
-			}
-		}
+		public bool IsAdult { get { return (Age >= 18); } }
 
 		public bool IsAuthorized(ObCore.AuthorizationRequirement authorizationRequirement) {
 			return ObCore.Security.IsAuthorized(this, authorizationRequirement);
@@ -421,10 +269,13 @@ namespace ObCore.Models {
 					if (Country.Equals("United States") || Country.Equals("USA")) return string.Format("{0}, {1}", City, State);
 					return string.Format("{0}, {1}, {2}", City, State, Country);
 				}
-
-				// If we don't have a lat/long, their location probably isn't valid
-				return String.Empty;
+				return String.Empty;	// If we don't have a lat/long, their location probably isn't valid
 			}
+		}
+
+		public PrivateMessage SendPrivateMessage(int idMemberTo, string subject, string body, int? idMessageReplyTo) {
+			if (!IsAuthorized(AuthorizationRequirement.CanSendPrivateMessages)) throw new Exceptions.ObAuthorizationException();
+			return PrivateMessage.Create(idMemberTo, this.IdMember, subject, body, idMessageReplyTo);
 		}
 
 		/// <summary>
@@ -433,9 +284,9 @@ namespace ObCore.Models {
 		/// <returns>What do you *think* it returns?</returns>
 		[ScriptIgnore]
 		[JsonIgnore]
-		public List<Picture> PublicPictures {
+		public List<MemberPicture> PublicPictures {
 			get {
-				return Picture.Find(this.IdMember, false);
+				return MemberPicture.Find(this.IdMember, false, null);
 			}
 		}
 
@@ -444,7 +295,7 @@ namespace ObCore.Models {
 		/// </summary>
 		/// <param name="relationship">If omitted, assumes you've already figured out the permissions :-)</param>
 		/// <returns>A List of friends-only pictures</returns>
-		public List<Picture> FriendsOnlyPictures(Relationship relationship = null) {
+		public List<MemberPicture> FriendsOnlyPictures(Relationship relationship = null) {
 			if (relationship != null) {
 				// shouldn't happen; throw exception
 				if ((relationship.Member1IdMember != IdMember) && (relationship.Member2IdMember != IdMember)) {
@@ -459,14 +310,43 @@ namespace ObCore.Models {
 				if ((relationship.Member2IdMember == IdMember) && (!relationship.Member2FopsVisible)) return null;
 			}
 
-			return Picture.Find(IdMember, true);
+			return MemberPicture.Find(IdMember, true, null);
 		}
 
-		public List<Picture> FriendsOnlyPicturesViewableBy(Member member) {
-			if (member.CanViewFopsOf(this)) return Picture.Find(IdMember, true);
+		public List<MemberPicture> FriendsOnlyPicturesViewableBy(Member member) {
+			if (member.CanViewFopsOf(this)) return MemberPicture.Find(IdMember, true, null);
 			return null; // new List<Picture>(0);
 		}
 
+		/*
+		public MemberPicture GetFriendsOnlyPictureOf(Member otherMember, string fopGuid) {
+			if (CanViewFopsOf(otherMember)) {
+				return MemberPicture.Find(fopGuid, otherMember.IdMember);
+			}
+			return null;
+		}
+
+		public MemberPicture GetFriendsOnlyPictureOf(int idMemberOther, string fopGuid) {
+			if (CanViewFopsOf(idMemberOther)) {
+				return MemberPicture.Find(fopGuid, idMemberOther);
+			}
+			return null;
+		}
+		 * */
+
+		public MemberPicture GetFriendsOnlyPicture(string guid) {
+			if (!IsAdult) return null;
+			var pic = MemberPicture.FindFriendsOnlyPicture(guid);	// does the picture exist?
+			if (pic==null) return null;
+			if (CanViewFopsOf(pic.IdMember)) return pic; // does it belong to somebody we can view fops of?
+			return null;
+		}
+
+		public List<MemberPicture> GetFriendsOnlyPicturesOf(Member otherMember) {
+			if (!IsAdult) return null; // are we adult?
+			if (!CanViewFopsOf(otherMember)) return null; // can we view FOPs of the other member?
+			return MemberPicture.FindFriendsOnlyPictures(otherMember.IdMember);
+		}
 
 		/*
 		 Static Methods
@@ -474,27 +354,22 @@ namespace ObCore.Models {
 
 		public static Member Find(int idMember) {
 			using (var db=new ObDb()) {
-				try {
-					return db.Single<Member>("select * from MemberBasic where id_member=@0", idMember);
-				}
-				catch (InvalidOperationException e) {
-					// thrown by PetaPoco if no results
-					return null;
-				}
+				return db.SingleOrDefault<Member>("select * from MemberBasic where id_member=@0", idMember);
 			}
 		}
 
 		public static Member Find(string login) {
 			using (var db = new ObDb()) {
-				try {
-					return db.Single<Member>("select * from MemberBasic mb inner join MemberLoginsAll mla on mb.id_member=mla.id_member where mla.login=@0", login);
-				}
-				catch (InvalidOperationException e) { 
-					// thrown by PetaPoco if no results
-					return null;
-				}
+				return db.SingleOrDefault<Member>("select * from MemberBasic mb inner join MemberLoginsAll mla on mb.id_member=mla.id_member where mla.login=@0", login);
 			}
 		}
+
+		public static MemberPermissionLevel? PermissionLevel(int idMember) {
+			var da = new DataAccess();
+			return (MemberPermissionLevel?)da.GetScalarInt("select MemberPermissionLevel from MemberBasic where id_member=" + idMember);
+		}
+
+
 
 	}
 }

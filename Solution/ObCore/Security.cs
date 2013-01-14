@@ -64,7 +64,7 @@ namespace ObCore {
 		/// <returns></returns>
 		public static AuthenticationResult Authenticate(string token, string ipAddress, string url) {
 			var da = new DataAccess();
-			using (var cmd = da.GetCommandStoredProcedure("Process_Login_Token")) {
+			using (var cmd = da.GetCommand("Process_Login_Token").AsStoredProcedure()) {
 				cmd.Parameters.AddWithValue("Login", DBNull.Value).Size = 25;
 				cmd.Parameters.AddWithValue("Pword", DBNull.Value).Size = 25;
 				cmd.Parameters.AddWithValue("ID_Member_Login_Method", ObCore.LoginMethod.Form);
@@ -87,7 +87,7 @@ namespace ObCore {
 		/// <returns></returns>
 		public static AuthenticationResult Authenticate(string login, string password, string ipAddress, string url) {
 			var da = new DataAccess();
-			using (var cmd = da.GetCommandStoredProcedure("Process_Login_Token")) {
+			using (var cmd = da.GetCommand("Process_Login_Token").AsStoredProcedure()) {
 				cmd.Parameters.AddWithValue("Login", login);
 				cmd.Parameters.AddWithValue("Pword", password);
 				cmd.Parameters.AddWithValue("ID_Member_Login_Method", ObCore.LoginMethod.Form);
@@ -142,8 +142,8 @@ namespace ObCore {
 			switch (authorizationRequirement) {
 				case AuthorizationRequirement.IsAuthenticated:
 					return true;
-				case AuthorizationRequirement.IsUberModOrHigher:
-					return member.IsUberMod;
+				case AuthorizationRequirement.IsAdminOrHigher:
+					return member.IsAdmin;
 				case AuthorizationRequirement.HasPaidMemberPriviledges:
 					return member.IsPaidOrLifetimeMember;
 				case AuthorizationRequirement.IsFreeMember:
@@ -154,6 +154,12 @@ namespace ObCore {
 					return member.IsCustomerServiceRepresentativeAdmin;
 				case AuthorizationRequirement.IsModOrHigher:
 					return member.IsMod;
+				case AuthorizationRequirement.CanSendPrivateMessages:
+					return member.IsPaidOrLifetimeMember;
+				case AuthorizationRequirement.CanSendComments:
+					return member.IsPaidOrLifetimeMember;
+				case AuthorizationRequirement.IsSysAdmin:
+					return member.IsSysAdmin;
 				default:
 					// todo: Implement missing authorization requirements 
 					throw new NotImplementedException();

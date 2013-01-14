@@ -6,11 +6,11 @@ using ObCore.Models;
 using System.Collections.Generic;
 
 namespace ObApi.Controllers {
-	public class MemberController : ApiController {
+	public class MembersController : ApiController {
 		public class MemberProfile {
 			public Member Member;
-			public List<Picture> PublicPictures;
-			public List<Picture> FriendsOnlyPictures;
+			public List<MemberPicture> PublicPictures;
+			public List<MemberPicture> FriendsOnlyPictures;
 		}
 
 

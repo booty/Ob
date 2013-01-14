@@ -49,7 +49,7 @@ namespace ObCore.Helpers {
 		#region Helpers for regular member pictures
 
 		public static string MemberProfilePictureUrl(this int idPictureMember, string size = "") {
-			return ObCore.Models.Picture.PublicPictureUrl(idPictureMember, size);
+			return ObCore.Models.MemberPicture.PublicPictureUrl(idPictureMember, size);
 			/*
 			 * return String.Format("{0}/user/pic/{1}/{2}{3}.jpg",
 				ConfigurationManager.AppSettings["StaticAssetRootUrl"],

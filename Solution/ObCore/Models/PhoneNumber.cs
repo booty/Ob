@@ -37,7 +37,7 @@ namespace ObApi.Models {
 				IdMember = (int) dr["id_member"],
 				PhoneNumberUs = (string) dr["phone_number_us"]
 			};
-			pn.PictureUrl = Picture.PublicPictureUrl(pn.IdMember, PictureSize.Small50Px);
+			pn.PictureUrl = MemberPicture.PublicPictureUrl(pn.IdMember, PictureSize.Small50Px);
 			if (dr["logins_previous"] != DBNull.Value) pn.LoginsPrevious = (string) dr["logins_previous"]; 
 			if (dr["id_picture_member"] != DBNull.Value) pn.IdPictureMember = (int) dr["id_picture_member"]; 
 

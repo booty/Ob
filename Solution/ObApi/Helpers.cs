@@ -53,7 +53,7 @@ namespace ObApi {
 		/// <param name="ctx">An HttpContext (presumably the current one obtained with HttpContext.Current</param>
 		/// <returns>The member Id, or null</returns>
 		public static int? MemberId(this HttpContext ctx) {
-			string authToken = ctx.Request.Headers["ObAuthenticationToken"] ?? ctx.Request["authenticationToken"];
+			string authToken = ctx.Request.Headers["ObAuthenticationToken"] ?? ctx.Request.Headers["ObAuthentication"] ?? ctx.Request["authenticationToken"];
 
 			// if they didn't supply one, return null -- nothing else to do, obviously
 			if (String.IsNullOrEmpty(authToken) || String.IsNullOrWhiteSpace(authToken)) return null;
@@ -73,7 +73,7 @@ namespace ObApi {
 			var da = new DataAccess();
 			var cmd = da.GetCommand("select id_member from login_token where login_token=@login_token");
 			cmd.Parameters.AddWithValue("@login_token", authToken);
-			int? idMember = da.GetScalarIntNullable(cmd);
+			int? idMember = da.GetScalarInt(cmd);
 			if (idMember.HasValue) {
 				// Success! Cache the successful result
 				memberIdCache[authToken] = idMember.Value;
