@@ -10,8 +10,8 @@ namespace ObApi.Controllers {
 	public class FooController : ApiController {
 		// GET api/foo
 		public string Get() {
-			int? memberId=HttpContext.Current.MemberId();
-			return memberId.ToString();
+			return "Hi there! " + DateTime.Now.ToString();
+			
 		}
 
 		// GET api/foo/5
