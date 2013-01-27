@@ -21,6 +21,8 @@ namespace ObCore {
 			return defaultValue;
 		}
 
+		
+
 		public static int? GetNullableInt(this DataRow dr, string columnName) {
 			try {
 				return Convert.ToInt32(dr[columnName]);
@@ -106,7 +108,9 @@ namespace ObCore {
 
 		public SqlConnection GetConnection() {
 			var conn = new SqlConnection(ConnectionString);
+			Trace.WriteLine("Opening connection", "DataAccess.cs");
 			conn.Open();
+			Trace.WriteLine("Opened connection", "DataAccess.cs");
 			return conn;
 		}
 

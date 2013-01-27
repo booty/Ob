@@ -25,6 +25,17 @@ namespace ObCore.Models {
 		[PetaPoco.Column("ApprovalStatusDescription")] public string ApprovalStatusDescription { get; set; }
 		[PetaPoco.Column("Moderator_Login")] public string ModeratorLogin { get; set; }
 
+		public string Url {
+			get {
+				if (FriendsOnly) {
+					return String.Empty;
+				}
+				else {
+					return MemberPicture.PublicPictureUrl(IdPictureMember);
+				}
+			}
+		}
+
 		public bool IsApproved { 
 			get { 
 				return (IdApprovalStatus==0); 
@@ -65,7 +76,7 @@ namespace ObCore.Models {
 			}
 		}
 
-		public static MemberPicture FindProfilePicture(int idPictureMember, bool approvedOnly = true) {
+		public static MemberPicture FindPublicPicture(int idPictureMember, bool approvedOnly = true) {
 			using (var db=new ObDb()) {
 				if (approvedOnly) {
 					return db.FirstOrDefault<MemberPicture>("select * from PictureMemberView where friends_only=0 and id_picture_member=@idPictureMember and id_approval_status=0", new { idPictureMember } );
@@ -74,6 +85,28 @@ namespace ObCore.Models {
 					return db.FirstOrDefault<MemberPicture>("select * from PictureMemberView where friends_only=0 and id_picture_member=@idPictureMember");
 				}
 			}
+		}
+
+		public static List<MemberPicture> FindPublicPictures(int skip = 0, int take = 25, bool approvedOnly = true) {
+			string sql;
+
+			if (approvedOnly)
+				sql = @"select *
+				from ( select ROW_NUMBER() over (order by id_picture_member desc) as rownumber, * from PictureMemberView where friends_only=0 and id_approval_status=0 ) 
+				pics where rownumber between (@skip+1) and @skip+@take";
+			else {
+				sql = @"select *
+				from ( select ROW_NUMBER() over (order by id_picture_member desc) as rownumber, * from PictureMemberView where friends_only=0 ) pics 
+				where rownumber between (@skip+1) and @skip+@take";
+			}
+
+			using (var db=new ObDb()) {
+				return db.Fetch<MemberPicture>(sql, new {
+					skip,
+					take
+				});
+			}
+
 		}
 
 		/*

@@ -1833,7 +1833,10 @@ namespace PetaPoco {
 						}
 					}
 					else if (!dstType.IsAssignableFrom(srcType)) {
-						converter = delegate(object src) { return Convert.ChangeType(src, dstType, null); };
+						converter = delegate(object src) { 
+							if (src is IConvertible) return Convert.ChangeType(src, dstType, null);
+							return src.ToString();
+						};
 					}
 				}
 				return converter;

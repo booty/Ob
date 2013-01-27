@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ObCore.Helpers;
 
 namespace ObCore.Models {
 
@@ -16,14 +17,14 @@ namespace ObCore.Models {
 		[PetaPoco.Column("Timestamp_Created")] public DateTime Created { get; set; }
 		[PetaPoco.Column("Timestamp_Updated")]
 		public DateTime? Updated { get; set; }
+		public string Login { get; set; }
 		[PetaPoco.Column("ID_Post_Reply_To")] public int? IdPostReplyTo { get; set; }
-		[PetaPoco.Column("Post_Subject")] public string Subject { get; set; }
 		[PetaPoco.Column("Post_Body")] public string Body { get; set; }
 		[PetaPoco.Column("ID_Post_Moderation_Status")] public int PostModerationStatus { get; set; }
 		[PetaPoco.Column("Moderation_Timestamp")] public DateTime? Moderated { get; set; }
 		[PetaPoco.Column("Moderator_Login")] public string ModeratorLogin { get; set; }
 		[PetaPoco.Column("ID_Member_Moderated")] public int? IdMemberModerated { get; set; }
-		[PetaPoco.Column("IP_Address")] public string IpAddress { get; set; }
+		//[PetaPoco.Column("IP_Address")] public string IpAddress { get; set; }
 		[PetaPoco.Column("ID_Article")] public int? IdArticle { get; set; }
 		[PetaPoco.Column("Date_To_Show")] public DateTime? DateToShowArticle { get; set; }
 		[PetaPoco.Column("Article_Has_Album")] public bool? ArticleHasAlbum { get; set; }
@@ -31,7 +32,7 @@ namespace ObCore.Models {
 		[PetaPoco.Column("Item_Description")] public string ItemDescription { get; set; }
 		[PetaPoco.Column("Item_Icon")] public string ItemIcon { get; set; }
 		[PetaPoco.Column("Adult")] public bool Adult { get; set; }
-		[PetaPoco.Column("md5")] public string Md5Digest { get; set; }
+		//[PetaPoco.Column("md5")] public string Md5Digest { get; set; }
 		[PetaPoco.Column("Picture_Guid")] public string PictureGuid { get; set; }
 		[PetaPoco.Column("Picture_Filesize_Bytes")] public int? PictureFileSizeBytes { get; set; }
 		[PetaPoco.Column("Picture_Width")] public int? PictureWidth { get; set; }
@@ -40,6 +41,19 @@ namespace ObCore.Models {
 		[PetaPoco.Column("Positive")] public bool? ModerationIsPositive { get; set; }
 		[PetaPoco.Column("File_Extension")] public string ModerationFlagFileExtension { get; set; }
 		[PetaPoco.Column("Moderation_Info")] public string ModerationInformation { get; set; }
+
+		public string CreatedRelative {
+			get {
+				return Created.ToRelativeDate();
+			}
+		}
+
+		public string UpdatedRelative {
+			get {
+				return Updated.ToRelativeDate();
+			}
+		}
+
 
 		public string ModerationFlagUrl {
 			get {
@@ -114,7 +128,20 @@ namespace ObCore.Models {
 			using (var db = new ObDb()) {
 				var sql = "select * from dbo.PostSingle(@idPost, @includeAdult, @includeDeleted, @idMemberPermissionLevel) where id_post=@idPost";
 				if (!includeAdult) sql += " and Adult<>1";
-				return db.FirstOrDefault<Post>(sql, new {idPost, includeAdult, includeDeleted, memberPermissionLevel});
+				return db.FirstOrDefault<Post>(sql, new {idPost, includeAdult, includeDeleted, memberPermissionLevel=(int)memberPermissionLevel});
+			}
+		}
+
+		public static List<Post> FindPostsInThread(Member memberViewingThread, int idThread, int skip, int take) {
+			return FindPostsInThread(memberViewingThread.MemberPermissionLevel, idThread, memberViewingThread.IsAdult, skip, take);
+		}
+
+		public static List<Post> FindPostsInThread(MemberPermissionLevel memberPermissionLevel, int idThread, bool includeAdult, int skip, int take) {
+			using (var db=new ObDb()) {
+				int fuckYou = (int)memberPermissionLevel;
+				var result = db.Fetch<Post>(String.Format("select * from dbo.ThreadReplies({4},{3},{2}, {0}, {1}) order by id_post",skip,take,(includeAdult ? 1 : 0),idThread,fuckYou));
+				if (result.Count == 0) return null;
+				return result;
 			}
 		}
 	}

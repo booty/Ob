@@ -13,8 +13,24 @@ namespace ObApi.Controllers {
 
 
 		// GET api/threads/5
-		public string Get(int id) {
-			return "Hi! :-)";
+		public HttpResponseMessage Get(int id, int skip=0, int take=20) {			
+			Thread thread;
+
+			int? memberId = HttpContext.Current.MemberId();
+			if (memberId.HasValue) {
+				var member = Member.Find(memberId.Value);
+				thread = Thread.FindThreadWithReplies(member, id, skip, take);
+				if (thread==null) return Request.CreateErrorResponse(HttpStatusCode.NotFound, "That thread doesn't exist, or you don't have permission to see it.").WithObApiPrivateDefaults();
+				return Request.CreateResponse<Thread>(HttpStatusCode.OK, thread).WithObApiPrivateDefaults();
+			}
+			else {
+				thread = Thread.FindThreadWithReplies(MemberPermissionLevel.Unauthenticated, id, false, skip, take);
+				if (thread==null) return Request.CreateErrorResponse(HttpStatusCode.NotFound, "That thread doesn't exist, or you don't have permission to see it.").WithObApiPrivateDefaults();
+				return Request.CreateResponse<Thread>(HttpStatusCode.OK, thread).WithObApiPublicDefaults();
+			}
+
+			
+
 		}
 
 		// POST api/threads

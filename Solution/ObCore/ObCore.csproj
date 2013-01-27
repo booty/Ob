@@ -85,9 +85,6 @@
     <Compile Include="Models\PetaPoco.cs" />
     <Compile Include="Models\MemberPicture.cs" />
     <Compile Include="Models\Relationship.cs" />
-    <Compile Include="Models\Right.cs" />
-    <Compile Include="Models\Role.cs" />
-    <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

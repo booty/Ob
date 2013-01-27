@@ -33,9 +33,10 @@ namespace ObApi.Controllers {
 			if (post == null) {
 				return Request.CreateResponse(HttpStatusCode.NotFound, "That post doesn't exist, or perhaps you're not allowed to see it?");
 			}
-			else {
-				return Request.CreateResponse<Post>(HttpStatusCode.OK, post).WithObApiPublicDefaults();
-			}
+			
+
+			return Request.CreateResponse<Post>(HttpStatusCode.OK, post).WithObApiPublicDefaults();
+			
 		}
 
 		// POST api/post
