@@ -135,7 +135,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Controllers\AuthenticationTokenController.cs" />
+    <Compile Include="Controllers\AuthenticationTokensController.cs" />
     <Compile Include="Controllers\CommentTypesController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\FooController.cs" />
@@ -164,8 +164,12 @@
     <Content Include="Content\css\bootstrap.min.css" />
     <Content Include="Content\img\glyphicons-halflings-white.png" />
     <Content Include="Content\img\glyphicons-halflings.png" />
+    <Content Include="Content\img\wood_texture_seamless.jpg" />
+    <Content Include="Content\img\wood_texture_seamless2.jpg" />
     <Content Include="Content\js\bootstrap.js" />
     <Content Include="Content\js\bootstrap.min.js" />
+    <Content Include="Content\js\jquery.cookie.js" />
+    <Content Include="Content\js\obApi.js" />
     <Content Include="Content\js\ICanHaz.min.js" />
     <Content Include="Content\js\jquery-1.9.0.min.js" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />

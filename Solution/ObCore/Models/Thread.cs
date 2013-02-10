@@ -79,7 +79,6 @@ namespace ObCore.Models {
 			return FindThreadWithReplies(memberPermissionLevel, idPost, includeAdult, 0, 0);
 		}
 
-
 		public static List<Thread> FindThreadWithReplies(MemberPermissionLevel memberPermissionLevel, bool includeAdult, bool includeSticky, int repliesToSkip, int repliesToTake) {
 			using (var db = new ObDb()) {
 				var result = db.Fetch<Thread>("select * from dbo.Threads2(@memberPermissionLevel, null, @includeAdult, @includeSticky, @repliesToSkip, @repliesToTake) order by sequence", new {

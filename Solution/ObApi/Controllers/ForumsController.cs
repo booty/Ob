@@ -40,7 +40,7 @@ namespace ObApi.Controllers {
 				// User didn't supply a forum; just list all forums
 				if (memberId.HasValue) {
 					var mpl = Member.PermissionLevel(memberId.Value);
-					if (mpl.HasValue) return Request.CreateResponse<List<Forum>>(HttpStatusCode.OK, Forum.FindNoPoco(mpl.Value));
+					if (mpl.HasValue) return Request.CreateResponse<List<Forum>>(HttpStatusCode.OK, Forum.FindNoPoco(mpl.Value)).WithObApiPrivateDefaults();
 				}
 				return Request.CreateResponse<List<Forum>>(HttpStatusCode.OK, Forum.FindNoPoco(MemberPermissionLevel.Unauthenticated)).WithObApiPublicDefaults();
 				//return Request.CreateResponse<List<Forum>>(HttpStatusCode.OK, Forum.Find(MemberPermissionLevel.Unauthenticated)).WithObApiPublicDefaults();

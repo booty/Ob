@@ -20,6 +20,10 @@ namespace ObApi {
 			return result;
 		}
 
+		public static CookieHeaderValue WithPath(this CookieHeaderValue chv, string path) {
+			chv.Path = path;
+			return chv;
+		}
 
 		/// <summary>
 		/// Adds default headers to HttpResponse

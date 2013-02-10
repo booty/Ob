@@ -12,7 +12,8 @@ using System.Configuration;
 
 
 namespace ObApi.Controllers {
-	public class AuthenticationTokenController : ApiController {
+	[MvcStyleBindingAttribute]
+	public class AuthenticationTokensController : ApiController {
 
 		private const int DefaultAuthCookieTtlDays = 30;  // use this only if value missing from web.config
 
@@ -31,9 +32,9 @@ namespace ObApi.Controllers {
 				// Build client response
 				response = Request.CreateResponse<AuthenticationResult>(HttpStatusCode.OK, authResult).WithObApiPublicDefaults();
 				var cookies = new List<CookieHeaderValue>();
-				cookies.Add(new CookieHeaderValue("idMember", authResult.Member.IdMember.ToString()) { Expires = DateTime.UtcNow.AddDays(ttlDays) });
-				cookies.Add(new CookieHeaderValue("authenticationToken", authResult.AuthenticationToken) { Expires = DateTime.UtcNow.AddDays(ttlDays) });
-				cookies.Add(new CookieHeaderValue("login", authResult.Member.Login) { Expires = DateTime.UtcNow.AddDays(ttlDays) });
+				cookies.Add(new CookieHeaderValue("idMember", authResult.Member.IdMember.ToString()) { Expires = DateTime.UtcNow.AddDays(ttlDays), Path="/" });
+				cookies.Add(new CookieHeaderValue("authenticationToken", authResult.AuthenticationToken) { Expires = DateTime.UtcNow.AddDays(ttlDays), Path="/" });
+				cookies.Add(new CookieHeaderValue("login", authResult.Member.Login) { Expires = DateTime.UtcNow.AddDays(ttlDays), Path="/" });
 				response.Headers.AddCookies(cookies);
 
 				// Save the auth token & member ID in the application cache. 
@@ -47,9 +48,10 @@ namespace ObApi.Controllers {
 				// unauthorized = Http Status 401
 				response = Request.CreateResponse<string>(HttpStatusCode.Unauthorized, authResult.AuthenticationResultDescription).WithObApiPublicDefaults();
 				var cookies = new List<CookieHeaderValue>();
-				cookies.Add(new CookieHeaderValue("idMember", String.Empty));
-				cookies.Add(new CookieHeaderValue("authenticationToken", String.Empty));
-				cookies.Add(new CookieHeaderValue("login", String.Empty));
+				var foo = new CookieHeaderValue("penis", "balls");
+				cookies.Add(new CookieHeaderValue("idMember", String.Empty).WithPath("/"));
+				cookies.Add(new CookieHeaderValue("authenticationToken", String.Empty).WithPath("/"));
+				cookies.Add(new CookieHeaderValue("login", String.Empty).WithPath("/"));
 				response.Headers.AddCookies(cookies);
 			}
 			return response;
@@ -60,11 +62,18 @@ namespace ObApi.Controllers {
 				authenticationToken,
 				HttpContext.Current.Request.UserHostAddress, 
 				HttpContext.Current.Request.Url.ToString());
+			if (authResult.AuthenticationResultCode == Security.AuthenticationResultCode.Success) {
+				return Request.CreateResponse<AuthenticationResult>(HttpStatusCode.OK, authResult).WithObApiPrivateDefaults();
+			}
 
-			var response = Request.CreateResponse<AuthenticationResult>(HttpStatusCode.OK, authResult).WithObApiPublicDefaults();
-			return response;
+			return Request.CreateResponse<AuthenticationResult>(HttpStatusCode.Unauthorized, authResult).WithObApiPrivateDefaults();
 		}
 
+		/*
+		public static class LoginPasswordAuthenticationRequest {
+
+		}
+		*/
 
 		// GET api/authenticate
 		/// <summary>Authenticates a user based on an auth token</summary>
@@ -81,19 +90,29 @@ namespace ObApi.Controllers {
 		/// <summary>Authenticates a user based on an auth token</summary>
 		/// <param name="authenticationToken">Auth token, presumably stored in user's cookies or elsewhere</param>
 		/// <returns></returns>
-		public HttpResponseMessage Get([FromBody]string authenticationToken) {
-			return Authenticate(authenticationToken);
+		public HttpResponseMessage Get(string id) {
+			return Authenticate(id);
 		}
 
 		// POST api/authenticationtoken
-		public HttpResponseMessage Post([FromBody]string login, [FromBody]string password) {
-			return Authenticate(login, password);
+		public HttpResponseMessage Post([FromBody]string login="", [FromBody]string password="", [FromBody]string authenticationToken="") {
+			if (!String.IsNullOrWhiteSpace(authenticationToken)) {
+				return Authenticate(authenticationToken);
+			}
+		
+			if ((!String.IsNullOrWhiteSpace(login)) && (!String.IsNullOrWhiteSpace(password))) {
+				return Authenticate(login, password);
+			}
+
+			return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "You might want to supply values for 'login' and 'password.'  Or you could supply a value for 'authenticationToken.'").WithObApiPrivateDefaults();	
+			
 		}
 
+		/*
 		public HttpResponseMessage Post([FromBody] string authenticationToken) {
 			return Authenticate(authenticationToken);
 		}
-
+		 * */
 
 		/*
 		// PUT api/authentication/5

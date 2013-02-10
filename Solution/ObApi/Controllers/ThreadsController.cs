@@ -13,6 +13,13 @@ namespace ObApi.Controllers {
 
 
 		// GET api/threads/5
+		/// <summary>
+		/// Retrieves a thread and, optionally, replies
+		/// </summary>
+		/// <param name="id"></param>
+		/// <param name="skip"></param>
+		/// <param name="take"></param>
+		/// <returns></returns>
 		public HttpResponseMessage Get(int id, int skip=0, int take=20) {			
 			Thread thread;
 
@@ -23,14 +30,10 @@ namespace ObApi.Controllers {
 				if (thread==null) return Request.CreateErrorResponse(HttpStatusCode.NotFound, "That thread doesn't exist, or you don't have permission to see it.").WithObApiPrivateDefaults();
 				return Request.CreateResponse<Thread>(HttpStatusCode.OK, thread).WithObApiPrivateDefaults();
 			}
-			else {
-				thread = Thread.FindThreadWithReplies(MemberPermissionLevel.Unauthenticated, id, false, skip, take);
-				if (thread==null) return Request.CreateErrorResponse(HttpStatusCode.NotFound, "That thread doesn't exist, or you don't have permission to see it.").WithObApiPrivateDefaults();
-				return Request.CreateResponse<Thread>(HttpStatusCode.OK, thread).WithObApiPublicDefaults();
-			}
-
 			
-
+			thread = Thread.FindThreadWithReplies(MemberPermissionLevel.Unauthenticated, id, false, skip, take);
+			if (thread==null) return Request.CreateErrorResponse(HttpStatusCode.NotFound, "That thread doesn't exist, or you don't have permission to see it.").WithObApiPrivateDefaults();
+			return Request.CreateResponse<Thread>(HttpStatusCode.OK, thread).WithObApiPublicDefaults();
 		}
 
 		// POST api/threads

@@ -1,9 +1,13 @@
 ﻿<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700,700italic|Crete+Round' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="/content/css/bootstrap.min.css">
 	<style type="text/css">
+
 		body {
+			background-image:url('/Content/img/wood_texture_seamless2.jpg');
+			font-family: 'Open Sans', sans-serif;
 		}
 
 		form {
@@ -41,10 +45,11 @@
 			margin: 0px 0px 20px 20px ;
 		}
 
+/*
 		li p {
 			float:left;
 		}
-
+*/
 		li img {
 			float:left;
 			margin: 0px 5px 5px 0px;
@@ -54,6 +59,38 @@
 			clear:both;
 			list-style:none;
 		}
+
+		.loading {
+			display:none;
+			padding-left: 20px;
+			opacity: 0.8;
+			font-style: italic;
+		}
+
+		.hidden { display:none;}
+
+		small {
+			opacity: 0.8;
+		}
+
+		.row {
+			background-color: rgba(255,255,255,0.3);
+			border-radius: 8px;
+			margin-bottom: 15px;
+			box-shadow: 0 0 15px rgba(0,0,0,0.4) inset;
+			padding-bottom: 20px;
+		}
+
+		h1, h2, h3, h4, h5 {
+			text-shadow: 0 0 2px rgba(0, 0, 0, 0.4);
+		}
+
+		.api {
+			border-radius: 4px;
+			width:80%;
+			padding:6px 12px;
+			box-shadow: 0 0 8px rgba(0,0,0,0.2) inset;
+		}
 	</style>
 	<title>OtakyBooty's Awesome API</title>
 </head>
@@ -62,31 +99,40 @@
 		<div class="row">
 			<div class="span12">
 				<h1>OtakuBooty API<em>!!</em></h1>
+				<p>
+					<strong>What is this page?</strong> This page is just a demonstration
+					of the OtakuBooty API. It's not meant to be something you use or anything.
+				</p>
+				<p>
+					<strong>What's an API?</strong> It lets nerds build shit using data and shit from OB.
+				</p>
 			</div>
 		</div>
 
-		<!--
-		<div class="row unauth" id="login">
+
+		<div class="row" id="authentication">
 			<div class="span12">
-				<div class="well well-small">
-					<form class="form-inline">
-						<label for="login">
-							Login
-							<input type="text" id="login" name="login" placeholder="Your stupid-ass login">
-						</label>
-						<label for="password">
-							Password
-							<input id="password" type="password" name="password" placeholder="Your stupid-ass password">
-						</label>
-						<input type="submit" value="Authenticate!">
-					</form>
-					<p>
-						You'll see some more shit once you authenticate.
-					</p>
-				</div>
+				<h1>Authentication</h1>
+				<form class="form-inline unauth">
+					<label for="login">
+						Login
+						<input type="text" id="login" name="login" placeholder="Your stupid-ass login">
+					</label>
+					<label for="password">
+						Password
+						<input id="password" type="password" name="password" placeholder="Your stupid-ass password">
+					</label>
+					<input type="submit" id="AuthenticateButton" value="Authenticate!">
+				<p>
+					You'll see some more shit once you authenticate.
+				</p>
+				</form>
+				<p class="auth">
+						Fucknuts
+				</p>
 			</div>
+		
 		</div>
-		-->
 
 		<div class="row auth">
 			<div class="span12">
@@ -118,68 +164,70 @@
 			</div>
 		</div>
 
-		<div class="row">
+		<div class="row" id="forums">
 			<div class="span12">
-				<h2>Forums You're Allowed To See</h2>
-				<p id="forumsLoading">Loading...</p>
-				<p>
-					json API URL: <a id="forumsApiUrl" href=""></a>
+				<h2 class="title">Forums You're Allowed To See</h2>
+				
+				<p class="api">
+					json API URL: <a class="apiUrl" href=""></a> <span class="loading">Loading...</span>
 				</p>
-				<ul id="forumsContent">
+				
+				<ul class="content">
 				</ul>
 			</div>
 		</div>
 
 		<div class="row" id="threads">
 			<div class="span12">
-				<h2>Latest Threads, <span id="forumName"></span></h2>
-				<p id="threadsLoading">Loading...</p>
-				<p>
-					json API URL: <a id="threadsApiUrl" href=""></a>
+				<h2></h2>
+				<p class="api">
+					json API URL: <a class="apiUrl" href=""></a> <span class="loading">Loading...</span>
 				</p>
-				<ul id="threadsContent"></ul>
+				
+				<ul class="content"></ul>
 			</div>
 		</div>
 
-		<div class="row hidden" id="replies">
+		<div class="row hidden" id="threadReplies">
 			<div class="span12">
-				<h2>Replies to <span id="threadName"></span></h2>
-				<p id="repliesLoading">Loading...</p>
-				<p>
-					json API URL: <a id="repliesApiUrl" href=""></a>
+				<h2></h2>
+				
+				<p class="api">
+					json API URL: <a class="apiUrl" href=""></a> <span class="loading">Loading...</span>
 				</p>
-				<ul id="repliesContent"></ul>
+				
+				<ul class="content"></ul>
 			</div>
 		</div>
 			
-		<div class="row">
+		<div class="row" id="memberPictures">
 			<div class="span12">
 				<h2>Latest Member Pictures</h2>
-				<p id="memberPicturesLoading">Loading...</p>
-				<p>
-					json API URL: <a id="memberPicturesApiUrl" href=""></a>
+				<p class="api">
+					json API URL: <a class="apiUrl" href=""></a>  <span class="loading">Loading...</span>
 				</p>
-				<p id="memberPicturesContent"></p>
+				<p class="content"></p>
 			</div>
 		</div>
 
-		<div class="row" id="memberWrapper">
+		<div class="row" id="memberProfile" class="hidden">
 			<div class="span12">
-				<h2 id="memberLogin"></h2>
-				<p id="memberLoading">Loading...</p>
+				<h2 class="title"></h2>
 				<p>
-					json API URL: <a id="memberApiUrl" href=""></a>
+					json API URL: <a class="apiUrl" href=""></a> <span class="loading">Loading...</span>
 				</p>
-				<div id="memberContent"></div>
+				<div class="content"></div>
 			</div>
 		</div>
 	</div>
 
-	<script id="forum" type="text/html">
+	<!--	Templates for ICanHas.js	-->
+
+	<script id="forumTemplate" type="text/html">
 		<li><a href="#" data-id-forum="{{idForum}}">{{title}}</a> <small><em>{{description}}</em></small>&nbsp;
 	</script>
 
-	<script id="thread" type="text/html">
+	<script id="threadTemplate" type="text/html">
 		<li>
 			{{#memberPictureUrl}}<img src="{{memberPictureUrl}}" alt="{{login}}">{{/memberPictureUrl}}
 			<p>{{#sticky}}Sticky: {{/sticky}}<a href="#" data-id-thread="{{idPost}}">{{subject}}</a>
@@ -189,7 +237,12 @@
 		</li>
 	</script>
 
-	<script id="memberPicture" type="text/html">
+	<script id="threadReplyTemplate" type="text/html">
+		<li>
+			{{}}
+	</script>
+
+	<script id="memberPictureTemplate" type="text/html">
 		<div class="memberPictureCard" data-id-member="{{idMember}}">
 			<img src="{{url}}" alt="{{caption}} {{login}}" data-id-member="{{idMember}}"><br>
 			{{#caption}}<p data-id-member="{{idMember}}"><em>&ldquo;{{caption}}&rdquo;</em></p>
@@ -199,7 +252,7 @@
 		</div>
 	</script>
 
-	<script id="member" type="text/html">
+	<script id="memberProfileTemplate" type="text/html">
 		<p>
 			<img src="{{primaryPhotoUrl}}" alt="{{login}}">
 			Age: {{age}} Gender: {{gender}}<br>
@@ -216,7 +269,7 @@
 
 	<script id="reply" type="text/html">
 		<li>
-			<im 
+			
 		</li>
 	</script>
 
@@ -224,138 +277,13 @@
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js">
 	
 	</script>
-	<script>window.jQuery || document.write('<script src="content/js//jquery-1.9.0.min.js"><\/script>')</script>
+	<script>window.jQuery || document.write('<script src="content//js//jquery-1.9.0.min.js"><\/script>')</script>
 	<script src="Content/js/ICanHaz.min.js"></script>
+	<script src="Content/js/obApi.js"></script>
+	<script src="Content/js/jquery.cookie.js"></script>
 	<script type="text/javascript">
-		function scrollToThing($thing) {
-			$('html, body').animate({
-      		scrollTop: $thing.offset().top
-			}, 1000);
-
-		}
-
-		function loggedIn() {
-			return false;
-		}
-
-		function handleTehClicks(e) {
-			console.log('ooh!');
-			if (e.target.attributes["data-id-forum"]) {
-				e.preventDefault();
-				getThreads(e.target.attributes["data-id-forum"].value);
-				scrollToThing($('#threads'));
-				// todo: scroll to thread replies
-			}
-			if (e.target.attributes["data-id-thread"]) {
-				e.preventDefault();
-				console.log('I should show replies for thread #' + e.target.attributes["data-id-thread"].value);
-				// todo: scroll to thread replies
-			}
-			if (e.target.attributes["data-id-member"]) {
-				e.preventDefault();
-				console.log('I should show member profile information for member #' + e.target.attributes["data-id-member"].value);
-				getMember(e.target.attributes["data-id-member"].value);
-				// todo: scroll to member
-			}
-		}
-
-		function getForums(jsonUrl) {
-			$('#forumsApiUrl').attr('href', jsonUrl).html(jsonUrl);
-			$('#forumsLoading').fadeIn();
-			$.ajax({
-				dataType: "json",
-				url: jsonUrl,
-				success: function (data) { showForums(data); }
-			});
-		}
-
-		function showForums(jsonData) {
-			$('#forumsContent').empty();
-			$('#forumsLoading').fadeOut();
-			for (var i = 0; i < jsonData.length; i++) {
-				$('#forumsContent').append(ich.forum(jsonData[i]));
-			}
-			getThreads(1);
-		}
-
-		function getThreads(idForum) {
-			var jsonUrl = '/api/Forums/' + idForum + '?skip=1&take=10&includeSticky=1';
-			$('#threadsLoading').fadeIn();
-			$('#threadsApiUrl').attr('href', jsonUrl).html(jsonUrl);
-			$.ajax({
-				dataType: "json",
-				url: jsonUrl,
-				success: function (data) { showThreads(data); }
-			});
-		}
-
-		function showThreads(jsonData) {
-			$('#threadsLoading').fadeOut();
-			$('#threadsContent').empty();
-			$('#forumName').html(jsonData.title);
-			for (var i = 0; i < jsonData.threads.length; i++) {
-				jsonData.threads[i].body = '"' + jsonData.threads[i].body.substring(0, 90) + '..."';
-				$('#threadsContent').append(ich.thread(jsonData.threads[i]));
-			}
-		}
-
-		function getMemberPictures(jsonUrl) {
-			$('#memberPicturesLoading').fadeIn();
-			$('#memberPicturesApiUrl').attr('href', jsonUrl).html(jsonUrl);
-			$.ajax({
-				dataType: "json",
-				url: jsonUrl,
-				success: function (data) { showMemberPictures(data); }
-			});
-		}
-
-		function showMemberPictures(jsonData) {
-			$('#memberPicturesLoading').fadeOut();
-			$('#memberPicturesContent').empty();
-			for (var i = 0; i < jsonData.length; i++) {
-				$('#memberPicturesContent').append(ich.memberPicture(jsonData[i]));
-			}
-		}
-
-		function getMember(idMember) {
-			var jsonUrl = '/api/Members/' + idMember;
-			$('#memberApiUrl').html(jsonUrl);
-			$('#memberLoading').fadeIn();
-			$('#memberWrapper').show(); //fadeIn();
-			$.ajax({
-				dataType: "json",
-				url: jsonUrl,
-				success: function (data) { showMember(data); }
-			});
-		}
-
-		function showMember(jsonData) {
-			scrollToThing($('#memberWrapper'));
-			$('#memberLoading').fadeOut();
-			$('#memberContent').empty();
-			$('#memberLogin').html(jsonData.member.login);
-			$('#memberContent').append(ich.member(jsonData.member));
-		}
-
-		$(function () {
-
-
-			console.log('Hello. Your DOM is ready, sir.');
-
-			if (loggedIn()) {
-				// call a bunch of auth-only APIs
-			}
-			else {
-				getForums('api/Forums/');
-				getMemberPictures('api/MemberPictures?skip=0&take=20');
-			}
-
-			$(document).click(function (e) {
-				handleTehClicks(e);
-			});
-
-
-		});
+		
 	</script>
 </body>
 </html>
+<!-- fuck -->
