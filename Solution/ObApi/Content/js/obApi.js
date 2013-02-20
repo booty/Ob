@@ -350,8 +350,8 @@ function showNotifications(jsonData) {
 /* Get and show priv. messages */
 
 function getPrivateMessages() {
-	$notificationsTab.find('.loading').fadeIn();
-	$notificationsTab.find('.apiUrl a').attr('href', API_URL_NOTIFICATIONS).html(API_URL_NOTIFICATIONS);
+	$privateMessagesTab.find('.loading').fadeIn();
+	$privateMessagesTab.find('.apiUrl a').attr('href', API_URL_NOTIFICATIONS).html(API_URL_NOTIFICATIONS);
 	$.ajax({
 		dataType: "json",
 		url: API_URL_PRIVATE_MESSAGES + '&foo=' + cacheBuster,
