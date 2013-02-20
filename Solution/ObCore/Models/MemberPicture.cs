@@ -25,16 +25,28 @@ namespace ObCore.Models {
 		[PetaPoco.Column("ApprovalStatusDescription")] public string ApprovalStatusDescription { get; set; }
 		[PetaPoco.Column("Moderator_Login")] public string ModeratorLogin { get; set; }
 
+		// If this default constructor doesn't exist, PetaPoco gets confused
+		public MemberPicture() {
+		}
+
+		public MemberPicture(string fopGuid) {
+			Guid =  new Guid(fopGuid);
+		}
+
+		public MemberPicture(Guid fopGuid) {
+			Guid = fopGuid;
+		}
+
+		/*
 		public string Url {
 			get {
 				if (FriendsOnly) {
-					return String.Empty;
+					return MemberPicture.FriendsOnlyPictureUrl(Guid);
 				}
-				else {
-					return MemberPicture.PublicPictureUrl(IdPictureMember);
-				}
+				return MemberPicture.PublicPictureUrl(IdPictureMember);
 			}
 		}
+		 * */
 
 		public bool IsApproved { 
 			get { 
@@ -51,6 +63,14 @@ namespace ObCore.Models {
 		public bool IsDenied {
 			get {
 				return (IdApprovalStatus > 1);
+			}
+		}
+
+		public System.Collections.Generic.Dictionary<string, string> Urls {
+			get {
+				var urls = new Dictionary<string, string>(4);
+				if (FriendsOnly) return FriendsOnlyPictureUrls(Guid.ToString());
+				return PublicPictureUrls(IdPictureMember);
 			}
 		}
 
@@ -145,13 +165,39 @@ namespace ObCore.Models {
 			}
 		}
 
+		/*
+		URL Methods
+		Arguably, these shouldn't be here in the model...
+		*/
+
+		// http://assets.otakubooty.com/user/fop/AC9B9BF2-CD75-4EE9-AAB9-C0A1EE156360.jpg
+		public static string FriendsOnlyPictureUrl(string fopGuid, string pictureSize) {
+			if (String.IsNullOrEmpty(fopGuid)) return string.Empty;
+			return String.Format("{0}/user/fop/{1}{2}.jpg",
+				ConfigurationManager.AppSettings["StaticAssetRootUrl"],
+				fopGuid,
+				pictureSize);
+		}
+
+		public static string FriendsOnlyPictureUrl(string fopGuid) {
+			return FriendsOnlyPictureUrl(fopGuid, PictureSize.Full);
+		}
+
+		public static string FriendsOnlyPictureUrl(Guid fopGuid) {
+			return FriendsOnlyPictureUrl(fopGuid.ToString(), PictureSize.Full);
+		}
+
+		public static string FriendsOnlyPictureUrl(Guid fopGuid, string pictureSize) {
+			return FriendsOnlyPictureUrl(fopGuid.ToString(), pictureSize);
+		}
+
 		public static string PublicPictureUrl(int? idPictureMember) {
 			if (idPictureMember.HasValue) return PublicPictureUrl(idPictureMember.Value, PictureSize.Small50Px);
 			return null;
 		}
 
-		public static string PublicPictureUrl(int? idPictureMember, string size) {
-			if (idPictureMember.HasValue) return PublicPictureUrl(idPictureMember.Value, size);
+		public static string PublicPictureUrl(int? idPictureMember, string pictureSize) {
+			if (idPictureMember.HasValue) return PublicPictureUrl(idPictureMember.Value, pictureSize);
 			return null;
 		}
 
@@ -159,13 +205,36 @@ namespace ObCore.Models {
 			return PublicPictureUrl(idPictureMember, PictureSize.Small50Px);
 		}
 
-		public static string PublicPictureUrl(int idPictureMember, string size) {
+		public static string PublicPictureUrl(int idPictureMember, string pictureSize) {
 			return String.Format("{0}/user/pic/{1}/{2}{3}.jpg",
 				ConfigurationManager.AppSettings["StaticAssetRootUrl"],
 				idPictureMember.ToString().Left(2),
 				idPictureMember,
-				size
+				pictureSize
 			);
+		}
+
+		public static Dictionary<string, string> FriendsOnlyPictureUrls(string fopGuid) {
+			var urls = new Dictionary<string, string>(3);
+			urls.Add("full", FriendsOnlyPictureUrl(fopGuid, PictureSize.Full));
+			urls.Add("150", FriendsOnlyPictureUrl(fopGuid, PictureSize.Medium150Px));
+			urls.Add("75", FriendsOnlyPictureUrl(fopGuid, PictureSize.Thumb75Px));
+			urls.Add("50", FriendsOnlyPictureUrl(fopGuid, PictureSize.Small50Px));
+			return urls;		
+		}
+
+		public static Dictionary<string, string> PublicPictureUrls(int? idPictureMember) {
+			if (!idPictureMember.HasValue) return null;
+			return PublicPictureUrls(idPictureMember.Value);
+		}
+
+		public static Dictionary<string, string> PublicPictureUrls(int idPictureMember) {
+			var urls = new Dictionary<string, string>(3);
+			urls.Add("full", PublicPictureUrl(idPictureMember, PictureSize.Full));
+			urls.Add("150", PublicPictureUrl(idPictureMember, PictureSize.Medium150Px));
+			urls.Add("75", PublicPictureUrl(idPictureMember, PictureSize.Thumb75Px));
+			urls.Add("50", PublicPictureUrl(idPictureMember, PictureSize.Small50Px));
+			return urls;		
 		}
 
 	}

@@ -2,25 +2,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700,700italic|Crete+Round' rel='stylesheet' type='text/css'>
-	<link rel="stylesheet" href="/content/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/content/css/bootstrap-readable.css">
 	<style type="text/css">
-
-		body {
-			background-image:url('/Content/img/wood_texture_seamless2.jpg');
-			font-family: 'Open Sans', sans-serif;
-		}
-
-		form {
-			margin-bottom: 0px;
-		}
-
-		.auth {
-			display: none;
-		}
-
 		.memberPictureCard {
 			border: #bbb solid 1px;
-			box-shadow: 1px 1px 3px #ccc;
 			font-size: 12px;
 			line-height: 12px;
 			padding: 5px;
@@ -32,79 +17,125 @@
 			overflow: hidden;
 		}
 
-		#memberWrapper {
-			display:none;
+		span[data-id-member] {
+			font-weight: bold;
 		}
 
-		#memberContent {
-			width: 500px;
+		.auth {
+			display: none;
 		}
 
-		#memberContent img {
-			float:right;
-			margin: 0px 0px 20px 20px ;
+		.thread-list h4 {
+			margin-bottom: 3px;
+			line-height: 18px;
 		}
 
-/*
-		li p {
-			float:left;
-		}
-*/
-		li img {
-			float:left;
-			margin: 0px 5px 5px 0px;
-		}
+			.thread-list h4 small {
+				font-size: 14px;
+			}
 
-		li {
-			clear:both;
-			list-style:none;
+		.thread-list .media {
+			font-size: 16px;
+			margin-top: 3px;
 		}
 
-		.loading {
-			display:none;
-			padding-left: 20px;
-			opacity: 0.8;
-			font-style: italic;
+		.media-list-compact {
+			font-size: 14px;
 		}
 
-		.hidden { display:none;}
+		.media-list-compact h4 {
+			font-size: 16px;
+			line-height: 1em;
+			font-weight: normal;
+		}
+			.media-list-compact .media {
+				margin-top: 5px;
+			}
 
-		small {
-			opacity: 0.8;
+			.media-list-compact .media-body {
+				line-height:1.15em;
+			}
+
+			.media-list-compact li {
+				height:60px;
+				overflow: hidden;
+			}
+
+				.media-list-compact li.small {
+					height: 20px;
+				}
+
+				.media-list-compact li.large {
+					height: 80px;
+				}
+
+			.media-list-compact .pull-right {
+				font-size: smaller;
+				opacity: 0.7;
+			}
+
+		.apiUrl {
+			background-color: rgba(58,135,173,0.05);
+			border: 1px solid rgba(58,135,173,0.25);
+			border-radius: 3px;
+			color: rgba(58,135,173,0.55);
+			font-family: sans-serif;
+			font-size: 11px;
+			line-height: 20px;
+			padding-left: 6px;
+			padding-right: 6px;
 		}
 
-		.row {
-			background-color: rgba(255,255,255,0.3);
-			border-radius: 8px;
-			margin-bottom: 15px;
-			box-shadow: 0 0 15px rgba(0,0,0,0.4) inset;
-			padding-bottom: 20px;
+			.apiUrl a, .apiUrl a:hover, .apiUrl a:active, .apiUrl a:visited {
+				color: rgba(58,135,173,0.75);
+				font-weight: bold;
+			}
+
+		.nav {
+			margin-bottom: 5px;
 		}
 
-		h1, h2, h3, h4, h5 {
-			text-shadow: 0 0 2px rgba(0, 0, 0, 0.4);
-		}
-
-		.api {
-			border-radius: 4px;
-			width:80%;
-			padding:6px 12px;
-			box-shadow: 0 0 8px rgba(0,0,0,0.2) inset;
+		#AuthenticatedMemberTabsContent {
+			height: 350px;
+			overflow-y: scroll;
+			padding: 10px;
+			border-left: 1px solid #ddd;
+			border-bottom: 1px solid #ddd;
+			border-right: 1px solid #ddd;
+			border-bottom-left-radius: 4px;
+			border-bottom-right-radius: 4px;
+			margin-top: -5px; /* to line it up w/ tabs above */
 		}
 	</style>
 	<title>OtakyBooty's Awesome API</title>
 </head>
 <body>
+
 	<div class="container">
+		<div class="hero-unit">
+			<h1>OtakuBooty's API</h1>
+			<p>
+				This page is a demonstration. It's not the "new OtakuBooty" or anything.
+			</p>
+		</div>
+
 		<div class="row">
-			<div class="span12">
-				<h1>OtakuBooty API<em>!!</em></h1>
+
+			<div class="span5">
+				<h4>What the fuck is an API?</h4>
 				<p>
-					<strong>What is this page?</strong> This page is just a demonstration
-					of the OtakuBooty API. It's not meant to be something you use or anything.
+					It lets nerds build shit using data and shit from OB. For example, <a href="/api/forums">here's a list of the forums</a>. It's a blob of data (in this case, a list of forums) that 
+					somebody else's code can use. Somebody could use this to display a list of OB's forums somewhere.
 				</p>
+			</div>
+			<div class="span7">
 				<p>
-					<strong>What's an API?</strong> It lets nerds build shit using data and shit from OB.
+					<h4>Who the fuck is this page for?</h4>
+					<ul>
+						<li><strong>It's for coders.</strong> So you can see examples of the API in action, see the API endpoint URLs and maybe steal some code.</li>
+						<li><strong>It's for the people writing the API.</strong> So we can test stuff.</li>
+						<li><strong>It's for everybody else.</strong> So you can peek over our shoulders and see us making stuff.</li>
+					</ul>
 				</p>
 			</div>
 		</div>
@@ -112,7 +143,7 @@
 
 		<div class="row" id="authentication">
 			<div class="span12">
-				<h1>Authentication</h1>
+				<h2>Authentication</h2>
 				<form class="form-inline unauth">
 					<label for="login">
 						Login
@@ -123,123 +154,167 @@
 						<input id="password" type="password" name="password" placeholder="Your stupid-ass password">
 					</label>
 					<input type="submit" id="AuthenticateButton" value="Authenticate!">
-				<p>
-					You'll see some more shit once you authenticate.
-				</p>
+					<p>
+						You'll see some more shit once you authenticate.
+					</p>
 				</form>
 				<p class="auth">
-						Fucknuts
+					You're authenticated as <span class="currentMemberName">...</span>.
+				</p>
+				<p class="auth">
+					<button class="button deauthenticate">Log me the heck out. Being <span class="currentMemberName">...</span> is too much pressure and I just want to be anonymous.</button>
 				</p>
 			</div>
-		
+
 		</div>
 
 		<div class="row auth">
 			<div class="span12">
-				<h2>Latest Notifications</h2>
+				<h2><span class="currentMemberName"></span>'s Stuff</h2>
 			</div>
-			<div class="span12" id="notifications">
-			</div>
-		</div>
-		<div class="row auth">
 			<div class="span12">
-				<h2>Private Messages</h2>
-			</div>
-			<div class="span12" id="privateMessages">
-			</div>
-		</div>
-		<div class="row auth">
-			<div class="span12">
-				<h2>FOPs</h2>
-			</div>
-			<div class="span12" id="fops">
-			</div>
-		</div>
-
-		<div class="row auth">
-			<div class="span12">
-				<h2>Phone Numbers</h2>
-			</div>
-			<div class="span12" id="phoneNumberContent">
+				<ul class="nav nav-tabs" id="AuthenticatedMemberTabs">
+					<li><a data-target="#NotificationsTab" data-toggle="tab">Notifications</a></li>
+					<li><a data-target="#PrivateMessagesTab" data-toggle="tab">Messages</a></li>
+					<li><a data-target="#FopsTab" data-toggle="tab">FOPs</a></li>
+					<li><a data-target="#PhoneNumbersTab" data-toggle="tab">Phone Numbers</a></li>
+				</ul>
+				<div class="tab-content" id="AuthenticatedMemberTabsContent">
+					<div id="NotificationsTab" class="tab-pane active fade in">
+						<p class="apiUrl">
+							API URL: <a href=""></a><span class="loading"> Loading...</span>
+						</p>
+						<ul class="content media-list media-list-compact"></ul>
+					</div>
+					<div id="PrivateMessagesTab" class="tab-pane fade in">
+						<p class="apiUrl">
+							API URL: <a href=""></a><span class="loading"> Loading...</span>
+						</p>
+						<ul class="content media-list media-list-compact"></ul>
+					</div>
+					<div id="FopsTab" class="tab-pane fade in">
+						<p class="apiUrl">
+							API URL: <a href=""></a><span class="loading"> Loading...</span>
+						</p>
+						<ul class="content media-list media-list-compact"></ul>
+					</div>
+					<div id="PhoneNumbersTab" class="tab-pane fade in">
+						<p class="apiUrl">
+							API URL: <a href=""></a><span class="loading"> Loading...</span>
+						</p>
+						<p>
+							<strong>Phone Numbers!</strong> Pellentesque sed turpis nec sem pretium tristique volutpat sed mi. Aliquam metus quam, molestie ut posuere at, dignissim at nibh. Suspendisse placerat posuere nisi, quis feugiat velit facilisis sed. 
+						</p>
+						<ul class="content"></ul>
+					</div>
+				</div>
 			</div>
 		</div>
 
 		<div class="row" id="forums">
-			<div class="span12">
-				<h2 class="title">Forums You're Allowed To See</h2>
-				
-				<p class="api">
-					json API URL: <a class="apiUrl" href=""></a> <span class="loading">Loading...</span>
+			<div class="span3">
+				<h2 class="title">Forums</h2>
+				<p class="apiUrl">
+					API URL: <a href=""></a><span class="loading">Loading...</span>
 				</p>
-				
-				<ul class="content">
+				<ul class="nav nav-list content">
 				</ul>
 			</div>
-		</div>
+			<div class="span9">
+				<div id="threads">
+					<h2>Latest Threads...</h2>
+					<p class="apiUrl">
+						API URL: <a href=""></a><span class="loading">Loading...</span>
+					</p>
 
-		<div class="row" id="threads">
-			<div class="span12">
-				<h2></h2>
-				<p class="api">
-					json API URL: <a class="apiUrl" href=""></a> <span class="loading">Loading...</span>
-				</p>
-				
-				<ul class="content"></ul>
+					<ul class="content media-list"></ul>
+				</div>
 			</div>
 		</div>
 
 		<div class="row hidden" id="threadReplies">
 			<div class="span12">
 				<h2></h2>
-				
-				<p class="api">
-					json API URL: <a class="apiUrl" href=""></a> <span class="loading">Loading...</span>
+
+				<p class="apiUrl">
+					API URL: <a href=""></a><span class="loading">Loading...</span>
 				</p>
-				
-				<ul class="content"></ul>
-			</div>
-		</div>
-			
-		<div class="row" id="memberPictures">
-			<div class="span12">
-				<h2>Latest Member Pictures</h2>
-				<p class="api">
-					json API URL: <a class="apiUrl" href=""></a>  <span class="loading">Loading...</span>
-				</p>
-				<p class="content"></p>
+
+				<ul class="content media-list"></ul>
 			</div>
 		</div>
 
-		<div class="row" id="memberProfile" class="hidden">
+		<div class="row" id="goodies">
 			<div class="span12">
-				<h2 class="title"></h2>
-				<p>
-					json API URL: <a class="apiUrl" href=""></a> <span class="loading">Loading...</span>
-				</p>
-				<div class="content"></div>
+				<h2>Random Goodies</h2>
+				<ul class="nav nav-tabs">
+					<li class="active"><a data-target="#memberPictures" data-toggle="tab" class="active">Latest Member Pictures</a></li>
+					<li><a data-target="#otherShit" data-toggle="tab">Newest Members</a></li>
+
+				</ul>
+				<div class="tab-content" style="min-height: 400px">
+					<div id="memberPictures" class="tab-pane active fade in">
+						<p class="apiUrl">
+							API URL: <a href=""></a><span class="loading">Loading...</span>
+						</p>
+						<p class="content"></p>
+					</div>
+					<div id="otherShit" class="tab-pane fade in">
+						Proin consectetur condimentum molestie. Vestibulum erat libero, sodales sit amet tristique in, dapibus condimentum metus. Morbi mattis varius vehicula. Fusce urna dolor, egestas vitae convallis sed, gravida eget velit. Donec faucibus est non sem lacinia at rutrum nibh luctus. In turpis diam, tincidunt in blandit tempor, volutpat a justo. Nam aliquam, velit id lobortis vulputate, sem sem tempor velit, ac aliquam mauris urna nec diam. 
+					</div>
+				</div>
 			</div>
+
 		</div>
 	</div>
 
 	<!--	Templates for ICanHas.js	-->
 
 	<script id="forumTemplate" type="text/html">
-		<li><a href="#" data-id-forum="{{idForum}}">{{title}}</a> <small><em>{{description}}</em></small>&nbsp;
+		<li>
+			<a data-id-forum="{{idForum}}">{{title}}</a>
+		</li>
 	</script>
 
 	<script id="threadTemplate" type="text/html">
-		<li>
-			{{#memberPictureUrl}}<img src="{{memberPictureUrl}}" alt="{{login}}">{{/memberPictureUrl}}
-			<p>{{#sticky}}Sticky: {{/sticky}}<a href="#" data-id-thread="{{idPost}}">{{subject}}</a>
-			posted by <a href="#" data-id-member="{{idMember}}">{{login}}</a> {{createdRelative}} {{#replyCount}}({{replyCount}} replies, latest by {{lastReplyLogin}}){{/replyCount}}<br>
-			<small><em>{{body}}</em></small>
-			</p>
+		<li class="media thread-list">
+			{{#memberPictureUrl}}
+			<a class="pull-left" href="#"><img src="{{memberPictureUrl}}" alt="{{login}}" class="media-object"></a>
+			{{/memberPictureUrl}}
+
+			<div class="media-body">
+				<h4 class="media-heading">{{#sticky}}Sticky: {{/sticky}}<a href="#" data-id-thread="{{idPost}}">{{subject}}</a>
+					<br>
+					<small>posted by <a href="#" data-id-member="{{idMember}}">{{login}}</a> {{createdRelative}} {{#replyCount}}({{replyCount}} replies, latest by {{lastReplyLogin}}){{/replyCount}}</small>
+				</h4>
+				<div class="media">
+					{{body}}
+				</div>
+			</div>
+		</li>
+	</script>
+
+	<script id="notificationTemplate" type="text/html">
+		<li class="media">
+			<span class="pull-right">{{relativeEventTimeDetailed}}</span>
+			{{^compact}}{{#memberPictureUrls}}
+			<a class="pull-left" href="#"><img src="{{memberPictureUrls.50}}" alt="{{login}}" class="media-object"></a>
+			{{/memberPictureUrls}}{{/compact}}
+			<div class="media-body">
+				<h4 class="media-heading">{{{renderedSubject}}}</h4>
+				<div class="media">
+					{{{renderedBody}}}
+					{{#pictureUrls}}
+						<img src="{{50}}">
+					{{/pictureUrls}}
+				</div>
+			</div>
 		</li>
 	</script>
 
 	<script id="threadReplyTemplate" type="text/html">
-		<li>
-			{{}}
+		<li>{{}}
+		</li>
 	</script>
 
 	<script id="memberPictureTemplate" type="text/html">
@@ -247,7 +322,7 @@
 			<img src="{{url}}" alt="{{caption}} {{login}}" data-id-member="{{idMember}}"><br>
 			{{#caption}}<p data-id-member="{{idMember}}"><em>&ldquo;{{caption}}&rdquo;</em></p>
 			{{/caption}}
-			                                                                             {{login}}
+			{{login}}
 
 		</div>
 	</script>
@@ -261,16 +336,12 @@
 			Likes to fuck: {{genderPreference}}<br>
 			Paid or lifetime member? {{isPaidOrLifetimeMember}}<br>
 			{{#loginsPrevious}}Also known as: {{/loginsPrevious}}<br>
-			{{#isMod}}Mod! {{/isMod}}
-			{{#isAdmin}}Admin! {{/isAdmin}}
-			{{#isSysAdmin}}SysAdmin! {{/isSysAdmin}}
+			{{#isMod}}Mod! {{/isMod}}                                                                                                                                                                                                                                  {{#isSysAdmin}}SysAdmin! {{/isSysAdmin}}
 		</p>
 	</script>
 
 	<script id="reply" type="text/html">
-		<li>
-			
-		</li>
+		<li></li>
 	</script>
 
 
@@ -281,9 +352,11 @@
 	<script src="Content/js/ICanHaz.min.js"></script>
 	<script src="Content/js/obApi.js"></script>
 	<script src="Content/js/jquery.cookie.js"></script>
+	<script src="Content/js/bootstrap.min.js"></script>
+	<script src="Content/js/bootstrap-tab.js"></script>
 	<script type="text/javascript">
 		
 	</script>
+
 </body>
 </html>
-<!-- fuck -->

@@ -82,20 +82,22 @@ namespace ObApi.Controllers {
 		/// <returns>
 		/// AuthenticationResult
 		/// </returns>
-		public HttpResponseMessage Get(string login, string password) {
+		/*
+		 * public HttpResponseMessage Get(string login, string password) {
 			return Authenticate(login, password);
 		}
-
+		*/
 		// GET api/authenticate
 		/// <summary>Authenticates a user based on an auth token</summary>
 		/// <param name="authenticationToken">Auth token, presumably stored in user's cookies or elsewhere</param>
 		/// <returns></returns>
+
 		public HttpResponseMessage Get(string id) {
 			return Authenticate(id);
 		}
 
 		// POST api/authenticationtoken
-		public HttpResponseMessage Post([FromBody]string login="", [FromBody]string password="", [FromBody]string authenticationToken="") {
+		public HttpResponseMessage Post(string login="", string password="", string authenticationToken="") {
 			if (!String.IsNullOrWhiteSpace(authenticationToken)) {
 				return Authenticate(authenticationToken);
 			}

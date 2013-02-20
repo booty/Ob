@@ -10,8 +10,7 @@ namespace ObCore.Models {
 	public class PrivateMessage : ObDb.Record<PrivateMessage> {
 		[PetaPoco.Column("ID_Message")]
 		public int IdMessage {
-			get;
-			set;
+			get; set;
 		}
 		[PetaPoco.Column("ID_Member_From")]
 		public int IdMemberSender {
@@ -101,15 +100,15 @@ namespace ObCore.Models {
 			}
 		}
 
-		public string SenderPictureUrl {
+		public Dictionary<string,string> MemberPictureUrls {
 			get {
-				return MemberPicture.PublicPictureUrl(this.IdPictureMemberSender, PictureSize.Small50Px);
+				return MemberPicture.PublicPictureUrls(IdPictureMemberSender);
 			}
 		}
 
-		public string RecipientPictureUrl {
+		public Dictionary<string,string> RecipientPictureUrls {
 			get {
-				return MemberPicture.PublicPictureUrl(this.IdPictureMemberRecipient, PictureSize.Small50Px);
+				return MemberPicture.PublicPictureUrls(this.IdPictureMemberRecipient);
 			}
 		}
 

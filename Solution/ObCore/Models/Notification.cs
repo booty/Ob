@@ -4,6 +4,8 @@ using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using Newtonsoft.Json;
+using ObCore.Helpers;
 using PetaPoco;
 
 namespace ObCore.Models {
@@ -30,11 +32,11 @@ namespace ObCore.Models {
 		public int? IdPostReplyTo { get; set; }
 		[PetaPoco.Column("qty")]
 		public int? Quantity { get; set; }
-		[PetaPoco.Column("fop_guid1")]
+		[JsonIgnore][PetaPoco.Column("fop_guid1")]
 		public string FopGuid1 { get; set; }
-		[PetaPoco.Column("fop_guid2")]
+		[JsonIgnore][PetaPoco.Column("fop_guid2")]
 		public string FopGuid2 { get; set; }
-		[PetaPoco.Column("fop_guid3")]
+		[JsonIgnore][PetaPoco.Column("fop_guid3")]
 		public string FopGuid3 { get; set; }
 		[PetaPoco.Column("id_picture_member")]
 		public int? IdPictureMember { get; set; }
@@ -47,14 +49,44 @@ namespace ObCore.Models {
 		[PetaPoco.Column("Id_Notification_Event_Type")] 
 		public int? IdNotificationEventType { get; set; }
 
-		public string PictureUrl {
+		public Dictionary<string, string> MemberPictureUrls {
 			get {
-				if (!IdPictureMember.HasValue) return String.Empty;
-				return MemberPicture.PublicPictureUrl(IdPictureMember.Value);
+				return MemberPicture.PublicPictureUrls(IdPictureMember);
+			}
+		}
+		
+		public string RelativeEventTime {
+			get {
+				return EventTime.ToRelativeDate();
 			}
 		}
 
+		public string RelativeEventTimeDetailed {
+			get {
+				return EventTime.ToRelativeDateDetailed();
+			}
+		}
+
+		/// <summary>
+		/// Hide the shameful, gross FopGuid1...FopGuid3 behind an array for neater serialization, etc.
+		/// Don't actually make the array until somebody tries to access it
+		/// Kludge alert: assumes that _memberPictures is never modified after we initially load the object
+		/// These could be any kind of picture: public member pics, FOPs, forum attachments, etc.
+		/// </summary>
+		public List<Dictionary<string,string>> PictureUrls {
+			get {
+				if ((FopGuid1 == null) && (FopGuid2 == null) && (FopGuid3 == null)) return null;
+				var urls = new List<Dictionary<string, string>>();
+				if (FopGuid1!=null) urls.Add( MemberPicture.FriendsOnlyPictureUrls(FopGuid1));
+				if (FopGuid2!=null) urls.Add( MemberPicture.FriendsOnlyPictureUrls(FopGuid2));
+				if (FopGuid3!=null) urls.Add( MemberPicture.FriendsOnlyPictureUrls(FopGuid3));
+				return urls;
+			}
+		}
+
+
 		// todo: This should really be client-side, right?
+		
 		public string HtmlDataAttribute {
 			get {
 				if (IdComment.HasValue) return String.Format(@"data-id-comment=""{0}""", IdComment.Value);
@@ -65,6 +97,7 @@ namespace ObCore.Models {
 				return String.Empty;
 			}
 		}
+		
 
 		public static List<Notification> Find(int idMember, int skip, int take, NotificationType notificationType=NotificationType.All) {
 			Trace.WriteLine("Hello, world, from Notification#Find");
