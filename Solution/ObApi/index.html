@@ -4,6 +4,11 @@
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700,700italic|Crete+Round' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="/content/css/bootstrap-readable.css">
 	<style type="text/css">
+		/*	
+		Most of the CSS below builds upon (and is meant to be used with) 
+		the Bootswatch "Readable" theme : http://bootswatch.com/readable/ 
+		*/
+		
 		.memberPictureCard {
 			border: #bbb solid 1px;
 			font-size: 12px;
@@ -215,7 +220,7 @@
 			<div class="span3">
 				<h2 class="title">Forums</h2>
 				<p class="apiUrl">
-					API URL: <a href=""></a><span class="loading">Loading...</span>
+					API URL: <a href=""></a><span class="loading"> Loading...</span>
 				</p>
 				<ul class="nav nav-list content">
 				</ul>
@@ -224,7 +229,7 @@
 				<div id="threads">
 					<h2>Latest Threads...</h2>
 					<p class="apiUrl">
-						API URL: <a href=""></a><span class="loading">Loading...</span>
+						API URL: <a href=""></a><span class="loading"> Loading...</span>
 					</p>
 
 					<ul class="content media-list"></ul>
@@ -237,7 +242,7 @@
 				<h2></h2>
 
 				<p class="apiUrl">
-					API URL: <a href=""></a><span class="loading">Loading...</span>
+					API URL: <a href=""></a><span class="loading"> Loading...</span>
 				</p>
 
 				<ul class="content media-list"></ul>
@@ -255,7 +260,7 @@
 				<div class="tab-content" style="min-height: 400px">
 					<div id="memberPictures" class="tab-pane active fade in">
 						<p class="apiUrl">
-							API URL: <a href=""></a><span class="loading">Loading...</span>
+							API URL: <a href=""></a><span class="loading"> Loading...</span>
 						</p>
 						<p class="content"></p>
 					</div>
@@ -268,7 +273,13 @@
 		</div>
 	</div>
 
-	<!--	Templates for ICanHas.js	-->
+	<!--	
+		Templates for ICanHas.js.  ICanHas is designed to let you store 
+		html templates in <script> tags with type="text/html"
+		Those templates contain fields which are then rendered with mustache.js
+		Obviously for maximum convenience, those fields should
+
+	-->
 
 	<script id="forumTemplate" type="text/html">
 		<li>
