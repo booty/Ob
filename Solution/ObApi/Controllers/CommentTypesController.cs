@@ -10,7 +10,12 @@ using ObCore.Models;
 namespace ObApi.Controllers {
 	public class CommentTypesController : ApiController {
 		// GET api/commenttype
-		public HttpResponseMessage Get(int id=0, bool includeInactive=false) {
+		/// <summary>
+		/// Returns CommentTypes. Comments are "canned" messages you can send to another user.
+		/// </summary>
+		/// <param name="id">Optional. If omitted, all active comment types will be returned.</param>
+		/// <returns></returns>
+		public HttpResponseMessage Get(int id=0) {
 			int? memberId = HttpContext.Current.MemberId();
 			bool includeAdult = false;
 
