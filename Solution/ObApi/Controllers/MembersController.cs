@@ -15,9 +15,9 @@ namespace ObApi.Controllers {
 
 
 		/// <summary>
-		/// /api/member/JohnBooty
+		/// Returns information about one or more members.
 		/// </summary>
-		/// <param name="id">Can be either numeric memberId or the user's past/present login</param>
+		/// <param name="id">Can be either numeric memberId (1238) or the user's past/present login ("John Booty")</param>
 		/// <returns>Member profile - profile information, pictures</returns>
 		public HttpResponseMessage Get(string id) {
 			int memberId;
