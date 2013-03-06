@@ -1,13 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ob", "Ob\Ob.csproj", "{AFD360DC-E341-4ED3-840F-BF34D1E5B31A}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ob.Tests", "Ob.Tests\Ob.Tests.csproj", "{16A66D13-DF70-407A-81EE-6BE182381EC7}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ObCore", "ObCore\ObCore.csproj", "{6DD87E34-45E9-42E4-9F20-D41AF8CB2F0C}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ObMobile", "ObMobile\ObMobile.csproj", "{FF030E9D-7184-48F5-A23A-D52E1E33C095}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ObApi", "ObApi\ObApi.csproj", "{CCDE358A-39B1-4AE1-AEAD-E653F39F2891}"
 EndProject
@@ -17,22 +11,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{AFD360DC-E341-4ED3-840F-BF34D1E5B31A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AFD360DC-E341-4ED3-840F-BF34D1E5B31A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AFD360DC-E341-4ED3-840F-BF34D1E5B31A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AFD360DC-E341-4ED3-840F-BF34D1E5B31A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{16A66D13-DF70-407A-81EE-6BE182381EC7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{16A66D13-DF70-407A-81EE-6BE182381EC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{16A66D13-DF70-407A-81EE-6BE182381EC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{16A66D13-DF70-407A-81EE-6BE182381EC7}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6DD87E34-45E9-42E4-9F20-D41AF8CB2F0C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6DD87E34-45E9-42E4-9F20-D41AF8CB2F0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6DD87E34-45E9-42E4-9F20-D41AF8CB2F0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6DD87E34-45E9-42E4-9F20-D41AF8CB2F0C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FF030E9D-7184-48F5-A23A-D52E1E33C095}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FF030E9D-7184-48F5-A23A-D52E1E33C095}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FF030E9D-7184-48F5-A23A-D52E1E33C095}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FF030E9D-7184-48F5-A23A-D52E1E33C095}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CCDE358A-39B1-4AE1-AEAD-E653F39F2891}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CCDE358A-39B1-4AE1-AEAD-E653F39F2891}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CCDE358A-39B1-4AE1-AEAD-E653F39F2891}.Release|Any CPU.ActiveCfg = Release|Any CPU
