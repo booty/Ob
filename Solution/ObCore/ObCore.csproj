@@ -63,15 +63,15 @@
     <Compile Include="Helpers\StringHelpers.cs" />
     <Compile Include="Helpers\ObHelpers.cs" />
     <None Include="App.config" />
+    <Compile Include="Models\ApprovalStatus.cs" />
+    <Compile Include="Models\Comment.cs" />
+    <Compile Include="Models\CommentType.cs" />
+    <Compile Include="Models\Forum.cs" />
     <None Include="Models\Generated\Database.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Database.tt</DependentUpon>
     </None>
-    <Compile Include="Models\ApprovalStatus.cs" />
-    <Compile Include="Models\Comment.cs" />
-    <Compile Include="Models\CommentType.cs" />
-    <Compile Include="Models\Forum.cs" />
     <Compile Include="Models\PhoneNumber.cs" />
     <Compile Include="Models\Post.cs" />
     <Compile Include="Models\PostModerationStatus.cs" />

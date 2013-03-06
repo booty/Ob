@@ -1,0 +1,154 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DirectedGraph GraphDirection="LeftToRight" xmlns="http://schemas.microsoft.com/vs/2009/dgml">
+  <Nodes>
+    <Node Id="AspNetMvc 4.0.20710.0" Category="Package" Bounds="312.8202,111.920011987516,144.12,25.96" Label="AspNetMvc 4.0.20710.0" />
+    <Node Id="EntityFramework 5.0.0" Category="Package" Bounds="838.445514860885,167.88,136.196666666667,25.96" Label="EntityFramework 5.0.0" />
+    <Node Id="Glimpse 1.0.1" Category="Package" Bounds="434.739912687081,223.840011987516,90.7033333333334,25.96" Label="Glimpse 1.0.1" />
+    <Node Id="Glimpse.AspNet 1.0.1" Category="Package" Bounds="275.729909434407,167.880011987516,132.51,25.96" Label="Glimpse.AspNet 1.0.1" />
+    <Node Id="Glimpse.Mvc3 1.0.1" Category="Package" Bounds="0,111.919981633865,121.84,25.96" Label="Glimpse.Mvc3 1.0.1" />
+    <Node Id="Microsoft.AspNet.Mvc 4.0.20710.0" Category="Package" Bounds="1117.53904819422,167.88,199.696666666667,25.96" Label="Microsoft.AspNet.Mvc 4.0.20710.0" />
+    <Node Id="Microsoft.AspNet.Providers.Core 1.2" Category="Package" Bounds="1122.56403333333,111.92,210.306666666667,25.96" Label="Microsoft.AspNet.Providers.Core 1.2" />
+    <Node Id="Microsoft.AspNet.Providers.LocalDB 1.1" Category="Package" Bounds="1720.871,55.96,227.926666666667,25.96" Label="Microsoft.AspNet.Providers.LocalDB 1.1" />
+    <Node Id="Microsoft.AspNet.Razor 2.0.20715.0" Category="Package" Bounds="1186.93010843902,279.8,207.543333333333,25.96" Label="Microsoft.AspNet.Razor 2.0.20715.0" />
+    <Node Id="Microsoft.AspNet.Web.Optimization 1.0.0" Category="Package" Bounds="1347.23581486089,167.88,238.463333333333,25.96" Label="Microsoft.AspNet.Web.Optimization 1.0.0" />
+    <Node Id="Microsoft.AspNet.WebApi 4.0.20710.0" Category="Package" Bounds="2153.87786666667,55.9600000000001,219.87,25.96" Label="Microsoft.AspNet.WebApi 4.0.20710.0" />
+    <Node Id="Microsoft.AspNet.WebApi.Client 4.0.20710.0" Category="Package" Bounds="1490.46169493582,279.8,252.846666666667,25.96" Label="Microsoft.AspNet.WebApi.Client 4.0.20710.0" />
+    <Node Id="Microsoft.AspNet.WebApi.Core 4.0.20710.0" Category="Package" Bounds="1960.73979633072,223.840028872946,247.38,25.96" Label="Microsoft.AspNet.WebApi.Core 4.0.20710.0" />
+    <Node Id="Microsoft.AspNet.WebApi.HelpPage 4.0.0" Category="Package" Bounds="1531.31756666667,111.92,238.446666666667,25.96" Label="Microsoft.AspNet.WebApi.HelpPage 4.0.0" />
+    <Node Id="Microsoft.AspNet.WebApi.Tracing 4.0.0" Category="Package" Bounds="2403.74796666667,78.0909329216857,226.393333333333,25.96" Label="Microsoft.AspNet.WebApi.Tracing 4.0.0" />
+    <Node Id="Microsoft.AspNet.WebApi.WebHost 4.0.20710.0" Category="Package" Bounds="1677.35310100222,167.880028872946,271.72,25.96" Label="Microsoft.AspNet.WebApi.WebHost 4.0.20710.0" />
+    <Node Id="Microsoft.AspNet.WebPages 2.0.20710.0" Category="Package" Bounds="1307.82559616596,223.84,233.433333333333,25.96" Label="Microsoft.AspNet.WebPages 2.0.20710.0" />
+    <Node Id="Microsoft.Net.Http 2.0.20710.0" Category="Package" Bounds="1588.4788845884,461.588692152242,181.45,25.96" Label="Microsoft.Net.Http 2.0.20710.0" />
+    <Node Id="Microsoft.Web.Infrastructure 1.0.0.0" Category="Package" Bounds="1506.61151045578,335.76,208.076666666667,25.96" Label="Microsoft.Web.Infrastructure 1.0.0.0" />
+    <Node Id="Microsoft.jQuery.Unobtrusive.Ajax 2.0.30116.0" Category="Package" Bounds="1799.76433333333,111.920028872946,262.453333333333,25.96" Label="Microsoft.jQuery.Unobtrusive.Ajax 2.0.30116.0" />
+    <Node Id="Microsoft.jQuery.Unobtrusive.Validation 2.0.30116.0" Category="Package" Bounds="1397.33756666667,55.9599999999999,293.533333333333,25.96" Label="Microsoft.jQuery.Unobtrusive.Validation 2.0.30116.0" />
+    <Node Id="Modernizr 2.6.2" Category="Package" Bounds="814.7405,111.920011987516,102.516666666667,25.96" Label="Modernizr 2.6.2" />
+    <Node Id="MvcDiagnostics 4.0.0" Category="Package" Bounds="151.8401,111.920011987516,130.98,25.96" Label="MvcDiagnostics 4.0.0" />
+    <Node Id="Newtonsoft.Json 4.5.11" Category="Package" Bounds="1171.97664270923,335.76,141.923333333333,25.96" Label="Newtonsoft.Json 4.5.11" />
+    <Node Id="Ob" Category="Project" Bounds="817.365661476897,55.9600119875158,50,25.96" Label="Ob" />
+    <Node Id="ObApi" Category="Project" Bounds="1567.74858346816,2.8421709430404E-14,53.8,25.96" Label="ObApi" />
+    <Node Id="ObCore" Category="Project" Bounds="796.025125404108,439.144753960731,61.0099999999995,25.96" Label="ObCore" UseManualLocation="True" />
+    <Node Id="ObMobile" Category="Project" Bounds="714.315561476897,55.9600119875158,73.0500000000001,25.96" Label="ObMobile" />
+    <Node Id="PetaPoco 5.0.1" Category="Package" Bounds="842.91671669892,291.104753960731,97.39,25.96" Label="PetaPoco 5.0.1" />
+    <Node Id="TaskHelpers.Sources 0.2" Category="Package" Bounds="2227.2912,111.92,146.456666666666,25.96" Label="TaskHelpers.Sources 0.2" />
+    <Node Id="Twitter.Bootstrap 2.3.1" Category="Package" Bounds="1362.8708,111.92,138.446666666667,25.96" Label="Twitter.Bootstrap 2.3.1" />
+    <Node Id="WebAPIContrib 0.9.10.0" Category="Package" Bounds="1978.79776666667,55.9600535832244,145.08,25.96" Label="WebAPIContrib 0.9.10.0" />
+    <Node Id="WebApiRouteDebugger 1.0.0" Category="Package" Bounds="1192.74413333333,55.9600535832244,174.593333333333,25.96" Label="WebApiRouteDebugger 1.0.0" />
+    <Node Id="WebGrease 1.3.0" Category="Package" Bounds="1165.7569305758,223.84,108.596666666667,25.96" Label="WebGrease 1.3.0" />
+    <Node Id="jQuery 1.9.1" Category="Package" Bounds="1004.64228152755,167.880011987516,82.8966666666666,25.96" Label="jQuery 1.9.1" />
+    <Node Id="jQuery.UI.Combined 1.10.1" Category="Package" Bounds="623.847066666667,111.920011987516,160.893333333333,25.96" Label="jQuery.UI.Combined 1.10.1" />
+    <Node Id="jQuery.Validation 1.11.0" Category="Package" Bounds="947.257266666667,111.920011987516,145.306666666667,25.96" Label="jQuery.Validation 1.11.0" />
+    <Node Id="jQuery.vsdoc 1.6" Category="Package" Bounds="486.9403,111.920011987516,106.906666666667,25.96" Label="jQuery.vsdoc 1.6" />
+    <Node Id="knockoutjs 2.2.1" Category="Package" Bounds="2092.21776666667,111.920053583224,105.073333333333,25.96" Label="knockoutjs 2.2.1" />
+  </Nodes>
+  <Links>
+    <Link Source="AspNetMvc 4.0.20710.0" Target="Microsoft.AspNet.Mvc 4.0.20710.0" Category="Package Dependency" Bounds="436.501892089844,137.879928588867,672.108459472656,31.6990814208984" />
+    <Link Source="Glimpse.AspNet 1.0.1" Target="Glimpse 1.0.1" Category="Package Dependency" Bounds="374.018895573147,193.840033468628,65.6974363603408,26.6202625057857" />
+    <Link Source="Glimpse.Mvc3 1.0.1" Target="Glimpse.AspNet 1.0.1" Category="Package Dependency" Bounds="121.078281639158,136.877498877135,147.797567441815,29.4265104198137" />
+    <Link Source="Microsoft.AspNet.Mvc 4.0.20710.0" Target="Microsoft.AspNet.Razor 2.0.20715.0" Category="Package Dependency" Bounds="1243.90405273438,193.839981079102,45.0726318359375,76.9878692626953" />
+    <Link Source="Microsoft.AspNet.Mvc 4.0.20710.0" Target="Microsoft.AspNet.WebPages 2.0.20710.0" Category="Package Dependency" Bounds="1265.43713160487,193.839977771868,102.366800543111,27.6530326792755" />
+    <Link Source="Microsoft.AspNet.Providers.Core 1.2" Target="EntityFramework 5.0.0" Category="Package Dependency" Bounds="982.921300285821,137.879877771868,170.299786810446,29.6724889086255" />
+    <Link Source="Microsoft.AspNet.Providers.LocalDB 1.1" Target="Microsoft.AspNet.Providers.Core 1.2" Category="Package Dependency" Bounds="1341.36291503906,80.8045349121094,380.173950195313,31.5413970947266" />
+    <Link Source="Microsoft.AspNet.Web.Optimization 1.0.0" Target="Microsoft.Web.Infrastructure 1.0.0.0" Category="Package Dependency" Bounds="1480.32751464844,193.84001159668,71.0655517578125,139.717636108398" />
+    <Link Source="Microsoft.AspNet.Web.Optimization 1.0.0" Target="WebGrease 1.3.0" Category="Package Dependency" Bounds="1282.22658871921,193.84001036377,127.085348879839,28.8610051870573" />
+    <Link Source="Microsoft.AspNet.WebApi 4.0.20710.0" Target="Microsoft.AspNet.WebApi.WebHost 4.0.20710.0" Category="Package Dependency" Bounds="1924.54760742188,81.9199981689453,267.44970703125,84.8284149169922" />
+    <Link Source="Microsoft.AspNet.WebApi.Client 4.0.20710.0" Target="Microsoft.Net.Http 2.0.20710.0" Category="Package Dependency" Bounds="1659.53955078125,305.760223388672,61.1988525390625,147.320587158203" />
+    <Link Source="Microsoft.AspNet.WebApi.Client 4.0.20710.0" Target="Newtonsoft.Json 4.5.11" Category="Package Dependency" Bounds="1322.73417829578,305.760210363769,207.413488034359,31.0388463382949" />
+    <Link Source="Microsoft.AspNet.WebApi.Core 4.0.20710.0" Target="Microsoft.AspNet.WebApi.Client 4.0.20710.0" Category="Package Dependency" Bounds="1734.26886326693,249.800207282715,241.713190515077,28.9304349511598" />
+    <Link Source="Microsoft.AspNet.WebApi.HelpPage 4.0.0" Target="Microsoft.AspNet.Mvc 4.0.20710.0" Category="Package Dependency" Bounds="1324.46759602937,137.87991036377,225.602906557624,29.1461386780157" />
+    <Link Source="Microsoft.AspNet.WebApi.HelpPage 4.0.0" Target="Microsoft.AspNet.Razor 2.0.20715.0" Category="Package Dependency" Bounds="1401.37255859375,137.879913330078,239.637939453125,140.956268310547" />
+    <Link Source="Microsoft.AspNet.WebApi.HelpPage 4.0.0" Target="Microsoft.AspNet.WebApi.WebHost 4.0.20710.0" Category="Package Dependency" Bounds="1688.272860747,137.87991036377,78.6978583251996,27.0725310512136" />
+    <Link Source="Microsoft.AspNet.WebApi.Tracing 4.0.0" Target="Microsoft.AspNet.WebApi.Core 4.0.20710.0" Category="Package Dependency" Bounds="2131.47696907175,104.050934295654,346.949222657528,116.915240519138" />
+    <Link Source="Microsoft.AspNet.WebApi.WebHost 4.0.20710.0" Target="Microsoft.AspNet.WebApi.Core 4.0.20710.0" Category="Package Dependency" Bounds="1876.1220797906,193.840107282715,136.584329353702,28.1814389719486" />
+    <Link Source="Microsoft.AspNet.WebApi.WebHost 4.0.20710.0" Target="Microsoft.Web.Infrastructure 1.0.0.0" Category="Package Dependency" Bounds="1675.84936523438,193.840103149414,131.618408203125,139.90266418457" />
+    <Link Source="Microsoft.AspNet.WebPages 2.0.20710.0" Target="Microsoft.AspNet.Razor 2.0.20715.0" Category="Package Dependency" Bounds="1330.04960876071,249.80011036377,63.448170922903,26.5283193070447" />
+    <Link Source="Microsoft.AspNet.WebPages 2.0.20710.0" Target="Microsoft.Web.Infrastructure 1.0.0.0" Category="Package Dependency" Bounds="1433.69934082031,249.800109863281,116.722778320313,83.7606506347656" />
+    <Link Source="Microsoft.jQuery.Unobtrusive.Ajax 2.0.30116.0" Target="jQuery 1.9.1" Category="Package Dependency" Bounds="1089.03723144531,137.880004882813,757.105834960938,27.0855255126953" />
+    <Link Source="Microsoft.jQuery.Unobtrusive.Validation 2.0.30116.0" Target="jQuery.Validation 1.11.0" Category="Package Dependency" Bounds="1090.44702148438,81.919807434082,313.946166992188,29.1675033569336" />
+    <Link Source="Ob" Target="EntityFramework 5.0.0" Category="Installed Package" Bounds="867.365661621094,78.5975646972656,53.83544921875,80.5799407958984" />
+    <Link Source="Ob" Target="Modernizr 2.6.2" Category="Installed Package" Bounds="847.847393489868,81.919933430481,9.16823821431819,21.7091486542292" />
+    <Link Source="Ob" Target="PetaPoco 5.0.1" Category="Installed Package" Bounds="807.452026367188,81.9199371337891,73.7025146484375,201.125411987305" />
+    <Link Source="Ob" Target="jQuery 1.9.1" Category="Installed Package" Bounds="867.365661621094,78.5975646972656,129.639892578125,87.4664611816406" />
+    <Link Source="Ob" Target="jQuery.UI.Combined 1.10.1" Category="Installed Package" Bounds="744.660611308101,79.0708061642574,72.7088464784377,29.468637524649" />
+    <Link Source="Ob" Target="jQuery.Validation 1.11.0" Category="Installed Package" Bounds="867.365661621094,76.8196201784392,102.779385705641,32.3947745403213" />
+    <Link Source="Ob" Target="jQuery.vsdoc 1.6" Category="Installed Package" Bounds="602.724426269531,75.0697708129883,214.641235351563,39.4384536743164" />
+    <Link Source="ObApi" Target="Microsoft.AspNet.Providers.Core 1.2" Category="Installed Package" Bounds="1295.68798828125,17.2389316558838,272.060546875,92.7519435882568" />
+    <Link Source="ObApi" Target="Microsoft.AspNet.Providers.LocalDB 1.1" Category="Installed Package" Bounds="1621.54855957031,19.2470656193962,148.80926935787,34.670652654127" />
+    <Link Source="ObApi" Target="Microsoft.AspNet.Razor 2.0.20715.0" Category="Installed Package" Bounds="1292.69775390625,17.2389316558838,275.05078125,253.60133934021" />
+    <Link Source="ObApi" Target="Microsoft.AspNet.WebApi 4.0.20710.0" Category="Installed Package" Bounds="1621.54858398438,14.9406156539917,553.73388671875,40.3650560379028" />
+    <Link Source="ObApi" Target="Microsoft.AspNet.WebApi.HelpPage 4.0.0" Category="Installed Package" Bounds="1621.54858398438,21.2871971130371,79.4564208984375,85.6443367004395" />
+    <Link Source="ObApi" Target="Microsoft.AspNet.WebApi.Tracing 4.0.0" Category="Installed Package" Bounds="1621.54858398438,14.0992269515991,848.701904296875,61.0943613052368" />
+    <Link Source="ObApi" Target="Microsoft.jQuery.Unobtrusive.Ajax 2.0.30116.0" Category="Installed Package" Bounds="1621.54858398438,21.2871971130371,184.36669921875,89.6331062316895" />
+    <Link Source="ObApi" Target="Microsoft.jQuery.Unobtrusive.Validation 2.0.30116.0" Category="Installed Package" Bounds="1561.8605646759,25.9597103637695,21.064178178385,23.3211623294716" />
+    <Link Source="ObApi" Target="Modernizr 2.6.2" Category="Installed Package" Bounds="924.66162109375,15.1240587234497,643.0869140625,95.1247892379761" />
+    <Link Source="ObApi" Target="Newtonsoft.Json 4.5.11" Category="Installed Package" Bounds="1176.7958984375,17.2389316558838,390.95263671875,314.471822738647" />
+    <Link Source="ObApi" Target="TaskHelpers.Sources 0.2" Category="Installed Package" Bounds="1621.54858398438,15.405179977417,596.823486328125,98.4235706329346" />
+    <Link Source="ObApi" Target="Twitter.Bootstrap 2.3.1" Category="Installed Package" Bounds="1387.20336914063,17.2389316558838,180.545166015625,89.2739086151123" />
+    <Link Source="ObApi" Target="WebAPIContrib 0.9.10.0" Category="Installed Package" Bounds="1621.54858398438,15.8554468154907,348.330688476563,42.041163444519" />
+    <Link Source="ObApi" Target="WebApiRouteDebugger 1.0.0" Category="Installed Package" Bounds="1361.87536329241,17.7644809966754,205.873196277906,36.6191830354274" />
+    <Link Source="ObApi" Target="WebGrease 1.3.0" Category="Installed Package" Bounds="1271.06115722656,17.2389316558838,296.687377929688,203.939199447632" />
+    <Link Source="ObApi" Target="jQuery 1.9.1" Category="Installed Package" Bounds="1071.09204101563,15.1240587234497,496.656494140625,147.412547111511" />
+    <Link Source="ObApi" Target="jQuery.UI.Combined 1.10.1" Category="Installed Package" Bounds="791.264465332031,15.1240587234497,776.484069824219,95.3980894088745" />
+    <Link Source="ObApi" Target="jQuery.Validation 1.11.0" Category="Installed Package" Bounds="1054.71228027344,15.1240587234497,513.036254882813,92.8617124557495" />
+    <Link Source="ObApi" Target="knockoutjs 2.2.1" Category="Installed Package" Bounds="1621.54858398438,15.405179977417,461.822021484375,98.0431079864502" />
+    <Link Source="ObCore" Target="Newtonsoft.Json 4.5.11" Category="Installed Package" Bounds="857.035151367188,363.888928438002,324.888015435686,80.6621308207608" />
+    <Link Source="ObCore" Target="PetaPoco 5.0.1" Category="Installed Package" Bounds="832.236437189375,325.303747307283,50.0469372891613,113.840993293303" />
+    <Link Source="ObMobile" Target="AspNetMvc 4.0.20710.0" Category="Installed Package" Bounds="465.660932374393,74.5250711607776,248.654613279904,38.0224575617225" />
+    <Link Source="ObMobile" Target="EntityFramework 5.0.0" Category="Installed Package" Bounds="762.182922363281,81.9199371337891,105.570434570313,82.4343414306641" />
+    <Link Source="ObMobile" Target="Glimpse 1.0.1" Category="Installed Package" Bounds="505.510070800781,77.6886825561523,208.805480957031,140.902168273926" />
+    <Link Source="ObMobile" Target="Glimpse.AspNet 1.0.1" Category="Installed Package" Bounds="400.121520996094,73.3178329467773,314.194030761719,92.2726058959961" />
+    <Link Source="ObMobile" Target="Glimpse.Mvc3 1.0.1" Category="Installed Package" Bounds="126.396492004395,71.4182891845703,587.919059753418,39.8924102783203" />
+    <Link Source="ObMobile" Target="Microsoft.AspNet.Razor 2.0.20715.0" Category="Installed Package" Bounds="787.365539550781,77.7144165039063,451.423400878906,199.500579833984" />
+    <Link Source="ObMobile" Target="Microsoft.AspNet.Web.Optimization 1.0.0" Category="Installed Package" Bounds="787.365539550781,77.7144165039063,592.112365722656,88.6902618408203" />
+    <Link Source="ObMobile" Target="Modernizr 2.6.2" Category="Installed Package" Bounds="777.551617807471,81.919933430481,53.6412671921404,26.0664807522991" />
+    <Link Source="ObMobile" Target="MvcDiagnostics 4.0.0" Category="Installed Package" Bounds="279.990997314453,72.2117156982422,434.324554443359,38.9052429199219" />
+    <Link Source="ObMobile" Target="Newtonsoft.Json 4.5.11" Category="Installed Package" Bounds="768.241882324219,81.9199371337891,429.023254394531,250.873641967773" />
+    <Link Source="ObMobile" Target="PetaPoco 5.0.1" Category="Installed Package" Bounds="768.241882324219,81.9199371337891,112.290954589844,201.230056762695" />
+    <Link Source="ObMobile" Target="WebGrease 1.3.0" Category="Installed Package" Bounds="787.365539550781,77.7144165039063,369.485412597656,149.9013671875" />
+    <Link Source="ObMobile" Target="jQuery 1.9.1" Category="Installed Package" Bounds="787.365539550781,77.7144165039063,209.640014648438,88.349609375" />
+    <Link Source="ObMobile" Target="jQuery.UI.Combined 1.10.1" Category="Installed Package" Bounds="720.845633382783,81.919933430481,19.198321424262,23.080823901958" />
+    <Link Source="ObMobile" Target="jQuery.Validation 1.11.0" Category="Installed Package" Bounds="787.365545654297,76.5362334557192,161.32237582192,33.5510791930878" />
+    <Link Source="ObMobile" Target="jQuery.vsdoc 1.6" Category="Installed Package" Bounds="597.904781176252,78.6523206005409,116.410764478045,30.9548642128251" />
+    <Link Source="Twitter.Bootstrap 2.3.1" Target="jQuery 1.9.1" Category="Package Dependency" Bounds="1096.34228515625,134.261779785156,266.528564453125,35.9190521240234" />
+    <Link Source="WebAPIContrib 0.9.10.0" Target="Microsoft.AspNet.WebApi.Core 4.0.20710.0" Category="Package Dependency" Bounds="2054.83642578125,81.9199066162109,25.959716796875,133.042129516602" />
+    <Link Source="WebAPIContrib 0.9.10.0" Target="TaskHelpers.Sources 0.2" Category="Package Dependency" Bounds="2109.13570983239,81.9199072827148,124.804655282922,28.0280348930321" />
+    <Link Source="WebApiRouteDebugger 1.0.0" Target="Microsoft.AspNet.Mvc 4.0.20710.0" Category="Package Dependency" Bounds="1275.73498535156,81.9197769165039,67.27001953125,83.6794815063477" />
+    <Link Source="WebApiRouteDebugger 1.0.0" Target="Microsoft.AspNet.Razor 2.0.20715.0" Category="Package Dependency" Bounds="1292.69775390625,81.9197769165039,46.44384765625,188.92049407959" />
+    <Link Source="WebApiRouteDebugger 1.0.0" Target="Microsoft.AspNet.Web.Optimization 1.0.0" Category="Package Dependency" Bounds="1304.92297363281,81.9197769165039,107.955810546875,83.4564590454102" />
+    <Link Source="WebApiRouteDebugger 1.0.0" Target="Microsoft.AspNet.WebApi.WebHost 4.0.20710.0" Category="Package Dependency" Bounds="1366.30554199219,81.1839904785156,322.560546875,85.690185546875" />
+    <Link Source="WebApiRouteDebugger 1.0.0" Target="Twitter.Bootstrap 2.3.1" Category="Package Dependency" Bounds="1315.30973420252,81.919777771868,73.0693813059052,26.8916956324759" />
+    <Link Source="WebApiRouteDebugger 1.0.0" Target="jQuery 1.9.1" Category="Package Dependency" Bounds="1067.0048828125,81.9197769165039,146.799682617188,79.9017105102539" />
+    <Link Source="WebApiRouteDebugger 1.0.0" Target="knockoutjs 2.2.1" Category="Package Dependency" Bounds="1340.21887207031,81.9197769165039,760.811401367188,27.1320037841797" />
+    <Link Source="jQuery.UI.Combined 1.10.1" Target="jQuery 1.9.1" Category="Package Dependency" Bounds="784.343811035156,136.370681762695,211.661682128906,31.5809783935547" />
+    <Link Source="jQuery.Validation 1.11.0" Target="jQuery 1.9.1" Category="Package Dependency" Bounds="1025.98308647612,137.879877771868,10.2212726203099,21.8481219029258" />
+    <Link Source="jQuery.vsdoc 1.6" Target="jQuery 1.9.1" Category="Package Dependency" Bounds="576.101806640625,137.880004882813,432.67724609375,26.629150390625" />
+  </Links>
+  <Categories>
+    <Category Id="Installed Package" />
+    <Category Id="Package" />
+    <Category Id="Package Dependency" />
+    <Category Id="Project" />
+  </Categories>
+  <Properties>
+    <Property Id="Bounds" DataType="System.Windows.Rect" />
+    <Property Id="Expression" DataType="System.String" />
+    <Property Id="GraphDirection" DataType="Microsoft.VisualStudio.Diagrams.Layout.LayoutOrientation" />
+    <Property Id="GroupLabel" DataType="System.String" />
+    <Property Id="IsEnabled" DataType="System.Boolean" />
+    <Property Id="Label" Label="Label" Description="Displayable label of an Annotatable object" DataType="System.String" />
+    <Property Id="TargetType" DataType="System.Type" />
+    <Property Id="UseManualLocation" DataType="System.Boolean" />
+    <Property Id="Value" DataType="System.String" />
+    <Property Id="ValueLabel" DataType="System.String" />
+  </Properties>
+  <Styles>
+    <Style TargetType="Node" GroupLabel="Project" ValueLabel="True">
+      <Condition Expression="HasCategory('Project')" />
+      <Setter Property="Background" Value="Blue" />
+    </Style>
+    <Style TargetType="Link" GroupLabel="Package Dependency" ValueLabel="True">
+      <Condition Expression="HasCategory('Package Dependency')" />
+      <Setter Property="Background" Value="Yellow" />
+    </Style>
+  </Styles>
+</DirectedGraph>

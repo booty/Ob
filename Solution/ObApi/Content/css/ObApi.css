@@ -1,0 +1,112 @@
+﻿/*	
+Most of the CSS below builds upon (and is meant to be used with) 
+the Bootswatch "Readable" theme : http://bootswatch.com/readable/ 
+*/
+
+.hero-unit {
+	padding:30px 60px;
+}
+
+.memberPictureCard {
+	border: #bbb solid 1px;
+	font-size: 12px;
+	line-height: 12px;
+	padding: 5px;
+	margin: 0px 5px 5px 0px;
+	float: left;
+	width: 100px;
+	text-align: center;
+	height: 120px;
+	overflow: hidden;
+}
+
+span[data-id-member] {
+	font-weight: bold;
+}
+
+.auth {
+	display: none;
+}
+
+.thread-list h4 {
+	margin-bottom: 3px;
+	line-height: 18px;
+}
+
+	.thread-list h4 small {
+		font-size: 14px;
+	}
+
+.thread-list .media {
+	font-size: 16px;
+	margin-top: 3px;
+}
+
+.media-list-compact {
+	font-size: 14px;
+}
+
+	.media-list-compact h4 {
+		font-size: 16px;
+		line-height: 1em;
+		font-weight: normal;
+	}
+
+	.media-list-compact .media {
+		margin-top: 5px;
+	}
+
+	.media-list-compact .media-body {
+		line-height: 1.15em;
+	}
+
+	.media-list-compact li {
+		height: 60px;
+		overflow: hidden;
+	}
+
+		.media-list-compact li.small {
+			height: 20px;
+		}
+
+		.media-list-compact li.large {
+			height: 80px;
+		}
+
+	.media-list-compact .pull-right {
+		font-size: smaller;
+		opacity: 0.7;
+	}
+
+.apiUrl {
+	background-color: rgba(58,135,173,0.05);
+	border: 1px solid rgba(58,135,173,0.25);
+	border-radius: 3px;
+	color: rgba(58,135,173,0.55);
+	font-family: sans-serif;
+	font-size: 11px;
+	line-height: 20px;
+	padding-left: 6px;
+	padding-right: 6px;
+}
+
+	.apiUrl a, .apiUrl a:hover, .apiUrl a:active, .apiUrl a:visited {
+		color: rgba(58,135,173,0.75);
+		font-weight: bold;
+	}
+
+.nav {
+	margin-bottom: 5px;
+}
+
+#AuthenticatedMemberTabsContent {
+	height: 350px;
+	overflow-y: scroll;
+	padding: 10px;
+	border-left: 1px solid #ddd;
+	border-bottom: 1px solid #ddd;
+	border-right: 1px solid #ddd;
+	border-bottom-left-radius: 4px;
+	border-bottom-right-radius: 4px;
+	margin-top: -5px; /* to line it up w/ tabs above */
+}

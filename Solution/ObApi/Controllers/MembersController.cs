@@ -7,30 +7,31 @@ using System.Collections.Generic;
 
 namespace ObApi.Controllers {
 	public class MembersController : ApiController {
-		public class MemberProfile {
-			public Member Member;
-			public List<MemberPicture> PublicPictures;
-			public List<MemberPicture> FriendsOnlyPictures;
+		/// <summary>
+		/// Returns information about a member
+		/// </summary>
+		/// <param name="idMember">The member's numeric ID</param>
+		/// <returns>Member profile</returns>
+		public HttpResponseMessage GetByIdMember(string idMember) {
+			int id;
+			if (Int32.TryParse(idMember, out id)) {
+				Member memberProfile = Member.Find(id);
+				if (memberProfile!=null) return Request.CreateResponse(HttpStatusCode.OK, memberProfile).WithObApiPublicDefaults();
+			}
+			return Request.CreateResponse<string>(HttpStatusCode.NotFound, "No member with that past or present login.");
 		}
 
-
 		/// <summary>
-		/// Returns information about one or more members.
+		/// Returns information about a member
 		/// </summary>
-		/// <param name="id">Can be either numeric memberId (1238) or the user's past/present login ("John Booty")</param>
-		/// <returns>Member profile - profile information, pictures</returns>
-		public HttpResponseMessage Get(string id) {
-			int memberId;
-
-			MemberProfile memberProfile = new MemberProfile();
-
-			// Try to find member; bomb out if we can't. If "id" is a valid int, search by member ID, otherwise
-			// search by login.
-			// I guess somebody is fucked if their login is also a valid integer! 
-			// Not going to hit the database twice for those people.
-			memberProfile.Member = Int32.TryParse(id, out memberId) ? Member.Find(memberId) : Member.Find(id);
-			if (memberProfile.Member == null) return Request.CreateResponse<string>(HttpStatusCode.NotFound, "No member with that past or present login.");
-			return Request.CreateResponse(HttpStatusCode.OK, memberProfile).WithObApiPublicDefaults();
+		/// <param name="login">Past OR present login belonging to a member</param>
+		/// <returns>Member profile</returns>
+		// todo: return a HTTPmoved response if it's not their current login?
+		public HttpResponseMessage GetByLogin(string login) {
+			int id;
+			Member memberProfile = Member.Find(login);
+			if (memberProfile!=null) return Request.CreateResponse(HttpStatusCode.OK, memberProfile).WithObApiPublicDefaults();
+			return Request.CreateResponse<string>(HttpStatusCode.NotFound, "No member with that past or present login.");
 		}
 
 	}

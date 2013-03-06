@@ -1,16 +1,21 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
-    <title>@ViewBag.Title</title>
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700,700italic|Crete+Round' rel='stylesheet' type='text/css'>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width" />
+	<title>@(ViewBag.Title ?? "OtakyBooty's Awesome API")</title>
+	@RenderSection("css", required: false)
+	@Styles.Render("~/Content/css/bootstrap-readable.css", "~/Content/css/obApi.css")
+	@Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    @RenderBody()
-
-    @Scripts.Render("~/bundles/jquery")
-    @RenderSection("scripts", required: false)
+	@RenderBody()
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+	<script>window.jQuery || document.write('<script src="content//js//jquery-1.9.0.min.js"><\/script>')</script>
+	@Scripts.Render("~/Content/js/ICanHaz.min.js", "~/Content/js/jquery.cookie.js", "~/Content/js/bootstrap.min.js", "~/Content/js/bootstrap-tab.js")
+	<!-- Render this one separately; so it doesn't get bundled/minimized and people can gank code -->
+	<script src="/Content/js/obApi.js"></script>
+	@RenderSection("scripts", required: false)
 </body>
 </html>

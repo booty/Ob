@@ -9,18 +9,7 @@ namespace ObApi {
 	public class RouteConfig {
 		public static void RegisterRoutes(RouteCollection routes) {
 			routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
-			
-
-			/*
-			routes.MapRoute(
-				name: "Forum Threads",
-				url: "Forums/{id}/Threads",
-				defaults: new {
-					controller= "Forums",
-					action= "GetThreads"
-			});
-			 * */
-
+	
 			routes.MapRoute(
 				name: "Forums",
 				url: "Forums/{id}",
@@ -32,6 +21,28 @@ namespace ObApi {
 					take=25,
 					includeSticky=false,
 					includeAdult=false
+				}
+			);
+
+			// I guess somebody is fucked if their login is also a valid integer! 
+			routes.MapRoute(
+				name: "Member (by id)",
+				url: "Members/{idMember}",
+				defaults: new {
+					controller = "Members",
+					action = "GetByIdMember"
+				},
+				constraints: new {
+					id = @"\d+"
+				}
+			);
+
+			routes.MapRoute(
+				name: "Member (by login)",
+				url: "Members/{login}",
+				defaults: new {
+					controller = "Members",
+					action = "GetByLogin"
 				}
 			);
 

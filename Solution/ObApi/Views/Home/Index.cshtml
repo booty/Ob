@@ -1,53 +1,254 @@
-﻿<header>
-    <div class="content-wrapper">
-        <div class="float-left">
-            <p class="site-title">
-                <a href="~/">ASP.NET Web API</a></p>
-        </div>
-    </div>
-</header>
-<div id="body">
-    <section class="featured">
-        <div class="content-wrapper">
-            <hgroup class="title">
-                <h1>Welcome to ASP.NET Web API!</h1>
-                <h2>Modify the code in this template to jump-start your ASP.NET Web API development.</h2>
-            </hgroup>
-            <p>
-                ASP.NET Web API allows you to expose your applications, data and services to the
-                web directly over HTTP.
-            </p>
-            <p>
-                To learn more about ASP.NET Web API visit
-                <a href="http://go.microsoft.com/fwlink/?LinkID=238195" title="ASP.NET Web API Website">http://asp.net/web-api</a>.
-                The page features <mark>videos, tutorials, and samples</mark> to help you get the most from ASP.NET Web API.
-                If you have any questions about ASP.NET Web API, visit
-                <a href="http://go.microsoft.com/fwlink/?LinkID=238196" title="ASP.NET Web API Forum">our forums</a>.
-            </p>
-        </div>
-    </section>
-    <section class="content-wrapper main-content clear-fix">
-        <h3>We suggest the following steps:</h3>
-        <ol class="round">
-            <li class="one">
-                <h5>Getting Started</h5>
-                ASP.NET Web API is a framework that makes it easy to build HTTP services that reach
-                a broad range of clients, including browsers and mobile devices. ASP.NET Web API
-                is an ideal platform for building RESTful applications on the .NET Framework.
-                <a href="http://go.microsoft.com/fwlink/?LinkId=245160">Learn more…</a>
-            </li>
+﻿<div class="container">
+	<div class="hero-unit">
+		<h1>OtakuBooty's API</h1>
+		<p>
+			This page is a demonstration. It's not the "new OtakuBooty" &mdash; it's the plumbing of the new OB.
+		</p>
+	</div>
 
-            <li class="two">
-                <h5>Add NuGet packages and jump-start your coding</h5>
-                NuGet makes it easy to install and update free libraries and tools.
-                <a href="http://go.microsoft.com/fwlink/?LinkId=245161">Learn more…</a>
-            </li>
-            <li class="three">
-                <h5>Find Web Hosting</h5>
-                You can easily find a web hosting company that offers the right mix of features
-                and price for your applications.
-                <a href="http://go.microsoft.com/fwlink/?LinkId=245164">Learn more…</a>
-            </li>
-        </ol>
-    </section>
+	<div class="row" style="font-size:smaller">
+
+		<div class="span4">
+			<h4>What the fuck is an API?</h4>
+			<p>
+				It lets nerds build shit using data and shit from OB. For example, <a href="/api/forums">here's a list of the forums</a>. It's a blob of data (in this case, a list of forums) that 
+					somebody else's code can use. Somebody could use this to display a list of OB's forums somewhere.
+			</p>
+			<h4>Discussion / Support</h4>
+			<p>
+				For now, best place to discuss is <a href="http://otakubooty.com/of.asp?id_post=1743135&tab=1&action=st&r=37&page=1">the thread on OB</a>. Let everybody know your issues/triumphs.
+			</p>
+
+		</div>
+		<div class="span4">
+				<h4>Who the fuck is this page for?</h4>
+				<ul>
+					<li><strong>It's for coders.</strong> So you can see examples of the API in action, see the API endpoint URLs and maybe steal some code.</li>
+					<li><strong>It's for the people writing the API.</strong> So we can test stuff.</li>
+					<li><strong>It's for everybody else.</strong> So you can peek over our shoulders and see us making stuff.</li>
+				</ul>
+		</div>
+		<div class="span4">
+			<h4>I'm A Coder! I Make Shit!</h4>
+			<p>
+				Then <a href="/Help/">you want the documentation</a>, friend! Also, consider stealing examples from this page and the associated Javascript file, <a href="/content/js/obapi.js">obApi.js</a>. 
+			</p>
+			<h4>I Want To Be a Coder</h4>
+			<p>
+				To make web pages with this stuff, you just need a basic knowledge of HTML, Javascript, and probably jQuery (in that order). 
+				No fancy software. Pros use text editors like Notepad.exe, but beefier. <a href="http://notepad-plus-plus.org/">Notepad++</a> is a good free one to start with.
+			</p>
+			
+		</div>
+	</div>
+
+
+	<div class="row" id="authentication">
+		<div class="span12">
+			<h2>Authentication</h2>
+			<form class="form-inline unauth">
+			<label for="login">
+				Login
+						<input type="text" id="login" name="login" placeholder="Your stupid-ass login">
+			</label>
+			<label for="password">
+				Password
+						<input id="password" type="password" name="password" placeholder="Your stupid-ass password">
+			</label>
+			<input type="submit" id="AuthenticateButton" value="Authenticate!">
+			<p>
+				You'll see some more shit once you authenticate.
+			</p>
+			</form>
+			<p class="auth">
+				You're authenticated as <span class="currentMemberName">...</span>.
+			</p>
+			<p class="auth">
+				<button class="button deauthenticate">Log me the heck out. Being <span class="currentMemberName">...</span> is too much pressure and I just want to be anonymous.</button>
+			</p>
+		</div>
+
+	</div>
+
+	<div class="row auth">
+		<div class="span12">
+			<h2><span class="currentMemberName"></span>'s Stuff</h2>
+		</div>
+		<div class="span12">
+			<ul class="nav nav-tabs" id="AuthenticatedMemberTabs">
+				<li><a data-target="#NotificationsTab" data-toggle="tab">Notifications</a></li>
+				<li><a data-target="#PrivateMessagesTab" data-toggle="tab">Messages</a></li>
+				<li><a data-target="#FopsTab" data-toggle="tab">FOPs</a></li>
+				<li><a data-target="#PhoneNumbersTab" data-toggle="tab">Phone Numbers</a></li>
+			</ul>
+			<div class="tab-content" id="AuthenticatedMemberTabsContent">
+				<div id="NotificationsTab" class="tab-pane active fade in">
+					<p class="apiUrl">
+						API URL: <a href=""></a><span class="loading">Loading...</span>
+					</p>
+					<ul class="content media-list media-list-compact"></ul>
+				</div>
+				<div id="PrivateMessagesTab" class="tab-pane fade in">
+					<p class="apiUrl">
+						API URL: <a href=""></a><span class="loading">Loading...</span>
+					</p>
+					<ul class="content media-list media-list-compact"></ul>
+				</div>
+				<div id="FopsTab" class="tab-pane fade in">
+					<p class="apiUrl">
+						API URL: <a href=""></a><span class="loading">Loading...</span>
+					</p>
+					<ul class="content media-list media-list-compact"></ul>
+				</div>
+				<div id="PhoneNumbersTab" class="tab-pane fade in">
+					<p class="apiUrl">
+						API URL: <a href=""></a><span class="loading">Loading...</span>
+					</p>
+					<p>
+						<strong>Phone Numbers!</strong> Pellentesque sed turpis nec sem pretium tristique volutpat sed mi. Aliquam metus quam, molestie ut posuere at, dignissim at nibh. Suspendisse placerat posuere nisi, quis feugiat velit facilisis sed. 
+					</p>
+					<ul class="content"></ul>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="row" id="forums">
+		<div class="span3">
+			<h2 class="title">Forums</h2>
+			<p class="apiUrl">
+				API URL: <a href=""></a><span class="loading">Loading...</span>
+			</p>
+			<ul class="nav nav-list content">
+			</ul>
+		</div>
+		<div class="span9">
+			<div id="threads">
+				<h2>Latest Threads...</h2>
+				<p class="apiUrl">
+					API URL: <a href=""></a><span class="loading">Loading...</span>
+				</p>
+
+				<ul class="content media-list"></ul>
+			</div>
+		</div>
+	</div>
+
+	<div class="row hidden" id="threadReplies">
+		<div class="span12">
+			<h2></h2>
+
+			<p class="apiUrl">
+				API URL: <a href=""></a><span class="loading">Loading...</span>
+			</p>
+
+			<ul class="content media-list"></ul>
+		</div>
+	</div>
+
+	<div class="row" id="goodies">
+		<div class="span12">
+			<h2>Random Goodies</h2>
+			<ul class="nav nav-tabs">
+				<li class="active"><a data-target="#memberPictures" data-toggle="tab" class="active">Latest Member Pictures</a></li>
+				<li><a data-target="#otherShit" data-toggle="tab">Newest Members</a></li>
+
+			</ul>
+			<div class="tab-content" style="min-height: 400px">
+				<div id="memberPictures" class="tab-pane active fade in">
+					<p class="apiUrl">
+						API URL: <a href=""></a><span class="loading">Loading...</span>
+					</p>
+					<p class="content"></p>
+				</div>
+				<div id="otherShit" class="tab-pane fade in">
+					Proin consectetur condimentum molestie. Vestibulum erat libero, sodales sit amet tristique in, dapibus condimentum metus. Morbi mattis varius vehicula. Fusce urna dolor, egestas vitae convallis sed, gravida eget velit. Donec faucibus est non sem lacinia at rutrum nibh luctus. In turpis diam, tincidunt in blandit tempor, volutpat a justo. Nam aliquam, velit id lobortis vulputate, sem sem tempor velit, ac aliquam mauris urna nec diam. 
+				</div>
+			</div>
+		</div>
+
+	</div>
 </div>
+
+<!--	
+		Templates for ICanHas.js.  ICanHas is designed to let you store 
+		html templates in <script> tags with type="text/html"
+		Those templates contain fields which are then rendered with mustache.js
+		Obviously for maximum convenience, those fields should
+
+	-->
+
+<script id="forumTemplate" type="text/html">
+	<li>
+		<a data-id-forum="{{idForum}}">{{title}}</a>
+	</li>
+</script>
+
+<script id="threadTemplate" type="text/html">
+	<li class="media thread-list">{{#memberPictureUrl}}
+			<a class="pull-left" href="#">
+				<img src="{{memberPictureUrl}}" alt="{{login}}" class="media-object"></a>
+		{{/memberPictureUrl}}
+
+			<div class="media-body">
+				<h4 class="media-heading">{{#sticky}}Sticky: {{/sticky}}<a href="#" data-id-thread="{{idPost}}">{{subject}}</a>
+					<br>
+					<small>posted by <a href="#" data-id-member="{{idMember}}">{{login}}</a> {{createdRelative}} {{#replyCount}}({{replyCount}} replies, latest by {{lastReplyLogin}}){{/replyCount}}</small>
+				</h4>
+				<div class="media">
+					{{body}}
+				</div>
+			</div>
+	</li>
+</script>
+
+<script id="notificationTemplate" type="text/html">
+	<li class="media">
+		<span class="pull-right">{{relativeEventTimeDetailed}}</span>
+		{{^compact}}{{#memberPictureUrls}}
+			<a class="pull-left" href="#">
+				<img src="{{memberPictureUrls.50}}" alt="{{login}}" class="media-object"></a>
+		{{/memberPictureUrls}}{{/compact}}
+			<div class="media-body">
+				<h4 class="media-heading">{{{renderedSubject}}}</h4>
+				<div class="media">
+					{{{renderedBody}}}
+					{{#pictureUrls}}
+						<img src="{{50}}">
+					{{/pictureUrls}}
+				</div>
+			</div>
+	</li>
+</script>
+
+<script id="threadReplyTemplate" type="text/html">
+	<li>{{}}
+	</li>
+</script>
+
+<script id="memberPictureTemplate" type="text/html">
+	<div class="memberPictureCard" data-id-member="{{idMember}}">
+		<img src="{{urls.75}}" alt="{{caption}} {{login}}" data-id-member="{{idMember}}"><br>
+		{{#caption}}<p data-id-member="{{idMember}}"><em>&ldquo;{{caption}}&rdquo;</em></p>
+		{{/caption}}
+			{{login}}
+
+	</div>
+</script>
+
+<script id="memberProfileTemplate" type="text/html">
+	<p>
+		<img src="{{primaryPhotoUrl}}" alt="{{login}}">
+		Age: {{age}} Gender: {{gender}}<br>
+		Location: {{friendlyLocation}}<br>
+		Last visit: {{lastLoginRelative}}<br>
+		Likes to fuck: {{genderPreference}}<br>
+		Paid or lifetime member? {{isPaidOrLifetimeMember}}<br>
+		{{#loginsPrevious}}Also known as: {{/loginsPrevious}}<br>
+		{{#isMod}}Mod! {{/isMod}}                                                                                                                                                                                                                                  {{#isSysAdmin}}SysAdmin! {{/isSysAdmin}}
+	</p>
+</script>
+
+<script id="reply" type="text/html">
+	<li></li>
+</script>

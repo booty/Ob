@@ -64,6 +64,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Tracing.4.0.0\lib\net40\System.Web.Http.Tracing.dll</HintPath>
     </Reference>
+    <Reference Include="System.Web.Optimization, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.0.0\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.Providers, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.AspNet.Providers.Core.1.2\lib\net40\System.Web.Providers.dll</HintPath>
@@ -106,9 +110,6 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.Mvc.4.0.20710.0\lib\net40\System.Web.Mvc.dll</HintPath>
     </Reference>
-    <Reference Include="System.Web.Optimization">
-      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.0.0\lib\net40\System.Web.Optimization.dll</HintPath>
-    </Reference>
     <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.dll</HintPath>
@@ -121,9 +122,9 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
-    <Reference Include="WebApiContrib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="WebApiContrib, Version=0.9.10.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\WebAPIContrib.0.9.8\lib\net40\WebApiContrib.dll</HintPath>
+      <HintPath>..\packages\WebAPIContrib.0.9.10.0\lib\net40\WebApiContrib.dll</HintPath>
     </Reference>
     <Reference Include="WebGrease, Version=1.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -137,10 +138,22 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Content Include="App_Data\ObApi.XML">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Areas\HelpPage\HelpPage.css" />
+    <Content Include="Areas\RouteDebugger\Content\rdstyle.css" />
+    <Content Include="Areas\RouteDebugger\Scripts\detect.js" />
+    <Content Include="Content\bootstrap-responsive.css" />
+    <Content Include="Content\bootstrap-responsive.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\css\ObApi.css" />
     <Content Include="Content\css\obApiHelp.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\images\glyphicons-halflings-white.png" />
+    <Content Include="Content\images\glyphicons-halflings.png" />
     <Content Include="Content\js\bootstrap-tab.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -158,6 +171,25 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Areas\RouteDebugger\Components\ActionSelectSimulator.cs" />
+    <Compile Include="Areas\RouteDebugger\Components\DictionaryExtensions.cs" />
+    <Compile Include="Areas\RouteDebugger\Components\HttpParameterBindingExtensions.cs" />
+    <Compile Include="Areas\RouteDebugger\Components\TypeHelper.cs" />
+    <Compile Include="Areas\RouteDebugger\Controllers\RouteDebuggerController.cs" />
+    <Compile Include="Areas\RouteDebugger\InspectActionInvoker.cs" />
+    <Compile Include="Areas\RouteDebugger\InspectActionSelector.cs" />
+    <Compile Include="Areas\RouteDebugger\InspectControllerSelector.cs" />
+    <Compile Include="Areas\RouteDebugger\InspectHandler.cs" />
+    <Compile Include="Areas\RouteDebugger\Models\ActionSelectionInfo.cs" />
+    <Compile Include="Areas\RouteDebugger\Models\ActionSelectionLog.cs" />
+    <Compile Include="Areas\RouteDebugger\Models\ControllerSelectionInfo.cs" />
+    <Compile Include="Areas\RouteDebugger\Models\HttpParameterDescriptionInfo.cs" />
+    <Compile Include="Areas\RouteDebugger\Models\InspectData.cs" />
+    <Compile Include="Areas\RouteDebugger\Models\RouteDataInfo.cs" />
+    <Compile Include="Areas\RouteDebugger\Models\RouteInfo.cs" />
+    <Compile Include="Areas\RouteDebugger\RequestHelper.cs" />
+    <Compile Include="Areas\RouteDebugger\RouteDebuggerAreaRegistration.cs" />
+    <Compile Include="Areas\RouteDebugger\RouteDebuggerConfig.cs" />
     <Compile Include="Controllers\AuthenticationTokensController.cs" />
     <Compile Include="Controllers\CommentTypesController.cs" />
     <Compile Include="Controllers\FopsController.cs" />
@@ -257,7 +289,9 @@
     <Content Include="Content\themes\base\minified\jquery.ui.tooltip.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
-    <Content Include="Areas\HelpPage\Views\Web.config" />
+    <Content Include="Areas\HelpPage\Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Areas\HelpPage\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\Index.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\TextSample.cshtml" />
@@ -269,14 +303,17 @@
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ApiGroup.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
     <Content Include="Areas\HelpPage\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\RouteDebugger\Views\Web.config" />
+    <Content Include="Areas\RouteDebugger\Views\RouteDebugger\Index.cshtml" />
     <None Include="Properties\PublishProfiles\Go Live!.pubxml" />
     <None Include="Properties\PublishProfiles\Publish My ObApi Shit.pubxml" />
-    <Content Include="index.html" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-1.9.1.js" />
     <Content Include="Scripts\jquery-1.9.1.min.js" />
-    <Content Include="Scripts\jquery-ui-1.10.0.js" />
-    <Content Include="Scripts\jquery-ui-1.10.0.min.js" />
+    <Content Include="Scripts\jquery-ui-1.10.1.js" />
+    <Content Include="Scripts\jquery-ui-1.10.1.min.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery-1.9.1.min.map" />
@@ -321,7 +358,6 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
