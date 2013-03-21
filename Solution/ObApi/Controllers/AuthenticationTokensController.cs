@@ -12,7 +12,6 @@ using System.Configuration;
 
 
 namespace ObApi.Controllers {
-	[MvcStyleBindingAttribute]
 	public class AuthenticationTokensController : ApiController {
 
 		private const int DefaultAuthCookieTtlDays = 30;  // use this only if value missing from web.config

@@ -16,14 +16,7 @@ namespace ObApi {
 		 * */
 
 		public static void Register(HttpConfiguration config) {
-			// Routes
-			config.Routes.MapHttpRoute(
-				 name: "DefaultApi",
-				 routeTemplate: "api/{controller}/{id}",
-				 defaults: new {
-					 id = RouteParameter.Optional
-				 }
-			);
+			RouteConfig.RegisterRoutes(config.Routes);
 
 			config.Formatters.Add(new PlainTextFormatter());
 
@@ -41,46 +34,5 @@ namespace ObApi {
 		}
 	}
 
-	/*
-	public class SimpleTracer : ITraceWriter {
-		public void Trace(HttpRequestMessage request, string category, TraceLevel level,
-			 Action<TraceRecord> traceAction) {
-			TraceRecord rec = new TraceRecord(request, category, level);
-			traceAction(rec);
-			WriteTrace(rec);
-		}
-
-		protected void WriteTrace(TraceRecord rec) {
-			var message = string.Format("{0};{1};{2}",
-				 rec.Operator, rec.Operation, rec.Message);
-			System.Diagnostics.Trace.WriteLine(message, rec.Category);
-		}
-
-		#region ITraceWriter Members
-
-		public System.Diagnostics.TraceLevel LevelFilter {
-			get {
-				throw new NotImplementedException();
-			}
-		}
-
-		public void Trace(System.Diagnostics.TraceLevel level, string message, Exception ex) {
-			throw new NotImplementedException();
-		}
-
-		#endregion
-	}
-	*/
-	/*
-	public static void Register(HttpConfiguration config) {
-		config.Routes.MapHttpRoute(
-			 name: "DefaultApi",
-			 routeTemplate: "api/{controller}/{id}",
-			 defaults: new {
-				 id = RouteParameter.Optional
-			 }
-		);
-	}
-	 * */
 
 }

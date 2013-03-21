@@ -10,7 +10,6 @@ using ObCore.Models;
 namespace ObApi.Controllers {
 	
 	//[HttpControllerConfiguration(ActionValueBinder=typeof(MvcActionValueBinder))]
-	[MvcStyleBindingAttribute]
 	public class PrivateMessagesController : ApiController {
 		// GET api/privatemessages
 		public HttpResponseMessage Get(string type="received", int skip=0, int take=25, int? id=null) {

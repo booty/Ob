@@ -55,7 +55,7 @@ namespace ObCore.Models {
 
 		[JsonIgnore]
 		[DisplayName("Paid Member?")]
-		public int IsPaidMember {get;set;}
+		public bool IsPaidMember {get;set;}
 
 		[PetaPoco.Column]
 		[DisplayName("Paid or Lifetime Member?")]
@@ -366,10 +366,16 @@ namespace ObCore.Models {
 
 		public static MemberPermissionLevel? PermissionLevel(int idMember) {
 			var da = new DataAccess();
-			return (MemberPermissionLevel?)da.GetScalarInt("select MemberPermissionLevel from MemberBasic where id_member=" + idMember);
+			int? permissionLevel = da.GetScalarInt("select MemberPermissionLevel from MemberBasic where id_member=" + idMember);
+			
+			try {
+				return (MemberPermissionLevel?)permissionLevel;
+			}
+			catch (Exception e) {
+				return MemberPermissionLevel.Unauthenticated;
+			}
+
 		}
-
-
 
 	}
 }

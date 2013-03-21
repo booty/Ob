@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ObCore", "ObCore\ObCore.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ObApi", "ObApi\ObApi.csproj", "{CCDE358A-39B1-4AE1-AEAD-E653F39F2891}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ObApiNancy", "ObApiNancy\ObApiNancy.csproj", "{4C375A4E-479D-4750-AC98-B60C312A009D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,6 +21,10 @@ Global
 		{CCDE358A-39B1-4AE1-AEAD-E653F39F2891}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CCDE358A-39B1-4AE1-AEAD-E653F39F2891}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CCDE358A-39B1-4AE1-AEAD-E653F39F2891}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4C375A4E-479D-4750-AC98-B60C312A009D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4C375A4E-479D-4750-AC98-B60C312A009D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4C375A4E-479D-4750-AC98-B60C312A009D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4C375A4E-479D-4750-AC98-B60C312A009D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

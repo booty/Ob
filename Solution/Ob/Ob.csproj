@@ -333,7 +333,6 @@
     <Content Include="Content\themes\yankees\yankeestheme_01.jpg" />
     <Content Include="Content\themes\yankees\yankeestheme_02.png" />
     <Content Include="Content\themes\yankees\yankeestheme_03.jpg" />
-    <Content Include="README.jQuery.vsdoc.txt" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\jquery-1.9.1.js" />
     <Content Include="Scripts\jquery-1.9.1.min.js" />
