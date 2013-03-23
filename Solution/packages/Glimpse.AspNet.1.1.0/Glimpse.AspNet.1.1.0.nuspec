@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
-    <id>Glimpse</id>
-    <version>1.0.1</version>
-    <title>Glimpse Core</title>
+    <id>Glimpse.AspNet</id>
+    <version>1.1.0</version>
+    <title>Glimpse for ASP.NET</title>
     <authors>nmolnar,  avanderhoorn</authors>
     <owners>nmolnar,  avanderhoorn</owners>
     <licenseUrl>http://www.opensource.org/licenses/apache2.0</licenseUrl>
@@ -12,12 +12,13 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Glimpse is a web debugging and diagnostics tool used to gain a better understanding of whats happening inside of your ASP.NET 4.0 application. For ASP.NET MVC3 support, please NuGet Glimpse.MVC3.</description>
     <summary>ASP.NET 4.0 web debugging and diagnostics tool.</summary>
-    <releaseNotes>Fixed issues users were experiencing with TraceSource based tracing and client extensibility. Updated help link on all tabs.</releaseNotes>
-    <copyright />
-    <language />
+    <releaseNotes>Added GetHttpContext() extention method to IRuntimePolicyContext.</releaseNotes>
     <tags>ASP.NET Web WebForms Glimpse</tags>
+    <dependencies>
+      <dependency id="Glimpse" version="1.1.0" />
+    </dependencies>
     <references>
-      <reference file="Glimpse.Core.dll" />
+      <reference file="Glimpse.AspNet.dll" />
     </references>
   </metadata>
 </package>

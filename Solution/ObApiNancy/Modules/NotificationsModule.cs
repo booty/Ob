@@ -22,7 +22,7 @@ namespace ObApiNancy {
 				string notificationType = Request.Query.notificationType.Value;
 
 				Notification.NotificationType nt;
-				if (!p.notificationType.HasValue) {
+				if (!Request.Query.notificationType.HasValue) {
 					nt = Notification.NotificationType.All;
 				}
 				else {

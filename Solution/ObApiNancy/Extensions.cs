@@ -35,5 +35,22 @@ namespace ObApiNancy {
 			r.Headers["Cache-Control"] = "public";
 			return r;
 		}
+
+		public static int? GetNullableInt(this Nancy.DynamicDictionary dv, string variableName) {
+			if (!dv[variableName].HasValue) return null;
+			try {
+				return (int?)dv[variableName];
+			}
+			catch {
+				return null;
+			}
+
+			/*
+			if (!ddv.HasValue) return null;
+			int i;
+			if (Int32.TryParse((string)ddv.Value, out i)) return i;
+			*/
+
+		}
 	}
 }
