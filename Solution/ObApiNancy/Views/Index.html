@@ -203,10 +203,10 @@
 	</script>
 
 	<script id="threadTemplate" type="text/html">
-		<li class="media thread-list">{{#memberPictureUrl}}
+		<li class="media thread-list">{{#memberPictureUrls}}
 			<a class="pull-left" href="#">
-				<img src="{{memberPictureUrl}}" alt="{{login}}" class="media-object"></a>
-			{{/memberPictureUrl}}
+				<img src="{{memberPictureUrls.50}}" alt="{{login}}" class="media-object"></a>
+			{{/memberPictureUrls}}
 
 			<div class="media-body">
 				<h4 class="media-heading">{{#sticky}}Sticky: {{/sticky}}<a href="#" data-id-thread="{{idPost}}">{{subject}}</a>

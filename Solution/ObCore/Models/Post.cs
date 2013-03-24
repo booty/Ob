@@ -37,6 +37,7 @@ namespace ObCore.Models {
 		[PetaPoco.Column("Picture_Filesize_Bytes")] public int? PictureFileSizeBytes { get; set; }
 		[PetaPoco.Column("Picture_Width")] public int? PictureWidth { get; set; }
 		[PetaPoco.Column("Picture_Height")] public int? PictureHeight { get; set; }
+		[PetaPoco.Column("Picture_Extension")] public string PictureExtension { get; set; }
 		[PetaPoco.Column("Description")] public string ModerationDescription { get; set; }
 		[PetaPoco.Column("Positive")] public bool? ModerationIsPositive { get; set; }
 		[PetaPoco.Column("File_Extension")] public string ModerationFlagFileExtension { get; set; }
@@ -54,17 +55,27 @@ namespace ObCore.Models {
 			}
 		}
 
-
 		public string ModerationFlagUrl {
 			get {
 				return Models.PostModerationStatus.ModerationFlagUrl(PostModerationStatus, ModerationFlagFileExtension);
 			}
 		}
 
-		public string MemberPictureUrl {
+
+		public Dictionary<string,string> MemberPictureUrls {
 			get {
-				if (IdPictureMember.HasValue) return MemberPicture.PublicPictureUrl(IdPictureMember.Value, PictureSize.Small50Px);
-				return string.Empty;
+				if (IdPictureMember.HasValue) return MemberPicture.PublicPictureUrls(IdPictureMember.Value);
+				return null;
+			}
+		}
+
+		public Dictionary<string,string> PictureUrls {
+			get {
+				if (!PictureFileSizeBytes.HasValue) return null;
+				var urls = new Dictionary<string, string>(2);
+				urls["full"] = String.Format("http://assets.otakubooty.com/forum/attachments/{0}/{1}.{2}", this.PictureGuid.ToString().Left(2), this.PictureGuid, this.PictureExtension);
+				urls["thumb"] = String.Format("http://assets.otakubooty.com/forum/attachments/{0}/{1}_t.jpg", this.PictureGuid.ToString().Left(2), this.PictureGuid);
+				return urls;
 			}
 		}
 
@@ -144,5 +155,7 @@ namespace ObCore.Models {
 				return result;
 			}
 		}
+
+		
 	}
 }

@@ -1,0 +1,165 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700,700italic|Crete+Round' rel='stylesheet' type='text/css'>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width" />
+	<title>OtakyBooty's Awesome API Docs</title>
+	<link rel="stylesheet" href="/Content/css/bootstrap-readable.css" />
+	<link rel="stylesheet" href="/Content/css/ObApi.css" />
+	<script type="text/javascript" src="/Content/js/modernizr.js"></script>
+</head>
+<body>
+
+	<div class="container">
+		<div class="hero-unit">
+			<h1>OtakuBooty's API</h1>
+			<p>
+				Lorem blah blah blah.
+			</p>
+		</div>
+
+		<div class="row">
+			<div class="span12">
+				<h3>Intro & Basic Assumptions</h3>
+
+				<p>
+					Everybody has their own ideas about how a web services API should function. Here are the choices we made.
+				</p>
+
+				<p>
+					<strong>It's JSON.</strong> Everybody's good with this, right? Any XML fans here? ::crickets chirp::
+				</p>
+
+				<p>
+					<strong>It's RESTful, basically.</strong> Have you ever worked with SOAP web services? Those are dumb. 
+					HTTP itself is RESTful, so it makes the most sense to go with a web service architecture that takes advantage of that.
+					Wikipedia has a <a href="http://en.wikipedia.org/wiki/Representational_state_transfer#RESTful_web_services">quick overview</a>
+					and if you're a programmer <a href="http://shop.oreilly.com/product/9780596529260.do" title="RESTful Web Services at O'Reilly">this 
+						                           book is an excellent read</a>. (It's from 2007, but is pretty much the definitive word on the matter...)
+				</p>
+
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="span12">
+				<h3>API Status and Progress</h3>
+
+				<p>
+					<strong>March 23, 2013</strong> Switched app layer from ASP.Net Web API to Nancy. Most read (GET) operations implemented. No write (POST) operations yet.
+				</p>
+
+				<p>
+					<strong>Next steps:</strong> Get a SSL cert so we can move to https, get those write operations working. Let's do this!
+				</p>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="span12">
+				<h3>Authentication</h3>
+
+				<p>
+					Authentication is pretty essential to using the API.  We've tried to make it really coders-friendly since duh,
+					we're coders and we're eating our own dogfood here.  Here's how authentication works...
+				</p>
+
+				<ol>
+					<li>
+						<strong>Get an authentication token.</strong> Post a request to <code>http://api.otakubooty.com/api/Authentications</code>
+						with <code>login</code> and <code>password</code> parameters in the request body. The <code>login</code> parameter can
+						be any login the member has ever used, past or present, if this a member that has used the "name change" feature. 
+					</li>
+					<li>
+						<strong>Hold on to the authentication token that was returned.</strong> The authenticationToken will be returned as part of the
+						JSON response <em>and as a cookie</em> so if you're authenticating via Javascript in a browser you're all set.
+					</li>
+					<li>
+						<strong>Include the authentication token in your next request!</strong> Again, if you authenticated via Javascript, the
+						auth token should already be in your cookies.
+					</li>
+				</ol>
+			</div>
+		</div>
+
+
+		<div class="row">
+			<div class="span12">
+				<h3>Authentication Tokens</h3>
+				
+				<ul class="nav nav-tabs">
+					<li><a href="#AuthenticationTokensAbout" data-toggle="tab">About</a></li>
+					<li><a href="#AuthenticationTokensCode" data-toggle="tab">Code</a></li>
+					<li><a href="#AuthenticationTokensRequest" data-toggle="tab">Sample Request</a></li>
+					<li><a href="#AuthenticationTokensResponse" data-toggle="tab">Sample Response</a></li>
+				</ul>
+				
+				<div class="tab-content">
+					<div class="tab-pane active" id="AuthenticationTokensAbout">
+						About - loreasdck dskc aksjd ckjas cakjsd ckjdsa cbvfhvbdfkvj fkjf dvkbuiern cfkj vdfk vkdjfv fdkj vdfkjv fkdjv dfkjv v
+					</div>
+					<div class="tab-pane" id="AuthenticationTokensCode">
+						Code - loreasdck dskc aksjd ckjas cakjsd ckjdsa cbvfhvbdfkvj fkjf dvkbuiern cfkj vdfk vkdjfv fdkj vdfkjv fkdjv dfkjv v
+						
+					</div>	
+					<div class="tab-pane" id="AuthenticationTokensRequest">
+						Request - loreasdck dskc aksjd ckjas cakjsd ckjdsa cbvfhvbdfkvj fkjf dvkbuiern cfkj vdfk vkdjfv fdkj vdfkjv fkdjv dfkjv v
+						
+					</div>
+					<div class="tab-pane" id="AuthenticationTokensResponse">
+						Response - loreasdck dskc aksjd ckjas cakjsd ckjdsa cbvfhvbdfkvj fkjf dvkbuiern cfkj vdfk vkdjfv fdkj vdfkjv fkdjv dfkjv v
+						
+					</div>
+
+
+				</div>
+
+			</div>
+		</div>
+
+
+		<div class="row">
+			<div class="span12">
+				<h3>Comments</h3>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="span12">
+				<h3>CommentTypes</h3>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="span12">
+				<h3>Forums</h3>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="span12">
+				<h3>Members</h3>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="span12">
+				<h3>MemberPictures</h3>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="span12">
+				<h3>Notifications</h3>
+			</div>
+		</div>
+
+	</div>
+
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	<script>window.jQuery || document.write('<script src="//Content//js//jquery-1.9.1.min.js"><\/script>')</script>
+	<script src="/Content/js/bootstrap.min.js"></script>
+	<script src="/Content/js/bootstrap-tab.js"></script>
+</body>
+</html>

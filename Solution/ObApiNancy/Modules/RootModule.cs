@@ -10,6 +10,10 @@ namespace ObApiNancy {
 			Get["/"] = _ => {
 				return View["Index.html"];
 			};
+
+			Get["/Help"] = _ => {
+				return View["Docs.html"];
+			};
 		}
 	}
 }

@@ -27,7 +27,23 @@ namespace ObCore.Models {
 		[PetaPoco.Column("longitude")]public double? Longitude { get; set;}
 		[PetaPoco.Column("id_picture_member")]public int? IdPictureMember { get; set;}
 		// this field sucks. mostly (entirely?) for backwards compatibility with forum functions
-		public MemberPermissionLevel MemberPermissionLevel { get; set; } 
+		[JsonIgnore]
+		[PetaPoco.Column("MemberPermissionLevel")]
+		public int MemberPermissionLevelNumeric {
+			get;
+			set;
+		}
+		public MemberPermissionLevel MemberPermissionLevel {
+			get {
+				try {
+				return (MemberPermissionLevel)MemberPermissionLevelNumeric;
+			}
+			catch (Exception e) {
+				return MemberPermissionLevel.Unauthenticated;
+			}
+
+			}
+		} 
 
 		public string PrimaryPhotoUrl {
 			get {
@@ -301,11 +317,6 @@ namespace ObCore.Models {
 				if ((relationship.Member1IdMember != IdMember) && (relationship.Member2IdMember != IdMember)) {
 					throw new ArgumentException("The supplied relationship does not apply to this member. Neither Member1IdMember nor Member2IdMember are equal to this member's memberID.");
 				}
-
-				// if these FOPs aren't authorized, return empty list
-				// if ((relationship.Member1IdMember == IdMember) && (!relationship.Member1FopsVisible)) return new List<Picture>(0);
-				// if ((relationship.Member2IdMember == IdMember) && (!relationship.Member2FopsVisible)) return new List<Picture>(0);
-
 				if ((relationship.Member1IdMember == IdMember) && (!relationship.Member1FopsVisible)) return null;
 				if ((relationship.Member2IdMember == IdMember) && (!relationship.Member2FopsVisible)) return null;
 			}
@@ -317,22 +328,6 @@ namespace ObCore.Models {
 			if (member.CanViewFopsOf(this)) return MemberPicture.Find(IdMember, true, null);
 			return null; // new List<Picture>(0);
 		}
-
-		/*
-		public MemberPicture GetFriendsOnlyPictureOf(Member otherMember, string fopGuid) {
-			if (CanViewFopsOf(otherMember)) {
-				return MemberPicture.Find(fopGuid, otherMember.IdMember);
-			}
-			return null;
-		}
-
-		public MemberPicture GetFriendsOnlyPictureOf(int idMemberOther, string fopGuid) {
-			if (CanViewFopsOf(idMemberOther)) {
-				return MemberPicture.Find(fopGuid, idMemberOther);
-			}
-			return null;
-		}
-		 * */
 
 		public MemberPicture GetFriendsOnlyPicture(string guid) {
 			if (!IsAdult) return null;
