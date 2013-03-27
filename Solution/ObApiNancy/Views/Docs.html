@@ -12,154 +12,396 @@
 <body>
 
 	<div class="container">
-		<div class="hero-unit">
-			<h1>OtakuBooty's API</h1>
-			<p>
-				Lorem blah blah blah.
-			</p>
-		</div>
 
 		<div class="row">
-			<div class="span12">
-				<h3>Intro & Basic Assumptions</h3>
+			<div class="span3">
+				<ul class="nav nav-list ob-docs-sidenav affix" data-spy="affix" style="top: 50px">
+					<li><a href="#intro"><i class="icon-chevron-right"></i>Intro</a></li>
+					<li><a href="#status"><i class="icon-chevron-right"></i>Status &amp; Progress</a></li>
+					<li><a href="#authentication"><i class="icon-chevron-right"></i>Authentication</a></li>
+					<li><a href="#authenticationTokens"><i class="icon-chevron-right"></i>Authentication Tokens</a></li>
+					<li><a href="#comments"><i class="icon-chevron-right"></i>Comments</a></li>
+					<li><a href="#commentTypes"><i class="icon-chevron-right"></i>Comment Types</a></li>
+					<li><a href="#forums"><i class="icon-chevron-right"></i>Forums</a></li>
+					<li><a href="#members"><i class="icon-chevron-right"></i>Members</a></li>
+					<li><a href="#memberPictures"><i class="icon-chevron-right"></i>Member Pictures</a></li>
+					<li><a href="#notifications"><i class="icon-chevron-right"></i>Notifications</a></li>
+					<li><a href="#phoneNumbers"><i class="icon-chevron-right"></i>Phone Numbers</a></li>
+					<li><a href="#posts"><i class="icon-chevron-right"></i>Posts</a></li>
+					<li><a href="#privateMessages"><i class="icon-chevron-right"></i>Private Messages</a></li>
+					<li><a href="#threads"><i class="icon-chevron-right"></i>Threads</a></li>
 
-				<p>
-					Everybody has their own ideas about how a web services API should function. Here are the choices we made.
-				</p>
-
-				<p>
-					<strong>It's JSON.</strong> Everybody's good with this, right? Any XML fans here? ::crickets chirp::
-				</p>
-
-				<p>
-					<strong>It's RESTful, basically.</strong> Have you ever worked with SOAP web services? Those are dumb. 
-					HTTP itself is RESTful, so it makes the most sense to go with a web service architecture that takes advantage of that.
-					Wikipedia has a <a href="http://en.wikipedia.org/wiki/Representational_state_transfer#RESTful_web_services">quick overview</a>
-					and if you're a programmer <a href="http://shop.oreilly.com/product/9780596529260.do" title="RESTful Web Services at O'Reilly">this 
-						                           book is an excellent read</a>. (It's from 2007, but is pretty much the definitive word on the matter...)
-				</p>
-
-			</div>
-		</div>
-
-		<div class="row">
-			<div class="span12">
-				<h3>API Status and Progress</h3>
-
-				<p>
-					<strong>March 23, 2013</strong> Switched app layer from ASP.Net Web API to Nancy. Most read (GET) operations implemented. No write (POST) operations yet.
-				</p>
-
-				<p>
-					<strong>Next steps:</strong> Get a SSL cert so we can move to https, get those write operations working. Let's do this!
-				</p>
-			</div>
-		</div>
-
-		<div class="row">
-			<div class="span12">
-				<h3>Authentication</h3>
-
-				<p>
-					Authentication is pretty essential to using the API.  We've tried to make it really coders-friendly since duh,
-					we're coders and we're eating our own dogfood here.  Here's how authentication works...
-				</p>
-
-				<ol>
-					<li>
-						<strong>Get an authentication token.</strong> Post a request to <code>http://api.otakubooty.com/api/Authentications</code>
-						with <code>login</code> and <code>password</code> parameters in the request body. The <code>login</code> parameter can
-						be any login the member has ever used, past or present, if this a member that has used the "name change" feature. 
-					</li>
-					<li>
-						<strong>Hold on to the authentication token that was returned.</strong> The authenticationToken will be returned as part of the
-						JSON response <em>and as a cookie</em> so if you're authenticating via Javascript in a browser you're all set.
-					</li>
-					<li>
-						<strong>Include the authentication token in your next request!</strong> Again, if you authenticated via Javascript, the
-						auth token should already be in your cookies.
-					</li>
-				</ol>
-			</div>
-		</div>
-
-
-		<div class="row">
-			<div class="span12">
-				<h3>Authentication Tokens</h3>
-				
-				<ul class="nav nav-tabs">
-					<li><a href="#AuthenticationTokensAbout" data-toggle="tab">About</a></li>
-					<li><a href="#AuthenticationTokensCode" data-toggle="tab">Code</a></li>
-					<li><a href="#AuthenticationTokensRequest" data-toggle="tab">Sample Request</a></li>
-					<li><a href="#AuthenticationTokensResponse" data-toggle="tab">Sample Response</a></li>
 				</ul>
-				
-				<div class="tab-content">
-					<div class="tab-pane active" id="AuthenticationTokensAbout">
-						About - loreasdck dskc aksjd ckjas cakjsd ckjdsa cbvfhvbdfkvj fkjf dvkbuiern cfkj vdfk vkdjfv fdkj vdfkjv fkdjv dfkjv v
-					</div>
-					<div class="tab-pane" id="AuthenticationTokensCode">
-						Code - loreasdck dskc aksjd ckjas cakjsd ckjdsa cbvfhvbdfkvj fkjf dvkbuiern cfkj vdfk vkdjfv fdkj vdfkjv fkdjv dfkjv v
-						
-					</div>	
-					<div class="tab-pane" id="AuthenticationTokensRequest">
-						Request - loreasdck dskc aksjd ckjas cakjsd ckjdsa cbvfhvbdfkvj fkjf dvkbuiern cfkj vdfk vkdjfv fdkj vdfkjv fkdjv dfkjv v
-						
-					</div>
-					<div class="tab-pane" id="AuthenticationTokensResponse">
-						Response - loreasdck dskc aksjd ckjas cakjsd ckjdsa cbvfhvbdfkvj fkjf dvkbuiern cfkj vdfk vkdjfv fdkj vdfkjv fkdjv dfkjv v
-						
-					</div>
-
+			</div>
+			<div class="span9">
+				<div class="hero-unit" id="intro">
+					<h1>OtakuBooty's API</h1>
 
 				</div>
 
-			</div>
-		</div>
+				<section>
+					<h3>Intro & Basic Assumptions</h3>
+					<p>
+						Everybody has their own ideas about how a web services API should function. Here are the choices we made.
+					</p>
+					<p>
+						<strong>It's JSON.</strong> Everybody's good with this, right? Any XML fans here? ::crickets chirp::
+					</p>
+					<p>
+						<strong>It's RESTful, basically.</strong> Have you ever worked with SOAP web services? Those are dumb. 
+						HTTP itself is RESTful, so it makes the most sense to go with a web service architecture that takes advantage of that.
+						Wikipedia has a <a href="http://en.wikipedia.org/wiki/Representational_state_transfer#RESTful_web_services">quick overview</a>
+						and if you're a programmer <a href="http://shop.oreilly.com/product/9780596529260.do" title="RESTful Web Services at O'Reilly">this 
+							                           book is an excellent read</a>. (It's from 2007, but is pretty much the definitive word on the matter...)
+					</p>
+				</section>
+
+				<section id="status">
+					<h3>API Status and Progress</h3>
+					<p>
+						<strong>March 23, 2013</strong> Switched app layer from ASP.Net Web API to Nancy. Most read (GET) operations implemented. No write (POST) operations yet.
+					</p>
+					<p>
+						<strong>Next steps:</strong> Get a SSL cert so we can move to https, get those write operations working. Let's do this!
+					</p>
+				</section>
+
+				<section id="authentication">
+					<h3>Authentication</h3>
+					<p>
+						Authentication is pretty essential to using the API.  We've tried to make it really coders-friendly since duh,
+						we're coders and we're eating our own dogfood here.  Here's how authentication works...
+					</p>
+					<ol>
+						<li>
+							<strong>Get an authentication token.</strong> Post a request to <code>http://api.otakubooty.com/api/Authentications</code>
+							with <code>login</code> and <code>password</code> parameters in the request body. The <code>login</code> parameter can
+							be any login the member has ever used, past or present, if this a member that has used the "name change" feature. 
+						</li>
+						<li>
+							<strong>Hold on to the authentication token that was returned.</strong> The authenticationToken will be returned as part of the
+							JSON response <em>and as a cookie</em> so if you're authenticating via Javascript in a browser you're all set.
+						</li>
+						<li>
+							<strong>Include the authentication token in your next request!</strong> Again, if you authenticated via Javascript, the
+							auth token should already be in your cookies.
+						</li>
+					</ol>
+				</section>
+
+				<section id="authenticationTokens">
+					<h3>Authentication Tokens</h3>
+
+					<ul class="nav nav-tabs">
+						<li class="active"><a href="#AuthenticationTokensAbout" data-toggle="tab">About</a></li>
+						<li><a href="#AuthenticationTokensCode" data-toggle="tab">Code</a></li>
+						<li><a href="#AuthenticationTokensRequest" data-toggle="tab">Sample Request</a></li>
+						<li><a href="#AuthenticationTokensResponse" data-toggle="tab">Sample Response</a></li>
+					</ul>
+					
+					<p>
+						<code>POST</code> http://api.otakubooty.com/api/AuthenticationTokens
+					</p>
+					<div class="tab-content">
+						<div class="tab-pane active" id="AuthenticationTokensAbout">
+							This is how you authenticate. Pass it <code>login</code> and <code>password</code>
+							parameters in your request body.
+						</div>
+						<div class="tab-pane" id="AuthenticationTokensCode">
+							<em>Coming soon.</em>
+						</div>
+						<div class="tab-pane" id="AuthenticationTokensRequest">
+							<em>Coming soon.</em>
+						</div>
+						<div class="tab-pane" id="AuthenticationTokensResponse">
+							
+						</div>
+					</div>
+					
+					<ul class="nav nav-tabs">
+						<li class="active"><a href="#AuthenticationTokensAbout" data-toggle="tab">About</a></li>
+						<li><a href="#AuthenticationTokensCode" data-toggle="tab">Code</a></li>
+						<li><a href="#AuthenticationTokensRequest" data-toggle="tab">Sample Request</a></li>
+						<li><a href="#AuthenticationTokensResponse" data-toggle="tab">Sample Response</a></li>
+					</ul>
+					
+					<p>
+						<code>POST</code> http://api.otakubooty.com/api/AuthenticationTokens
+					</p>
+					<div class="tab-content">
+						<div class="tab-pane active" id="AuthenticationTokensAbout">
+							This is how you authenticate. Pass it <code>login</code> and <code>password</code>
+							parameters in your request body.
+						</div>
+						<div class="tab-pane" id="AuthenticationTokensCode">
+							<em>Coming soon.</em>
+						</div>
+						<div class="tab-pane" id="AuthenticationTokensRequest">
+							<em>Coming soon.</em>
+						</div>
+						<div class="tab-pane" id="AuthenticationTokensResponse">
+							
+						</div>
+					</div>
+					
+
+				</section>
+
+				<section id="comments">
+					<h3>Comments</h3>
+					<ul class="nav nav-tabs">
+						<li class="active"><a href="#CommentsAbout" data-toggle="tab">About</a></li>
+						<li><a href="#CommentsCode" data-toggle="tab">Code</a></li>
+						<li><a href="#CommentsRequest" data-toggle="tab">Sample Request</a></li>
+						<li><a href="#CommentsResponse" data-toggle="tab">Sample Response</a></li>
+					</ul>
+
+					<div class="tab-content">
+						<div class="tab-pane active" id="CommentsAbout">
+							About - loreasdck dskc aksjd ckjas cakjsd ckjdsa cbvfhvbdfkvj fkjf dvkbuiern cfkj vdfk vkdjfv fdkj vdfkjv fkdjv dfkjv v
+						</div>
+						<div class="tab-pane" id="CommentsCode">
+							<em>Coming soon.</em>
+						</div>
+						<div class="tab-pane" id="CommentsRequest">
+							<em>Coming soon.</em>
+						</div>
+						<div class="tab-pane" id="CommentsResponse">
+							<em>Coming soon.</em>
+						</div>
+					</div>
+
+				</section>
+
+				<section id="commentTypes">
+					<h3>Comment Types</h3>
+					<ul class="nav nav-tabs">
+						<li class="active"><a href="#CommentTypesAbout" data-toggle="tab">About</a></li>
+						<li><a href="#CommentTypesCode" data-toggle="tab">Code</a></li>
+						<li><a href="#CommentTypesRequest" data-toggle="tab">Sample Request</a></li>
+						<li><a href="#CommentTypesResponse" data-toggle="tab">Sample Response</a></li>
+					</ul>
+					<div class="tab-content">
+						<div class="tab-pane active" id="CommentTypesAbout">
+							About - loreasdck dskc aksjd ckjas cakjsd ckjdsa cbvfhvbdfkvj fkjf dvkbuiern cfkj vdfk vkdjfv fdkj vdfkjv fkdjv dfkjv v
+						</div>
+						<div class="tab-pane" id="CommentTypesCode">
+							<em>Coming soon.</em>
+						</div>
+						<div class="tab-pane" id="CommentTypesRequest">
+							<em>Coming soon.</em>
+						</div>
+						<div class="tab-pane" id="CommentTypesResponse">
+							<em>Coming soon.</em>
+						</div>
+					</div>
+				</section>
+
+				<section id="forums">
+					<h3>Forums</h3>
+					<ul class="nav nav-tabs">
+						<li class="active"><a href="#ForumsAbout" data-toggle="tab">About</a></li>
+						<li><a href="#ForumsCode" data-toggle="tab">Code</a></li>
+						<li><a href="#ForumsRequest" data-toggle="tab">Sample Request</a></li>
+						<li><a href="#ForumsResponse" data-toggle="tab">Sample Response</a></li>
+					</ul>
+					<div class="tab-content">
+						<div class="tab-pane active" id="ForumsAbout">
+							About - loreasdck dskc aksjd ckjas cakjsd ckjdsa cbvfhvbdfkvj fkjf dvkbuiern cfkj vdfk vkdjfv fdkj vdfkjv fkdjv dfkjv v
+						</div>
+						<div class="tab-pane" id="ForumsCode">
+							<em>Coming soon.</em>
+						</div>
+						<div class="tab-pane" id="ForumsRequest">
+							<em>Coming soon.</em>
+						</div>
+						<div class="tab-pane" id="ForumsResponse">
+							<em>Coming soon.</em>
+						</div>
+					</div>
+				</section>
+
+				<section id="members">
+					<h3>Members</h3>
+					<ul class="nav nav-tabs">
+						<li class="active"><a href="#MembersAbout" data-toggle="tab">About</a></li>
+						<li><a href="#MembersCode" data-toggle="tab">Code</a></li>
+						<li><a href="#MembersRequest" data-toggle="tab">Sample Request</a></li>
+						<li><a href="#MembersResponse" data-toggle="tab">Sample Response</a></li>
+					</ul>
+					<div class="tab-content">
+						<div class="tab-pane active" id="MembersAbout">
+							About - loreasdck dskc aksjd ckjas cakjsd ckjdsa cbvfhvbdfkvj fkjf dvkbuiern cfkj vdfk vkdjfv fdkj vdfkjv fkdjv dfkjv v
+						</div>
+						<div class="tab-pane" id="MembersCode">
+							<em>Coming soon.</em>
+						</div>
+						<div class="tab-pane" id="MembersRequest">
+							<em>Coming soon.</em>
+						</div>
+						<div class="tab-pane" id="MembersResponse">
+							<em>Coming soon.</em>
+						</div>
+					</div>
+				</section>
+
+				<section id="memberPictures">
+					<h3>MemberPictures</h3>
+					<ul class="nav nav-tabs">
+						<li class="active"><a href="#MemberPicturesAbout" data-toggle="tab">About</a></li>
+						<li><a href="#MemberPicturesCode" data-toggle="tab">Code</a></li>
+						<li><a href="#MemberPicturesRequest" data-toggle="tab">Sample Request</a></li>
+						<li><a href="#MemberPicturesResponse" data-toggle="tab">Sample Response</a></li>
+					</ul>
+					<div class="tab-content">
+						<div class="tab-pane active" id="MemberPicturesAbout">
+							About - loreasdck dskc aksjd ckjas cakjsd ckjdsa cbvfhvbdfkvj fkjf dvkbuiern cfkj vdfk vkdjfv fdkj vdfkjv fkdjv dfkjv v
+						</div>
+						<div class="tab-pane" id="MemberPicturesCode">
+							<em>Coming soon.</em>
+						</div>
+						<div class="tab-pane" id="MemberPicturesRequest">
+							<em>Coming soon.</em>
+						</div>
+						<div class="tab-pane" id="MemberPicturesResponse">
+							<em>Coming soon.</em>
+						</div>
+					</div>
+				</section>
+
+				<section id="notifications">
+					<h3>Notifications</h3>
+					<ul class="nav nav-tabs">
+						<li class="active"><a href="#NotificationsAbout" data-toggle="tab">About</a></li>
+						<li><a href="#NotificationsCode" data-toggle="tab">Code</a></li>
+						<li><a href="#NotificationsRequest" data-toggle="tab">Sample Request</a></li>
+						<li><a href="#NotificationsResponse" data-toggle="tab">Sample Response</a></li>
+					</ul>
+					<div class="tab-content">
+						<div class="tab-pane active" id="NotificationsAbout">
+							About - loreasdck dskc aksjd ckjas cakjsd ckjdsa cbvfhvbdfkvj fkjf dvkbuiern cfkj vdfk vkdjfv fdkj vdfkjv fkdjv dfkjv v
+						</div>
+						<div class="tab-pane" id="NotificationsCode">
+							<em>Coming soon.</em>
+						</div>
+						<div class="tab-pane" id="NotificationsRequest">
+							<em>Coming soon.</em>
+						</div>
+						<div class="tab-pane" id="NotificationsResponse">
+							<em>Coming soon.</em>
+						</div>
+					</div>
+				</section>
+
+				<section id="phoneNumbers">
+					<h3>Phone Numbers</h3>
+					<ul class="nav nav-tabs">
+						<li class="active"><a href="#PhoneNumbersAbout" data-toggle="tab">About</a></li>
+						<li><a href="#PhoneNumbersCode" data-toggle="tab">Code</a></li>
+						<li><a href="#PhoneNumbersRequest" data-toggle="tab">Sample Request</a></li>
+						<li><a href="#PhoneNumbersResponse" data-toggle="tab">Sample Response</a></li>
+					</ul>
+					<div class="tab-content">
+						<div class="tab-pane active" id="PhoneNumbersAbout">
+							About - loreasdck dskc aksjd ckjas cakjsd ckjdsa cbvfhvbdfkvj fkjf dvkbuiern cfkj vdfk vkdjfv fdkj vdfkjv fkdjv dfkjv v
+						</div>
+						<div class="tab-pane" id="PhoneNumbersCode">
+							<em>Coming soon.</em>
+						</div>
+						<div class="tab-pane" id="PhoneNumbersRequest">
+							<em>Coming soon.</em>
+						</div>
+						<div class="tab-pane" id="PhoneNumbersResponse">
+							<em>Coming soon.</em>
+						</div>
+					</div>
+				</section>
+
+				<section id="posts">
+					<h3>Posts</h3>
+					<ul class="nav nav-tabs">
+						<li class="active"><a href="#PostsAbout" data-toggle="tab">About</a></li>
+						<li><a href="#PostsCode" data-toggle="tab">Code</a></li>
+						<li><a href="#PostsRequest" data-toggle="tab">Sample Request</a></li>
+						<li><a href="#PostsResponse" data-toggle="tab">Sample Response</a></li>
+					</ul>
+					<div class="tab-content">
+						<div class="tab-pane active" id="PostsAbout">
+							About - loreasdck dskc aksjd ckjas cakjsd ckjdsa cbvfhvbdfkvj fkjf dvkbuiern cfkj vdfk vkdjfv fdkj vdfkjv fkdjv dfkjv v
+						</div>
+						<div class="tab-pane" id="PostsCode">
+							<em>Coming soon.</em>
+						</div>
+						<div class="tab-pane" id="PostsRequest">
+							<em>Coming soon.</em>
+						</div>
+						<div class="tab-pane" id="PostsResponse">
+							<em>Coming soon.</em>
+						</div>
+					</div>
+				</section>
+
+				<section id="privateMessages">
+					<h3>Private Messages</h3>
+					<ul class="nav nav-tabs">
+						<li class="active"><a href="#PrivateMessagesAbout" data-toggle="tab">About</a></li>
+						<li><a href="#PrivateMessagesCode" data-toggle="tab">Code</a></li>
+						<li><a href="#PrivateMessagesRequest" data-toggle="tab">Sample Request</a></li>
+						<li><a href="#PrivateMessagesResponse" data-toggle="tab">Sample Response</a></li>
+					</ul>
+					<div class="tab-content">
+						<div class="tab-pane active" id="PrivateMessagesAbout">
+							About - loreasdck dskc aksjd ckjas cakjsd ckjdsa cbvfhvbdfkvj fkjf dvkbuiern cfkj vdfk vkdjfv fdkj vdfkjv fkdjv dfkjv v
+						</div>
+						<div class="tab-pane" id="PrivateMessagesCode">
+							<em>Coming soon.</em>
+						</div>
+						<div class="tab-pane" id="PrivateMessagesRequest">
+							<em>Coming soon.</em>
+						</div>
+						<div class="tab-pane" id="PrivateMessagesResponse">
+							<em>Coming soon.</em>
+						</div>
+					</div>
+				</section>
+
+				<section id="threads">
+					<h3>Threads</h3>
+					<ul class="nav nav-tabs">
+						<li class="active"><a href="#ThreadsAbout" data-toggle="tab">About</a></li>
+						<li><a href="#ThreadsCode" data-toggle="tab">Code</a></li>
+						<li><a href="#ThreadsRequest" data-toggle="tab">Sample Request</a></li>
+						<li><a href="#ThreadsResponse" data-toggle="tab">Sample Response</a></li>
+					</ul>
+					<div class="tab-content">
+						<div class="tab-pane active" id="ThreadsAbout">
+							About - loreasdck dskc aksjd ckjas cakjsd ckjdsa cbvfhvbdfkvj fkjf dvkbuiern cfkj vdfk vkdjfv fdkj vdfkjv fkdjv dfkjv v
+						</div>
+						<div class="tab-pane" id="ThreadsCode">
+							<em>Coming soon.</em>
+						</div>
+						<div class="tab-pane" id="ThreadsRequest">
+							<em>Coming soon.</em>
+						</div>
+						<div class="tab-pane" id="ThreadsResponse">
+							<em>Coming soon.</em>
+						</div>
+					</div>
+				</section>
 
 
-		<div class="row">
-			<div class="span12">
-				<h3>Comments</h3>
-			</div>
-		</div>
 
-		<div class="row">
-			<div class="span12">
-				<h3>CommentTypes</h3>
 			</div>
 		</div>
-
-		<div class="row">
-			<div class="span12">
-				<h3>Forums</h3>
-			</div>
-		</div>
-		
-		<div class="row">
-			<div class="span12">
-				<h3>Members</h3>
-			</div>
-		</div>
-
-		<div class="row">
-			<div class="span12">
-				<h3>MemberPictures</h3>
-			</div>
-		</div>
-
-		<div class="row">
-			<div class="span12">
-				<h3>Notifications</h3>
-			</div>
-		</div>
-
 	</div>
 
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 	<script>window.jQuery || document.write('<script src="//Content//js//jquery-1.9.1.min.js"><\/script>')</script>
 	<script src="/Content/js/bootstrap.min.js"></script>
 	<script src="/Content/js/bootstrap-tab.js"></script>
+	<script type="text/javascript">
+
+		
+	</script>
 </body>
 </html>
