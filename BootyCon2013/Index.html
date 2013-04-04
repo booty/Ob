@@ -6,40 +6,15 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="description" content="BootyCon is the annual gathering for members of OtakuBooty.com">
 	<meta name="author" content="OtakuBooty Staff">
-	<link href="css/bootstrap.css" rel="stylesheet">
-	<link href="css/bootstrap-responsive.css" rel="stylesheet">
 	<link href="css/bootycon.css" rel="stylesheet">
 	<body>
 		<div class="container">
-			<!--
-			<div class="masthead">
-				<h3 class="muted">Project name</h3>
-				<div class="navbar">
-					<div class="navbar-inner">
-						<div class="container">
-							<ul class="nav">
-								<li class="active"><a href="#">Home</a></li>
-								<li><a href="#">Projects</a></li>
-								<li><a href="#">Services</a></li>
-								<li><a href="#">Downloads</a></li>
-								<li><a href="#">About</a></li>
-								<li><a href="#">Contact</a></li>
-							</ul>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="jumbotron">
-				<h1>Marketing stuff!</h1>
-				<p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-				<a class="btn btn-large btn-success" href="#">Get started today</a>
-			</div>
-			-->
+
 			<div class="masthead">
 				<h2 class="pull-right">
 					June 20-23 Chicago, IL
 				</h2>
-				<h2 class="pull-left">BOOTYKHAAAAAAAAAAHN<strong>2013</strong></h2>
+				<h2 class="pull-left">BOOTYKHAAAAAAHN<strong>2013</strong></h2>
 			</div>
 
 			<div class="jumbotron">
@@ -182,8 +157,15 @@
 						<li><a href="http://otakubooty.com/of.asp?id_post=1745669&tab=14&action=st&r=0&page=1">T-Shirt Design Contest</a></li>
 					</ul>
 
+					<h2>Show Us Your "KHAAAN!" Face</h2>
 
+					<div id="KhanFrame">
+						<img id="KhanImg" alt="KHAAAAAN!">
+					</div>
 
+					<p>
+						Send us your "KHAAAN!" pictures <a href="http://otakubooty.com/of.asp?id_post=1745752&tab=1&action=st&r=9&page=1">on OB</a> (yay!) or <a href="https://www.facebook.com/groups/2204867252/?fref=ts">on Facebook</a> (yuck).
+					M/p>
 				</div>
 				<div class="span4">
 					<h2>The Twitters</h2>
@@ -206,12 +188,41 @@
 
 		</div>
 
+		<!--
 		<script src="js/jquery.js"></script>
 		<script src="js/bootstrap-transition.js"></script>
 		<script src="js/bootstrap-carousel.js"></script>
 		<script src="js/jquery.countTo.js"></script>
+		-->
+		<script src="js/bootycon.js"></script>s
 		<script src="js/registration-count.js"></script>
 		<script type="text/javascript">
+			TOTAL_KHAN_PICS = 8;
+			KHAN_INTERVAL_MS = 800;
+			KHAN_FADE_MS = 700;
+			khan_active_surface = 'bg';
+			khan_current_index = 1;
+
+			function updateKhan() {
+				khan_current_index += 1;
+				if (khan_current_index > TOTAL_KHAN_PICS) khan_current_index=1;
+	
+
+				if (khan_active_surface=='bg') {
+					// update bg src, then fade out fg
+					var khan_url = "url('../images/carousel/khan/" + khan_current_index + ".jpg')";
+					$('#KhanFrame').css('background-image', khan_url);
+					$('#KhanImg').fadeOut(KHAN_FADE_MS);
+					khan_active_surface='fg';
+				}
+				else {
+					// update fg src, then fade in fg
+					var khan_src = 'images/carousel/khan/' + khan_current_index + '.jpg';
+					$('#KhanImg').attr('src',khan_src).fadeIn(KHAN_FADE_MS);
+					khan_active_surface='bg';
+				}
+				setTimeout( function() { updateKhan(); }, KHAN_INTERVAL_MS);
+			}
 
 			$(document).ready(function () {
 				// Init carousel (duh)
@@ -224,7 +235,8 @@
 
 				//
 				$('.carousel').carousel(Math.floor(Math.random() * 19));
-				$('.carousel').carousel('pause');
+				//$('.carousel').carousel('pause');
+				$('.carousel').carousel('cycle');
 
 				// count-up timer.  BootyConRegistrationCount is defined in registration-count.js
 				$('#RegistrationCountInner').countTo({
@@ -234,6 +246,8 @@
 					refreshInterval: 50
 				});
 
+
+				setTimeout( function() { updateKhan(); }, KHAN_INTERVAL_MS);
 
 			});
 
