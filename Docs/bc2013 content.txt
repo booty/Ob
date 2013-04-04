@@ -1,0 +1,50 @@
+Single page site? Yeah.
+
+
+Main slider
+	Pictures from past BootyCons
+
+Content Columns
+	
+	1. Attendees counter
+		BIG: Count of current attendees. (Animate from 0 up to current count, on page load?)
+		Underneath the big counter: list of names
+		Todo: Get the COUNT from Gmail
+		Todo: Get most recent NAMES from Google docs
+			The import script should get them from Google Docs and then write them to a .js file
+			Make sure "expires" header is set correctly so people get an updated count when they load page
+			Can fall back to email reg count since we already have that
+
+
+	2. Info
+		Date
+		Location 
+		Links to discussions + BC forum
+		Hotel information
+
+	3. OB Twitter feed
+
+	4. Reg form
+
+
+	5. "KHAN!" faces slider
+
+
+Underneath main page
+
+Event list
+
+etc?
+
+Misc Tasks
+	- Get a bunch of pictures for the carousel
+	- Figure out how the fuck to interface with Google Docs
+	- Get a Ruby gem or some shit for Google Docs
+	- Write the Google Docs import script
+	- Have the Gmail import script dump that shit to a text (.js) file
+
+
+
+
+
+

@@ -1,6 +1,9 @@
 require 'gmail'
 
+OUTPUT_FILE = 'C:\Projects\Ob\Solution\BootyCon\Content\js\registration-count.js';
+puts "Results will be written to: #{OUTPUT_FILE}"
 puts 'Logging in...'
+total_regs = 0
 
 Gmail.new('johnedmundrose@gmail.com', 'lweovmbuuexsrkez') do |gmail|
 	puts 'Logged in!'
@@ -11,7 +14,7 @@ Gmail.new('johnedmundrose@gmail.com', 'lweovmbuuexsrkez') do |gmail|
 	puts "Looks like there are #{mails.count} mails to process."
 	regexp = /you'd like to know (?<name>.+) sent you \$(?<bucks>\d+)\./
 	date_regexp = /Date:(?<date>.+)at/
-	total_regs = 0
+	
 
 	mails.each { |mail| 
 		if (mail.body.parts.count==0) then
@@ -28,3 +31,9 @@ Gmail.new('johnedmundrose@gmail.com', 'lweovmbuuexsrkez') do |gmail|
 	puts "Okay, there were #{total_regs} total registrations found."
 end
 
+
+if total_regs>0 then
+	File.open(OUTPUT_FILE,'w') do |f|
+		f.puts "var BootyConRegistrationCount=#{total_regs};"
+	end
+end

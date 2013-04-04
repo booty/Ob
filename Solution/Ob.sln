@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ObApi", "ObApi\ObApi.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ObApiNancy", "ObApiNancy\ObApiNancy.csproj", "{4C375A4E-479D-4750-AC98-B60C312A009D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BootyCon", "BootyCon\BootyCon.csproj", "{9575CBFB-554D-4D51-BF21-90AA0E8BC0F9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,6 +27,10 @@ Global
 		{4C375A4E-479D-4750-AC98-B60C312A009D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4C375A4E-479D-4750-AC98-B60C312A009D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4C375A4E-479D-4750-AC98-B60C312A009D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9575CBFB-554D-4D51-BF21-90AA0E8BC0F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9575CBFB-554D-4D51-BF21-90AA0E8BC0F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9575CBFB-554D-4D51-BF21-90AA0E8BC0F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9575CBFB-554D-4D51-BF21-90AA0E8BC0F9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -10,6 +10,7 @@ namespace ObApiNancy {
 	public class MembersModule : Nancy.NancyModule {
 		public MembersModule()
 			: base("/forums") {
+
 				Get["/"] = p => {
 					return "Hi!";
 				};
