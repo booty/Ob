@@ -22,7 +22,7 @@ bootstrap-carousel.js
 jquery.countTo.js
 */
 
-(function ($) {
+!function(e){
 	$.fn.countTo = function (options) {
 		options = options || {};
 		
@@ -101,5 +101,6 @@ jquery.countTo.js
 	function formatter(value, settings) {
 		return value.toFixed(settings.decimals);
 	}
-}(jQuery));
+}(window.jQuery);
+
 
