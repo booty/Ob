@@ -1,4 +1,8 @@
-window.phonenumbers = {
+'use strict';
+var Backbone = window.Backbone || {};
+var $ = window.jQuery || {};
+var _ = window._ || {};
+var phonenumbers = window.phonenumbers = {
     Models: {},
     Collections: {},
     Views: {},
@@ -9,11 +13,20 @@ window.phonenumbers = {
         Backbone.history.start();
     }
 };
+var privatemessages = window.privatemessages = {
+    Models: {},
+    Collections: {},
+    Views: {},
+    Routers: {},
+    init: function () {
+        console.log('PM helloooo');
+    }
+};
 
-$(document).ready(function () {
+$(document).ready(function() {
     var app = {
         // The root path to run the application.
-        root: "/"
+        root: '/'
     };
 
     // Localize or create a new JavaScript Template object.
@@ -21,11 +34,11 @@ $(document).ready(function () {
     Backbone.LayoutManager.configure({
         manage: true,
         paths: {
-            layout: "templates/layouts/",
-            template: "templates/"
+            layout: 'templates/layouts/',
+            template: 'templates/'
         },
         fetch: function(path) {
-            path = path + ".html";
+            path = path + '.html';
             if (!JST[path]) {
                 $.ajax({ url: app.root + path, async: false }).then(function(contents) {
                     JST[path] = _.template(contents);
@@ -34,5 +47,10 @@ $(document).ready(function () {
             return JST[path];
         }
     });
-   phonenumbers.init();
+    phonenumbers.init();
+    privatemessages.init();
+    $.ajaxSetup({
+        beforeSend: function(xhr) {
+        xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+    }});
 });

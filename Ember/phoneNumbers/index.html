@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Ember Starter Kit</title>
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <script type="text/x-handlebars">
+      {{#linkTo 'phonenumbers'}}
+        <h2>PhoneList</h2>
+      {{/linkTo}}
+      {{#linkTo 'privatemessages'}}
+        <h2>Private Messages</h2>
+      {{/linkTo}}
+      {{#linkTo 'forums'}}
+        <h2>Forums</h2>
+      {{/linkTo}}
+      {{outlet}}
+  </script>
+<!--
+  <script type="text/x-handlebars" data-tempate-name="privatemessages">
+    <h2>Private Messages</h2>
+    <ul>
+    {{#each model}}
+      <li>
+        <h3>{{subject}}</h3>
+        <p>{{body}}</p>
+      </li>
+    {{/each}}
+    </ul>
+  </script>
+-->
+  <script type="text/x-handlebars" data-template-name="forums">
+    <ul>
+    {{#each model}}
+      <li>
+        <h3>{{title}}</h3>
+      </li>
+    {{/each}}
+    </ul>
+  </script>
+
+  <script type="text/x-handlebars" data-template-name="phonenumbers">
+      <table>
+        <tr>
+          <td>login</td>
+          <td>name</td>
+          <td>number</td>
+          <td></td>
+        </tr>
+        {{#each model}}
+          <tr>
+            <td>{{login}}</td>
+            <td>{{fullName}}</td>
+            <td>{{phoneNumber}}</td>
+            <td><a href="tel:+{{phoneNumberUs}}" class="btn">Call</a><a href="sms:+{{phoneNumberUs}}" class="btn">Text</a></td>
+          </tr>
+        {{/each}}
+      </table>
+  </script>
+<!--
+  <script type="text/x-handlebars" data-template-name="phonenumbers-other">
+    {{#if loaded}}
+      <table>
+        {{#each phonenumber in phonenumbers}}
+          <tr>
+            <td>{{phonenumber.login}}</td>
+            <td>{{phonenumber.fullName}}</td>
+            <td>{{phonenumber.phoneNumber}}</td>
+            <td><a href="tel:+{{phonenumber.phoneNumberUs}}" class="btn">Call</a><a href="sms:+{{phonenumber.phoneNumberUs}}" class="btn">Text</a></td>
+          </tr>
+        {{/each}}
+      </table>
+    {{else}}
+      Loading...
+    {{/if}}
+  </script>
+-->
+
+  <script src="js/libs/jquery-1.9.1.js"></script>
+  <script src="js/libs/jquery.cookie.js"></script>
+  <script src="js/libs/handlebars-1.0.0-rc.3.js"></script>
+  <script src="js/libs/ember-1.0.0-rc.2.js"></script>
+  <script src="js/libs/ember-data.js"></script>
+  <script src="js/app.js"></script>
+
+</body>
+</html>
