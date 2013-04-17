@@ -21,7 +21,9 @@ namespace ObApiNancy {
 						 var authenticationToken = nancyContext.Request.Cookies["authenticationToken"]
 							 ?? nancyContext.Request.Form.authenticationToken.Value
 							 ?? nancyContext.Request.Query.authenticationToken.Value
+							 ?? nancyContext.Request.Headers["X-ObAuthenticationToken"].FirstOrDefault()
 							 ?? nancyContext.Request.Headers["ObAuthenticationToken"].FirstOrDefault()
+							 ?? nancyContext.Request.Headers["X-ObAuthentication"].FirstOrDefault()
 							 ?? nancyContext.Request.Headers["ObAuthentication"].FirstOrDefault();
 
 						 //get the user identity however you choose to (for now, using a static class/method)
@@ -38,8 +40,8 @@ namespace ObApiNancy {
 		/// <param name="pipelines"></param>
 		static void AllowAccessToConsumingSite(IPipelines pipelines) {
 			pipelines.AfterRequest.AddItemToEndOfPipeline(x => {
-				x.Response.Headers.Add("Access-Control-Allow-Origin", "*");
-				x.Response.Headers.Add("Access-Control-Allow-Methods", "POST,GET,DELETE,PUT,OPTIONS");
+				//x.Response.Headers.Add("Access-Control-Allow-Origin", "*");
+				//x.Response.Headers.Add("Access-Control-Allow-Methods", "POST,GET,DELETE,PUT,OPTIONS");
 				if (!x.Response.Headers.ContainsKey("Expires")) {
 					x.Response.Headers.Add("Expires",DateTime.UtcNow.AddSeconds(3600).ToString("R"));
 				}

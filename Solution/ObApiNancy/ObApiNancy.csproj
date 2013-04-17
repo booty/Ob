@@ -117,6 +117,7 @@
     <Content Include="Content\js\jquery.cookie.js" />
     <Content Include="Content\js\modernizr.js" />
     <Content Include="Content\js\obApi.js" />
+    <None Include="Properties\PublishProfiles\Go Live!.pubxml" />
     <None Include="Views\docs\routes.cshtml" />
     <Content Include="Views\Docs.html" />
     <Content Include="Web.config" />
