@@ -1,0 +1,5 @@
+<%
+dim BootyconTotalRegs: BootyconTotalRegs=49
+dim BootyconLogins: BootyconLogins = Array("GentlemanHobo","trampersand","Luchadorable","Lord_BullGod","City Councilman Doug","Matthew","A Study in Pink","Cerati","Andrew","Major Tom","chaosmonkey","Mako","Agata","Ak","Britishly Delicious","Lumberjack","Dobby's Sock","Devi","pamelaNeko","Sans Sheriff","jennyfur","Kapt Dai","The Operator","Princess Katy Cuppincakes","Lucifer","DoomMonky","Senator Hideki","chizzo","Moonage Daydream","Paperback Writer","fukkake","John Booty","Toastersix","Kev","Scarlett","Put A Bird On It!","planethalia","marinasaurus rex","Sweetums","Quul","nomad","The happy sausage artist","Beltane","seggs","EvilJorge","Tulip O'Hare","Riker's Beard","thetealappeal","Ryan the Lion")
+dim BootyconIdMembers: BootyconIdMembers = Array("5619","1415","23669","2463","2560","2818","2913","1791","7042","2826","22294","1397","23506","3532","11361","6122","25906","10382","13051","5616","6107","3894","10606","15826","2675","18755","18875","3035","20557","13763","13707","1238","24273","22146","3246","7047","25750","3434","7542","21815","2157","21509","1314","14514","10846","23089","23087","4834","6632")
+%>
