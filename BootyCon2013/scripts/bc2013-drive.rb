@@ -4,6 +4,13 @@ require 'tiny_tds'
 require 'sequel'
 require 'json'
 
+#OUTPUT_PATH_FOR_JS_FILE = 'C:\inetpub\wwwroot\bootycon.org\www\js\registration-count2.js'
+#OUTPUT_PATH_FOR_ASP_FILE = 'C:\inetpub\wwwroot\otakubooty.com\include\bootycon.asp'
+
+OUTPUT_PATH_FOR_JS_FILE = 'registration-count2.js'
+OUTPUT_PATH_FOR_ASP_FILE = 'bootycon.asp'
+
+
 # Connect to the OB database
 # Connect to database
 puts "Opening database connection..."
@@ -78,6 +85,8 @@ while (ws[row,1]!='') and (row<100) do
 	row += 1
 end
 
+puts "Got #{registrations.length} registrations."
+
 if spreadsheet_updated then
 	puts 'Saving spreadsheet...'
 	ws.save
@@ -85,7 +94,7 @@ if spreadsheet_updated then
 end
 
 ## write it to the ASP file (total attendees + list of all)
-File.open('C:\inetpub\wwwroot\otakubooty.com\include\bootycon.asp','w') do |f|
+File.open(OUTPUT_PATH_FOR_ASP_FILE,'w') do |f|
 	f.puts '<%'
 
 	# array of logins
@@ -94,7 +103,7 @@ File.open('C:\inetpub\wwwroot\otakubooty.com\include\bootycon.asp','w') do |f|
 	puts s
 	f.puts s
 	foo = ob_names.map { |k|
-		"\"#{k}\""
+		"\"#{k.gsub('"','""')}\""
 	}.join(",")
 	s = "dim BootyconLogins: BootyconLogins = Array(#{foo})\n"
 	puts s
@@ -113,7 +122,7 @@ File.open('C:\inetpub\wwwroot\otakubooty.com\include\bootycon.asp','w') do |f|
 end
 
 ## write it to the JS file (total attendees + list of all)
-File.open('C:\inetpub\wwwroot\bootycon.org\www\js\registration-count2.js','w') do |f|
+File.open(OUTPUT_PATH_FOR_JS_FILE,'w') do |f|
 	 registrations.reverse! # make it newest-first
 	 s = "var BootyconRegistrations=#{registrations.to_json};"
 	 puts s 
