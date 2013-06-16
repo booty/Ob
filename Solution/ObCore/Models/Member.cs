@@ -195,6 +195,9 @@ namespace ObCore.Models {
 		[PetaPoco.Column("phone_number_us")]
 		public string PhoneNumberUs {get;set;}
 
+		[PetaPoco.Column("BootyCon2013")]
+		public bool BootyCon2013 { get; set; }
+
 		#endregion
 
 		private Dictionary<int,Relationship> _relationships;
