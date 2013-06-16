@@ -467,6 +467,11 @@
             <param name="take"></param>
             <returns></returns>
         </member>
+        <member name="T:ObApi.Helpers">
+            <summary>
+            Various utility classes. I know: ugly
+            </summary>
+        </member>
         <member name="M:ObApi.Helpers.WithObApiPublicDefaults(System.Net.Http.HttpResponseMessage)">
             <summary>
             Adds default headers to HttpResponse

@@ -1,0 +1,22 @@
+﻿@using Clitter
+@using Clitter.Models
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Clitter | OtakuBooty Mobile</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<link type="text/css" rel="stylesheet" href="/content/clitter.css">
+</head>
+<body>
+	This is the layout.
+		
+		<div style="">
+			@RenderBody()
+		</div>
+
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+	<script>window.jQuery || document.write('<script src="/content/js/jquery-1.10.1.min.js"><\/script>')</script>
+
+	@RenderSection("BottomJs");
+</body>
+</html>

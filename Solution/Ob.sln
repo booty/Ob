@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ObApiNancy", "ObApiNancy\Ob
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BootyCon", "BootyCon\BootyCon.csproj", "{9575CBFB-554D-4D51-BF21-90AA0E8BC0F9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clitter", "Clitter\Clitter.csproj", "{6DB0D573-E43D-48AE-B899-D88444D00009}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,6 +33,10 @@ Global
 		{9575CBFB-554D-4D51-BF21-90AA0E8BC0F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9575CBFB-554D-4D51-BF21-90AA0E8BC0F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9575CBFB-554D-4D51-BF21-90AA0E8BC0F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6DB0D573-E43D-48AE-B899-D88444D00009}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6DB0D573-E43D-48AE-B899-D88444D00009}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6DB0D573-E43D-48AE-B899-D88444D00009}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6DB0D573-E43D-48AE-B899-D88444D00009}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

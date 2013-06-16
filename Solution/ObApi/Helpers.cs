@@ -10,6 +10,9 @@ using System.Web.Http;
 using ObCore;
 
 namespace ObApi {
+	/// <summary>
+	/// Various utility classes. I know: ugly
+	/// </summary>
 	public static class Helpers {
 		public static HttpResponseMessage CreateMissingAuthorizationTokenResponse(this HttpRequestMessage hrm) {
 			var result = hrm.CreateErrorResponse(HttpStatusCode.Unauthorized, ConfigurationManager.AppSettings["BadOrMissingAuthorizationTokenMessage"]).WithObApiPublicDefaults();

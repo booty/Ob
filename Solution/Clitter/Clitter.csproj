@@ -7,14 +7,14 @@
     <ProductVersion>
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{4C375A4E-479D-4750-AC98-B60C312A009D}</ProjectGuid>
+    <ProjectGuid>{6DB0D573-E43D-48AE-B899-D88444D00009}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ObApiNancy</RootNamespace>
-    <AssemblyName>ObApiNancy</AssemblyName>
+    <RootNamespace>Clitter</RootNamespace>
+    <AssemblyName>Clitter</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <UseIISExpress>false</UseIISExpress>
+    <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -39,29 +39,17 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Nancy, Version=0.17.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="Nancy">
       <HintPath>..\packages\Nancy.0.17.1\lib\net40\Nancy.dll</HintPath>
     </Reference>
-    <Reference Include="Nancy.Authentication.Stateless, Version=0.17.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="Nancy.Authentication.Stateless">
       <HintPath>..\packages\Nancy.Authentication.Stateless.0.17.1\lib\net40\Nancy.Authentication.Stateless.dll</HintPath>
     </Reference>
-    <Reference Include="Nancy.Hosting.Aspnet, Version=0.17.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="Nancy.Hosting.Aspnet">
       <HintPath>..\packages\Nancy.Hosting.Aspnet.0.17.1\lib\net40\Nancy.Hosting.Aspnet.dll</HintPath>
     </Reference>
-    <Reference Include="Nancy.Serialization.JsonNet, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Nancy.Serialization.JsonNet.0.17.1\lib\net40\Nancy.Serialization.JsonNet.dll</HintPath>
-    </Reference>
-    <Reference Include="Nancy.ViewEngines.Razor, Version=0.17.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="Nancy.ViewEngines.Razor">
       <HintPath>..\packages\Nancy.Viewengines.Razor.0.17.1\lib\net40\Nancy.ViewEngines.Razor.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Newtonsoft.Json.5.0.5\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -84,75 +72,20 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\css\bootstrap-readable.css" />
-    <Content Include="Content\css\bootstrap-responsive.css" />
-    <Content Include="Content\css\bootstrap-responsive.min.css" />
-    <Content Include="Content\css\bootstrap.css" />
-    <Content Include="Content\css\bootstrap.min.css" />
-    <Content Include="Content\css\ObApi.css" />
-    <Content Include="Content\css\obApiHelp.css">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\img\glyphicons-halflings-white.png" />
-    <Content Include="Content\img\glyphicons-halflings.png" />
-    <Content Include="Content\img\wood_texture_seamless.jpg" />
-    <Content Include="Content\img\wood_texture_seamless2.jpg" />
-    <Content Include="Content\js\bootstrap-affix.js" />
-    <Content Include="Content\js\bootstrap-alert.js" />
-    <Content Include="Content\js\bootstrap-button.js" />
-    <Content Include="Content\js\bootstrap-carousel.js" />
-    <Content Include="Content\js\bootstrap-collapse.js" />
-    <Content Include="Content\js\bootstrap-dropdown.js" />
-    <Content Include="Content\js\bootstrap-modal.js" />
-    <Content Include="Content\js\bootstrap-popover.js" />
-    <Content Include="Content\js\bootstrap-scrollspy.js" />
-    <Content Include="Content\js\bootstrap-tab.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\js\bootstrap-tooltip.js" />
-    <Content Include="Content\js\bootstrap-transition.js" />
-    <Content Include="Content\js\bootstrap-typeahead.js" />
-    <Content Include="Content\js\bootstrap.js" />
-    <Content Include="Content\js\bootstrap.min.js" />
-    <Content Include="Content\js\google-code-prettify\prettify.css" />
-    <Content Include="Content\js\google-code-prettify\prettify.js" />
-    <Content Include="Content\js\html5shiv.js" />
-    <Content Include="Content\js\ICanHaz.min.js" />
-    <Content Include="Content\js\jquery-1.9.1.min.js" />
-    <Content Include="Content\js\jquery.cookie.js" />
-    <Content Include="Content\js\modernizr.js" />
-    <Content Include="Content\js\obApi.js" />
-    <None Include="Properties\PublishProfiles\Go Live!.pubxml" />
-    <None Include="Views\docs\routes.cshtml" />
-    <Content Include="Views\Docs.html" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Extensions.cs" />
-    <Compile Include="Helpers.cs" />
-    <Compile Include="Modules\DocumentationModule.cs" />
-    <Compile Include="Modules\CommentTypesModule.cs" />
-    <Compile Include="Modules\MatchModule.cs" />
-    <Compile Include="Modules\NotificationsModule.cs" />
-    <Compile Include="Modules\CommentsModule.cs" />
-    <Compile Include="Modules\PrivateMessagesModule.cs" />
-    <Compile Include="Modules\PostsController.cs" />
-    <Compile Include="Modules\PhoneNumbersModule.cs" />
-    <Compile Include="Modules\ThreadsModule.cs" />
-    <Compile Include="Modules\MembesrModule.cs" />
-    <Compile Include="Modules\ForumsModule.cs" />
-    <Compile Include="Modules\AuthenticationTokensModule.cs" />
     <Compile Include="Bootstrapper.cs" />
-    <Compile Include="MemberAuthentication.cs" />
-    <Compile Include="Modules\MemberPicturesModule.cs" />
-    <Compile Include="OtakuBootyClaims.cs" />
+    <Compile Include="Claims.cs" />
+    <Compile Include="Extensions.cs" />
+    <Compile Include="Models\Member.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Modules\RootModule.cs" />
-    <Compile Include="Modules\SecureModule.cs" />
+    <Compile Include="Routes.cs" />
+    <None Include="Views\dashboard.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
-    <Content Include="Views\Index.html" />
+    <Content Include="Views\layout.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -166,7 +99,6 @@
       <Name>ObCore</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
@@ -180,9 +112,9 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>7176</DevelopmentServerPort>
+          <DevelopmentServerPort>0</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:1398</IISUrl>
+          <IISUrl>http://localhost:34755/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
