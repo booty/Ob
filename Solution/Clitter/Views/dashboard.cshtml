@@ -1,7 +1,69 @@
-﻿
+﻿@using System.Collections.Generic
+@using Clitter
+@using ObCore.Models
+@{
+	Layout = "layout.cshtml";
+	Member currentMember = RenderContext.Context.CurrentMember();
+	var notificationsAll = currentMember.Notifications(0, 20, Notification.NotificationType.All);
+}
 
 
 <p>
-This is the dashboard.
+	This is the dashboard.
 </p>
 
+<h2>Tabs</h2>
+
+<ul class="tabs" data-tabs-container-selector="#TabContentDiv">
+	<li><a href="#" data-tab-content-selector="#TabHome" class="active">All</a></li>
+	<li><a href="#" data-tab-content-selector="#TabBc13">BC13</a></li>
+	<li><a href="#" data-tab-content-selector="#TabNotifications">Notifications</a></li>
+	<li><a href="#" data-tab-content-selector="#TabContacts">Contacts</a></li>
+	<li><a href="#" data-tab-content-selector="#TabSettings">Settings</a></li>
+</ul>
+
+<div class="tabs-content" id="TabContentDiv" style="padding: 1em; margin: 1em 0; border: 1px #999 solid; border-radius: 5px">
+	<div id="TabLoading" class="active">
+		Loading...
+	</div>
+	<div id="TabHome">
+		<p>
+			This is the home (all) tab.
+		</p>
+		<p>
+			Looks like you have @notificationsAll.Count notifications, dogg.
+		</p>
+		<ul>
+			@foreach (Notification n in notificationsAll) {
+				<li>@n.Description @n.EventTime</li>
+	}
+		</ul>
+	</div>
+	<div id="TabBc13">
+		This is the BC13 tab
+	</div>
+	<div id="TabNotifications">
+		This is the notifications tab
+	</div>
+	<div id="TabContacts">
+		This is the Contacts tab
+	</div>
+	<div id="TabSettings">
+		This is the settings tab
+	</div>
+</div>
+
+@section BottomJs {
+
+	<script type="text/javascript">
+		// set perms
+		var isMod = @(currentMember.IsMod ? "true" : "false");
+		var isPaidOrLifetime = @(currentMember.IsPaidOrLifetimeMember ? "true" : "false");
+		var isBootyCon2013 = @(currentMember.BootyCon2013 ? "true" : "false");
+	  
+
+		console.log('Hello, otaku world');
+	</script>
+
+
+}

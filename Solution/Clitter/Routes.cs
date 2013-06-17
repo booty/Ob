@@ -40,6 +40,7 @@ namespace Clitter {
 
 				// if auth'd, set token in cookie, set current user & show dash 
 				ViewBag.ErrorMessage = "Something got fucked up.";
+
 				return View["authenticate.cshtml"];
 			};
 		}

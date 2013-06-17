@@ -1,0 +1,12 @@
+﻿body {
+}
+
+
+.tabs-content > div {
+	background-color:bisque;
+	display:none;
+}
+
+	.tabs-content > div.active {
+		display: block;
+	}
