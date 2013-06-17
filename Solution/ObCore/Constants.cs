@@ -17,6 +17,17 @@ namespace ObCore {
 	}
 
 	/// <summary>
+	/// Used by the Member class to implement Nancy's (simple) IUserIdentity interface
+	/// </summary>
+	public static class Claims {
+		public const string Admin = "Admin";
+		public const string Moderator = "Moderator";
+		public const string PaidOrLifetime = "PaidOrLifetime";
+		public const string Adult = "Adult";
+		public const string BootyCon2013 = "Bc2013";
+	}
+
+	/// <summary>
 	/// Ways the user can log in
 	/// </summary>
 	public enum LoginMethod {

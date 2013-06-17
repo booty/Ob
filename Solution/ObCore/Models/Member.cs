@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Script.Serialization;
+using Nancy.Security;
 using Newtonsoft.Json;
 using PetaPoco;
 using System.Web;
@@ -12,7 +13,9 @@ namespace ObCore.Models {
 	[TableName("MemberBasic")]
 	[PetaPoco.PrimaryKey("id_member")]
 	[ExplicitColumns]
-	public class Member : ObDb.Record<Member> {
+	public class Member : ObDb.Record<Member>, IUserIdentity  {
+		private Dictionary<int,Relationship> _relationships;
+		private List<string> _claims;
 
 		#region Simple PetaPoco Properties
 		[Required][PetaPoco.Column("ID_Member")]public int IdMember { get; set; }
@@ -26,6 +29,44 @@ namespace ObCore.Models {
 		[PetaPoco.Column("latitude")]public double? Latitude { get; set;}
 		[PetaPoco.Column("longitude")]public double? Longitude { get; set;}
 		[PetaPoco.Column("id_picture_member")]public int? IdPictureMember { get; set;}
+		[PetaPoco.Column("Current_Relationship_Description_Others")] [DisplayName("Current Relationship")] public string CurrentRelationshipDescriptionOthers { get; set; }
+		[PetaPoco.Column("Relationship_Desired_Description_Others")] [DisplayName("Relationship Desired")] public string RelationshipDesiredDescriptionOthers { get; set; }
+		[PetaPoco.Column("logins_previous")] [DisplayName("Previously Known As")] public string LoginsPrevious { get; set; }
+		[PetaPoco.Column("lifetime_member")] [DisplayName("Lifetime Member?")] public bool? LifetimeMember { get; set; }
+		[JsonIgnore] [DisplayName("Paid Member?")] public bool IsPaidMember { get; set; }
+		[PetaPoco.Column] [DisplayName("Paid or Lifetime Member?")] public bool IsPaidOrLifetimeMember { get; set; }
+		[PetaPoco.Column] [DisplayName("Is Moderator?")] public bool IsMod { get; set; }
+		[PetaPoco.Column] [DisplayName("Is Admin?")] public bool IsAdmin { get; set; }
+		[PetaPoco.Column("IsUberAdmin")] [DisplayName("Is SysAdmin?")] public bool IsSysAdmin { get; set; }
+		[PetaPoco.Column] [DisplayName("Is a Customer Service Rep?")] public bool IsCustomerServiceRepresentative { get; set; }
+		[PetaPoco.Column] [DisplayName("Is a Customer Server Rep Admin?")] public bool IsCustomerServiceRepresentativeAdmin { get; set; }
+		[PetaPoco.Column] [DisplayName("Can approve member-uploaded pictures?")] public bool IsPicApprover { get; set; }
+		[PetaPoco.Column] [DisplayName("Can approve member profiles?")] public bool IsProfileApprover { get; set; }
+		[Required] [DisplayName("Last Visit")] [PetaPoco.Column("last_login")] public DateTime LastLogin { get; set; }
+		[PetaPoco.Column("Last_Login_Relative")] [DisplayName("Last Visit")] public string LastLoginRelative { get; set; }
+		[PetaPoco.Column("last_active")] [DisplayName("Last Active")] public DateTime? LastActive { get; set; }
+		[PetaPoco.Column("Last_Active_Relative")] [DisplayName("Last Active")] public string LastActiveRelative { get; set; }
+		[Required] [PetaPoco.Column("Joined_Site")] [DisplayName("Joined")] public DateTime JoinedSite { get; set; }
+		[PetaPoco.Column("Joined_Site_Relative")] [DisplayName("Joined")] public string JoinedSiteRelative { get; set; }
+		[Required] [PetaPoco.Column("Likes_Females")] [DisplayName("Interested In Females?")] public bool LikesFemales { get; set; }
+		[Required] [PetaPoco.Column("Likes_Males")] [DisplayName("Interested In Men?")] public bool LikesMales { get; set; }
+		[PetaPoco.Column("Gender_Preference")] [DisplayName("Gender Preference")] public string GenderPreference { get; set; }
+		[PetaPoco.Column("Your_Dream_Job")] [DisplayName("Your Dream Job")] public string YourDreamJob { get; set; }
+		[PetaPoco.Column("Anime_Hobbies")] [DisplayName("Anime_Hobbies")] public string AnimeHobbies { get; set; }
+		[PetaPoco.Column("Conventions")] [DisplayName("Conventions")] public string Conventions { get; set; }
+		[PetaPoco.Column("Music")] [DisplayName("Music")] public string Music { get; set; }
+		[PetaPoco.Column("Something_Funny_You_Own")] [DisplayName("Something Funny You Own")] public string SomethingFunnyYouOwn { get; set; }
+		[PetaPoco.Column("Other_Interests")] [DisplayName("Other Interests")] public string OtherInterests { get; set; }
+		[PetaPoco.Column("Favorite_Anime_Manga")] [DisplayName("Favorite Anime or Manga")] public string FavoriteAnimeManga { get; set; }
+		[PetaPoco.Column("Favorite_Games")] [DisplayName("Favorite Games")] public string FavoriteGames { get; set; }
+		[PetaPoco.Column("your_job")] [DisplayName("Your Job")] public string YourJob { get; set; }
+		[PetaPoco.Column("id_member_invite")] [DisplayName("id_member_invite")] public int? IdMemberInvite { get; set; }
+		[PetaPoco.Column("login_invite")] [DisplayName("Invited By")] public string LoginInvite { get; set; }
+		[PetaPoco.Column("phone_number_visibility")] public PhoneNumberVisibility PhoneNumberVisibility { get; set; }
+		[PetaPoco.Column("phone_number_us")] public string PhoneNumberUs { get; set; }
+		[PetaPoco.Column("BootyCon2013")] public bool BootyCon2013 { get; set; }
+		#endregion
+
 		// this field sucks. mostly (entirely?) for backwards compatibility with forum functions
 		[JsonIgnore]
 		[PetaPoco.Column("MemberPermissionLevel")]
@@ -33,6 +74,7 @@ namespace ObCore.Models {
 			get;
 			set;
 		}
+
 		public MemberPermissionLevel MemberPermissionLevel {
 			get {
 				try {
@@ -53,154 +95,7 @@ namespace ObCore.Models {
 			}
 		}
 
-		[PetaPoco.Column("Current_Relationship_Description_Others")]
-		[DisplayName("Current Relationship")]
-		public string CurrentRelationshipDescriptionOthers {get;set;}
-
-		[PetaPoco.Column("Relationship_Desired_Description_Others")]
-		[DisplayName("Relationship Desired")]
-		public string RelationshipDesiredDescriptionOthers {get;set;}
-
-		[PetaPoco.Column("logins_previous")]
-		[DisplayName("Previously Known As")]
-		public string LoginsPrevious {get;set;}
-
-		[PetaPoco.Column("lifetime_member")]
-		[DisplayName("Lifetime Member?")]
-		public bool? LifetimeMember {get;set;}
-
-		[JsonIgnore]
-		[DisplayName("Paid Member?")]
-		public bool IsPaidMember {get;set;}
-
-		[PetaPoco.Column]
-		[DisplayName("Paid or Lifetime Member?")]
-		public bool IsPaidOrLifetimeMember {get;set;}
-
-		[PetaPoco.Column]
-		[DisplayName("Is Moderator?")]
-		public bool IsMod { get; set; }
-
-		[PetaPoco.Column]
-		[DisplayName("Is Admin?")]
-		public bool IsAdmin { get; set; }
-
-		[PetaPoco.Column("IsUberAdmin")]
-		[DisplayName("Is SysAdmin?")]
-		public bool IsSysAdmin {get;set;}
-
-		[PetaPoco.Column]
-		[DisplayName("Is a Customer Service Rep?")]
-		public bool IsCustomerServiceRepresentative {get;set;}
-
-		[PetaPoco.Column]
-		[DisplayName("Is a Customer Server Rep Admin?")]
-		public bool IsCustomerServiceRepresentativeAdmin {get;set;}
-
-		[PetaPoco.Column]
-		[DisplayName("Can approve member-uploaded pictures?")]
-		public bool IsPicApprover {get;set;}
-
-		[PetaPoco.Column]
-		[DisplayName("Can approve member profiles?")]
-		public bool IsProfileApprover {get;set;}
-
-		[Required]
-		[DisplayName("Last Visit")]
-		[PetaPoco.Column("last_login")]
-		public DateTime LastLogin {get;set;}
-
-		[PetaPoco.Column("Last_Login_Relative")]
-		[DisplayName("Last Visit")]
-		public string LastLoginRelative {get;set;}
-
-		[PetaPoco.Column("last_active")]
-		[DisplayName("Last Active")]
-		public DateTime? LastActive {get;set;}
-
-		[PetaPoco.Column("Last_Active_Relative")]
-		[DisplayName("Last Active")]
-		public string LastActiveRelative {get;set;}
-
-		[Required]
-		[PetaPoco.Column("Joined_Site")]
-		[DisplayName("Joined")]
-		public DateTime JoinedSite {get;set;}
-
-		[PetaPoco.Column("Joined_Site_Relative")]
-		[DisplayName("Joined")]
-		public string JoinedSiteRelative {get;set;}
-
-		[Required]
-		[PetaPoco.Column("Likes_Females")]
-		[DisplayName("Interested In Females?")]
-		public bool LikesFemales {get;set;}
-
-		[Required]
-		[PetaPoco.Column("Likes_Males")]
-		[DisplayName("Interested In Men?")]
-		public bool LikesMales {get;set;}
-
-		[PetaPoco.Column("Gender_Preference")]
-		[DisplayName("Gender Preference")]
-		public string GenderPreference {get;set;}
-
-		[PetaPoco.Column("Your_Dream_Job")]
-		[DisplayName("Your Dream Job")]
-		public string YourDreamJob {get;set;}
-
-		[PetaPoco.Column("Anime_Hobbies")]
-		[DisplayName("Anime_Hobbies")]
-		public string AnimeHobbies {get;set;}
-
-		[PetaPoco.Column("Conventions")]
-		[DisplayName("Conventions")]
-		public string Conventions {get; set;}
-
-		[PetaPoco.Column("Music")]
-		[DisplayName("Music")]
-		public string Music {get;set;}
-
-		[PetaPoco.Column("Something_Funny_You_Own")]
-		[DisplayName("Something Funny You Own")]
-		public string SomethingFunnyYouOwn {get;set;}
-
-		[PetaPoco.Column("Other_Interests")]
-		[DisplayName("Other Interests")]
-		public string OtherInterests {get;set;}
-
-		[PetaPoco.Column("Favorite_Anime_Manga")]
-		[DisplayName("Favorite Anime or Manga")]
-		public string FavoriteAnimeManga {get;set;}
-
-		[PetaPoco.Column("Favorite_Games")]
-		[DisplayName("Favorite Games")]
-		public string FavoriteGames {get;set;}
-
-		[PetaPoco.Column("your_job")]
-		[DisplayName("Your Job")]
-		public string YourJob {get;set;}
-
-		[PetaPoco.Column("id_member_invite")]
-		[DisplayName("id_member_invite")]
-		public int? IdMemberInvite {get;set;}
-
-		[PetaPoco.Column("login_invite")]
-		[DisplayName("Invited By")]
-		public string LoginInvite {get;set;}
-
-		[PetaPoco.Column("phone_number_visibility")]
-		public PhoneNumberVisibility PhoneNumberVisibility {get;set;}
-
-		[PetaPoco.Column("phone_number_us")]
-		public string PhoneNumberUs {get;set;}
-
-		[PetaPoco.Column("BootyCon2013")]
-		public bool BootyCon2013 { get; set; }
-
-		#endregion
-
-		private Dictionary<int,Relationship> _relationships;
+		
 
 		#region Relationship methods. Mostly here to make things more friendly.
 		/// <summary>
@@ -327,12 +222,14 @@ namespace ObCore.Models {
 			return MemberPicture.Find(IdMember, true, null);
 		}
 
-		public List<MemberPicture> FriendsOnlyPicturesViewableBy(Member member) {
+		/*
+		public List<MemberPicture> FriendsOnlyPicturesViewable(Member member) {
 			if (member.CanViewFopsOf(this)) return MemberPicture.Find(IdMember, true, null);
 			return null; // new List<Picture>(0);
 		}
+		 * */
 
-		public MemberPicture GetFriendsOnlyPicture(string guid) {
+		public MemberPicture FriendsOnlyPicture(string guid) {
 			if (!IsAdult) return null;
 			var pic = MemberPicture.FindFriendsOnlyPicture(guid);	// does the picture exist?
 			if (pic==null) return null;
@@ -340,7 +237,7 @@ namespace ObCore.Models {
 			return null;
 		}
 
-		public List<MemberPicture> GetFriendsOnlyPicturesOf(Member otherMember) {
+		public List<MemberPicture> FriendsOnlyPicturesViewable(Member otherMember) {
 			if (!IsAdult) return null; // are we adult?
 			if (!CanViewFopsOf(otherMember)) return null; // can we view FOPs of the other member?
 			return MemberPicture.FindFriendsOnlyPictures(otherMember.IdMember);
@@ -375,5 +272,30 @@ namespace ObCore.Models {
 
 		}
 
+		#region IUserIdentity Members
+	
+		
+
+		public IEnumerable<string> Claims {
+			get {
+				if (_claims == null) {
+					_claims = new List<string>(5);
+					if (this.IsPaidOrLifetimeMember) _claims.Add(ObCore.Claims.PaidOrLifetime);
+					if (this.IsMod) _claims.Add(ObCore.Claims.Moderator);
+					if (this.IsAdult) _claims.Add(ObCore.Claims.Adult);
+					if (this.IsAdmin) _claims.Add(ObCore.Claims.Admin);
+					if (this.BootyCon2013) _claims.Add(ObCore.Claims.BootyCon2013);
+				}
+				return _claims;
+			}
+		}
+
+		public string UserName {
+			get {
+				return this.Login;
+			}
+		}
+
+		#endregion
 	}
 }

@@ -53,7 +53,7 @@ namespace ObApi.Controllers {
 			if (!memberId.HasValue) return Request.CreateMissingAuthorizationTokenResponse();
 			var member = Member.Find(memberId.Value);
 			if (member == null) return Request.CreateMissingAuthorizationTokenResponse();
-			return Request.CreateResponse(HttpStatusCode.OK, member.GetFriendsOnlyPicture(id)).WithObApiPrivateDefaults();
+			return Request.CreateResponse(HttpStatusCode.OK, member.FriendsOnlyPicture(id)).WithObApiPrivateDefaults();
 			
 		}
 

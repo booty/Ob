@@ -1,8 +1,14 @@
 ﻿<h3>Authenticate, Please</h3>
 
+@if (ViewBag.ErrorMessage != null) {
+	<p>
+		@ViewBag.ErrorMessage
+	</p>
+}
+
 <form method="post" action="/">
-Email<br>
-<input type="text" name="Email"><br>
+OtakuBooty Member Name<br>
+<input type="text" name="Login"><br>
 Password<br>
 	<input type="password" name="Password"></br>
 <br>

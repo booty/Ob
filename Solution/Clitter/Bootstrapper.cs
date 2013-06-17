@@ -8,8 +8,8 @@ using Nancy.Bootstrapper;
 using Nancy.Conventions;
 using Nancy.Diagnostics;
 using Nancy.TinyIoc;
-using Clitter.Models;
 using ObCore;
+using ObCore.Models;
 
 namespace Clitter {
 	public class Bootstrapper : DefaultNancyBootstrapper {
@@ -26,7 +26,7 @@ namespace Clitter {
 							 nancyContext.Request.UserHostAddress, 
 							 nancyContext.Request.Url.ToString());
 						 // todo: probably won't work; probably need a constructor for Clitter.Models.Member that takes a ObCore.Member as an argument
-						 return (Clitter.Models.Member)foo.Member;
+						 return (Member)foo.Member;
 						 
 					 });
 			StatelessAuthentication.Enable(pipelines, statelessAuthConfiguration);
