@@ -1,39 +1,37 @@
-﻿$(function () {
+﻿// global vars
+
+
+
+$(function () {
 
 	console.log("We're ready to rock some shit.");
 
 	// click handler for tabs
-	$('.tabs').click(function (e) {
+	$('.main-tabs').click(function (e) {
 
 		// does the original click target have a tab assoc?
-		var targetContentSelector = $(e.target).data("tab-content-selector");
-		if (targetContentSelector == null) {
-			console.log('Warn: clicked something in a tab strip, but no content target');
+		var $clickedTab = $(e.target).closest('[data-tab-content-selector]')
+		var targetContentSelector = $clickedTab.data('tab-content-selector')
+		if (targetContentSelector == null) {	
+			console.log('Warn: clicked something in a tab strip, but no content target... don\'t know what tab this belongs to');
 			return;
 		}
 
-		// get the tab container
-		var $contentContainer = $($(e.currentTarget).data('tabs-container-selector'));
-		if ($contentContainer == null) {
+		// get the tab container (where the content is)
+		var $activeContentContainer = $(targetContentSelector);
+		if ($activeContentContainer == null) {
 			console.log("Warn: tab content container not found");
 			return 
 		}
-		// get the tab this belongs to
-		var $activeTab = $(targetContentSelector);
-		if ($activeTab == null) {
-			console.log("Warn: active tab not found");
-			return;
-		}
 
-		if ($activeTab.hasClass('active')) {
-			console.log('Active tab already active, exciting!');
-			return;
-		}
+		// get the tab itself
+		$('.main-tabs a').removeClass('active');
+		$clickedTab.addClass('active');
 
 		// hide all other tabs in the container
-		var children = $contentContainer.children()
-		$(children).removeClass('active');
-		$activeTab.addClass('active');
+		$('#TabContentDiv').children().hide();
+		$activeContentContainer.show().addClass('active');
+		
 
 		// show the chosen tab
 		console.log('ok!');

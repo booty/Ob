@@ -5,28 +5,25 @@
 	Layout = "layout.cshtml";
 	Member currentMember = RenderContext.Context.CurrentMember();
 	var notificationsAll = currentMember.Notifications(0, 20, Notification.NotificationType.All);
+	var notificationsBc = currentMember.Notifications(0, 20, Notification.NotificationType.BootyConClitterPosts);
 }
 
-
-<p>
-	This is the dashboard.
-</p>
-
-<h2>Tabs</h2>
-
-<ul class="tabs" data-tabs-container-selector="#TabContentDiv">
-	<li><a href="#" data-tab-content-selector="#TabHome" class="active">All</a></li>
-	<li><a href="#" data-tab-content-selector="#TabBc13">BC13</a></li>
-	<li><a href="#" data-tab-content-selector="#TabNotifications">Notifications</a></li>
-	<li><a href="#" data-tab-content-selector="#TabContacts">Contacts</a></li>
-	<li><a href="#" data-tab-content-selector="#TabSettings">Settings</a></li>
-</ul>
+<div class="main-tabs">
+	<a href="#" data-tab-content-selector="#TabHome" class="active">
+		<i class="icon-home icon-3x"></i>
+		Home
+	</a>
+	<a href="#" data-tab-content-selector="#TabBc13">
+		<i class="icon-glass icon-4x"></i>
+		BCon13
+	</a>
+	<a href="#" data-tab-content-selector="#TabMessages"><i class="icon-envelope-alt"></i>Messages</a>
+	<a href="#" data-tab-content-selector="#TabContacts"><i class="icon-phone"></i>Contacts</a>
+	<a href="#" data-tab-content-selector="#TabSettings"><i class="icon-cog"></i>Settings</a>
+</div>
 
 <div class="tabs-content" id="TabContentDiv" style="padding: 1em; margin: 1em 0; border: 1px #999 solid; border-radius: 5px">
-	<div id="TabLoading" class="active">
-		Loading...
-	</div>
-	<div id="TabHome">
+	<div id="TabHome" class="active">
 		<p>
 			This is the home (all) tab.
 		</p>
@@ -35,15 +32,19 @@
 		</p>
 		<ul>
 			@foreach (Notification n in notificationsAll) {
-				<li>@n.Description @n.EventTime</li>
+				@Html.Partial("_notification.cshtml", n);
 	}
 		</ul>
 	</div>
 	<div id="TabBc13">
-		This is the BC13 tab
+		<ul>
+			@foreach (Notification n in notificationsBc) {
+				@Html.Partial("_notification.cshtml", n);
+	}
+		</ul>
 	</div>
-	<div id="TabNotifications">
-		This is the notifications tab
+	<div id="TabMessages">
+		This is the messages tab
 	</div>
 	<div id="TabContacts">
 		This is the Contacts tab
@@ -60,9 +61,6 @@
 		var isMod = @(currentMember.IsMod ? "true" : "false");
 		var isPaidOrLifetime = @(currentMember.IsPaidOrLifetimeMember ? "true" : "false");
 		var isBootyCon2013 = @(currentMember.BootyCon2013 ? "true" : "false");
-	  
-
-		console.log('Hello, otaku world');
 	</script>
 
 

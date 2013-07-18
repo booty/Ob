@@ -77,4 +77,8 @@ namespace ObCore {
 		SysAdmin=5
 	}
 
+	public enum ClitterChannel {
+		Public=0,
+		BootyCon=1
+	}
 }

@@ -95,8 +95,8 @@ namespace ObCore.Models {
 			}
 		}
 
-		public List<Notification> Notifications(int skip, int take, Notification.NotificationType notificationType = Notification.NotificationType.All) {
-			return Notification.Find(this.IdMember, skip, take, notificationType);
+		public List<Notification> Notifications(int skip, int take, Notification.NotificationType notificationType = Notification.NotificationType.All, int? idClitterChannel = null) {
+			return Notification.Find(this.IdMember, skip, take, notificationType, idClitterChannel);
 		}
 
 		#region Relationship methods. Mostly here to make things more friendly.
@@ -162,7 +162,6 @@ namespace ObCore.Models {
 		public bool CanViewPhoneNumberOf(int idMember) {
 			return RelationshipTo(idMember).Member1CanViewMember2PhoneNumber;
 		}
-
 
 		#endregion
 

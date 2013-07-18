@@ -1,0 +1,38 @@
+﻿@using ObCore.Models
+@using ObCore.Helpers
+
+@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<Notification>
+@if (@Model.IdNotificationEventType.HasValue) {
+	switch (@Model.IdNotificationEventType.Value) {
+		case (int)Notification.NotificationType.Comments: 
+	<li><i class="icon-comment-alt"></i> @Model.EventType @Model.EventTime.ToRelativeDate()</li>
+			break;
+
+		case (int)Notification.NotificationType.SingleFopShared: 
+	<li><i class="icon-picture"></i> @Model.EventType @Model.EventTime.ToRelativeDate()</li>
+			break;
+
+		case (int)Notification.NotificationType.MultipleFopsShared: 
+	<li><i class="icon-picture"></i> @Model.EventType @Model.EventTime.ToRelativeDate()</li>
+			break;
+
+		case (int)Notification.NotificationType.PrivateMessages: 
+	<li><i class="icon-envelope-alt"></i> @Model.EventType @Model.EventTime.ToRelativeDate()</li>
+			break;
+
+		case (int)Notification.NotificationType.ProfileViews: 
+	<li> @Model.EventType @Model.EventTime.ToRelativeDate()</li>
+			break;
+		case (int)Notification.NotificationType.ClitterPost:
+	<li><i class="icon-bullhorn"></i> @Model.EventType FriendOnly? @Model.FriendsOnly Channel: @Model.Description Mod voice? @Model.ModeratorVoice @Model.EventTime.ToRelativeDate()</li>		
+			break;
+		default:
+	<li>@Model.EventType @Model.EventTime.ToRelativeDate() ...kinda unknown</li>
+			break;
+	}
+}
+else {
+	<li>That's a REAL unknown!</li>
+}
+
+
